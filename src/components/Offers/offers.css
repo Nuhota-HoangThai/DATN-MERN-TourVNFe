@@ -1,0 +1,64 @@
+/* Offers.css */
+.offers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.offers-left {
+  text-align: center;
+}
+
+.offers-left h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.offers-left p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.offers-left button {
+  background-color: rgb(193, 11, 11);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.offers-left button:hover {
+  background-color: #0056b3;
+}
+
+.offers img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.offers button {
+  margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .offers {
+    flex-direction: row;
+  }
+
+  .offers-left,
+  .offers img {
+    flex: 1;
+  }
+}

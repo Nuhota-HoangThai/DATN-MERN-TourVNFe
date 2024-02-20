@@ -1,0 +1,17 @@
+li {
+  cursor: pointer;
+}
+
+li:focus {
+  outline: none;
+}
+
+li:hover {
+  border-color: red; /* Màu khi hover */
+}
+
+li:active {
+  position: relative;
+  top: 2px;
+  border-color: red; /* Màu khi click */
+}
