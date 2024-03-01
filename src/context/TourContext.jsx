@@ -17,7 +17,7 @@ const TourContextProvider = (props) => {
   const [allTour, setAllTour] = useState([]);
   const [cartItems, setCartItems] = useState(getDefaultCart());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  //const [user, setUser] = useState(null);
 
   useEffect(() => {
     //
@@ -60,7 +60,7 @@ const TourContextProvider = (props) => {
   };
 
   const addToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 })); // Ensure initialization if itemId does not exist
+    setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
 
     if (localStorage.getItem("auth-token")) {
       fetch(`${BASE_URL}/cart/addToCart`, {
@@ -108,20 +108,20 @@ const TourContextProvider = (props) => {
           if (!response.ok) throw new Error("Network response was not ok");
           const contentType = response.headers.get("content-type");
           if (contentType && contentType.includes("application/json")) {
-            return response.json(); // Parse as JSON if the response is of type application/json
+            return response.json();
           } else {
-            return response.text(); // Handle as text for all other content types
+            return response.text();
           }
         })
         .then((data) => {
-          console.log(data); // Log the parsed data, which could be either JSON or plain text
+          console.log(data);
         })
-        .catch((error) => console.error("Error:", error)); // It's good practice to catch any errors
+        .catch((error) => console.error("Error:", error));
     }
   };
 
   const clearCart = () => {
-    setCartItems(getDefaultCart()); // Resets the cart to its default state
+    setCartItems(getDefaultCart());
   };
 
   // so luong hang trong gio hien tren thanh navbar
@@ -138,7 +138,6 @@ const TourContextProvider = (props) => {
   const contextValue = {
     logout,
     isLoggedIn,
-
     getTotalCartItems,
     allTour,
     cartItems,

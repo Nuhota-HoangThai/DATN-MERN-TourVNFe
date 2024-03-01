@@ -7,7 +7,7 @@ import NewsLetter from "../../components/NewsLetter/NewsLetter";
 
 const Tours = () => {
   return (
-    <div>
+    <div className="mt-24">
       <Banner />
       <Popular />
       <Offers />

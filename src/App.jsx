@@ -15,6 +15,7 @@ import mienbac from "./assets/img/banner_mb.png";
 import mientrung from "./assets/img/banner_home.png";
 import miennam from "./assets/img/banner_biendao.png";
 import Thanks from "./pages/user/Thanks";
+import UserOrder from "./components/UserOrder/UserOrder";
 
 const App = () => {
   return (
@@ -25,15 +26,15 @@ const App = () => {
           <Route path="/" element={<Tours />} />
           <Route
             path="/mn"
-            element={<TourCategory banner={miennam} regions="mn" />}
+            element={<TourCategory banner={miennam} regions="miền Nam" />}
           />
           <Route
             path="/mt"
-            element={<TourCategory banner={mientrung} regions="mt" />}
+            element={<TourCategory banner={mientrung} regions="miền Trung" />}
           />
           <Route
             path="/mb"
-            element={<TourCategory banner={mienbac} regions="mb" />}
+            element={<TourCategory banner={mienbac} regions="miền Bắc" />}
           />
           <Route path="/tour" element={<TourDetail />}>
             <Route path=":tourId" element={<TourDetail />} />
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/thanks" element={<Thanks />} />
+          <Route path="/userOrder" element={<UserOrder />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -7,15 +7,12 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
-  // lưu đăng nhập
   const [rememberMe, setRememberMe] = useState(false);
-
   const [formData, setFormData] = useState({
     password: "",
     email: "",
   });
 
-  // lưu đăng nhập
   const handleRememberMeChange = (e) => {
     setRememberMe(e.target.checked);
   };
@@ -28,12 +25,18 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${BASE_URL}/user/login`, formData);
-      // Lưu token vào localStorage
-      localStorage.setItem("auth-token", response.data.token);
-      navigate("/");
+      const { token, role } = response.data;
+
+      if (role === "customer") {
+        localStorage.setItem("auth-token", token);
+        navigate("/");
+      } else {
+        setLoginError("Chỉ dành cho khách hàng.");
+      }
     } catch (error) {
-      setLoginError("Login failed: Incorrect email or password."); // Update this based on your error handling
-      console.error("Login error", error);
+      // Cập nhật thông báo lỗi dựa trên cách  xử lý lỗi từ API
+      setLoginError("Đăng nhập thất bại: Email hoặc mật khẩu không đúng.");
+      console.error("Lỗi đăng nhập", error);
     }
   };
 

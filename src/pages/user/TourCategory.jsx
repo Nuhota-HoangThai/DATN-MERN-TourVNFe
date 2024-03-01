@@ -24,7 +24,7 @@ const TourCategory = (props) => {
   )}-${Math.min(visibleProducts, filteredProducts.length)} sản phẩm`;
 
   return (
-    <div className="mx-20 mb-8 px-4 sm:px-6 lg:px-8">
+    <div className="mx-20 mb-8 px-4 sm:px-6 lg:px-8 mt-24">
       <img
         className="w-full my-8 rounded-lg shadow-md"
         src={props.banner}
@@ -44,10 +44,13 @@ const TourCategory = (props) => {
           <Item
             key={i}
             id={item.id}
-            name={item.name}
             image={item.image}
-            new_price={item.new_price}
-            old_price={item.old_price}
+            nameTour={item.nameTour}
+            regions={item.regions}
+            price={item.price}
+            startDate={item.startDate}
+            endDate={item.endDate}
+            maxParticipants={item.maxParticipants}
           />
         ))}
       </div>

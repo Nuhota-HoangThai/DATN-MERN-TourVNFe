@@ -12,7 +12,7 @@ const TourDetail = () => {
   const tour = allTour.find((e) => e.id === Number(tourId));
 
   return (
-    <div className="mx-20">
+    <div className="mx-20 mt-5">
       <Tour tour={tour} />
       <TourDisplay tour={tour} />
       <DescriptionBox />
