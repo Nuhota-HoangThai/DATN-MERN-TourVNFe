@@ -30,7 +30,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 z-50 w-full py-4 px-24 flex justify-between items-center shadow-lg shadow-gray-500/50 mb-5 bg-white ">
+      {/* fixed top-0 z-50 */}
+      <div className=" w-full py-4 px-24 flex justify-between items-center shadow-lg shadow-gray-500/50 mb-5 bg-white ">
         <Link to="/">
           <div className="flex items-center gap-1 font-bold  group">
             <GiMountains className="text-blue-950 text-4xl transition duration-300 ease-in-out transform group-hover:rotate-12 group-hover:scale-110" />

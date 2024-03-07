@@ -16,6 +16,7 @@ import mientrung from "./assets/img/banner_home.png";
 import miennam from "./assets/img/banner_biendao.png";
 import Thanks from "./pages/user/Thanks";
 import UserOrder from "./components/UserOrder/UserOrder";
+import ProfileUser from "./components/ProfileUser/ProfileUser";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route path="/userOrder" element={<UserOrder />} />
+          <Route path="/profileUser" element={<ProfileUser />} />
         </Routes>
         <Footer />
       </BrowserRouter>
