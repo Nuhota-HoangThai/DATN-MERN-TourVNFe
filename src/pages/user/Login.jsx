@@ -28,7 +28,7 @@ const Login = () => {
       const { token, role } = response.data;
 
       if (role === "customer") {
-        localStorage.setItem("auth-token", token);
+        localStorage.setItem(import.meta.env.VITE_AUTH_TOKEN, token);
         navigate("/");
       } else {
         setLoginError("Chỉ dành cho khách hàng.");

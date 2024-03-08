@@ -21,7 +21,7 @@ const TourContextProvider = (props) => {
 
   useEffect(() => {
     //
-    const authToken = localStorage.getItem("auth-token");
+    const authToken = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
 
     if (authToken) {
       setIsLoggedIn(true);
@@ -41,7 +41,7 @@ const TourContextProvider = (props) => {
         method: "POST",
         headers: {
           Accept: "application/form-data",
-          "auth-token": authToken,
+          [import.meta.env.VITE_AUTH_TOKEN]: authToken,
           "Content-Type": "application/json",
         },
         body: "",
@@ -52,7 +52,7 @@ const TourContextProvider = (props) => {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("auth-token");
+    localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN);
 
     setIsLoggedIn(false);
 
@@ -62,12 +62,14 @@ const TourContextProvider = (props) => {
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
 
-    if (localStorage.getItem("auth-token")) {
+    if (localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN)) {
       fetch(`${BASE_URL}/cart/addToCart`, {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "auth-token": localStorage.getItem("auth-token"),
+          [import.meta.env.VITE_AUTH_TOKEN]: localStorage.getItem(
+            import.meta.env.VITE_AUTH_TOKEN
+          ),
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -76,7 +78,9 @@ const TourContextProvider = (props) => {
       })
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
-          const contentType = response.headers.get("content-type");
+          const contentType = response.headers.get(
+            import.meta.env.VITE_CONTENT_TYPE
+          );
           if (contentType && contentType.includes("application/json")) {
             return response.json();
           } else {
@@ -92,12 +96,14 @@ const TourContextProvider = (props) => {
 
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    if (localStorage.getItem("auth-token")) {
+    if (localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN)) {
       fetch(`${BASE_URL}/cart/removeFromCart`, {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "auth-token": localStorage.getItem("auth-token"),
+          [import.meta.env.VITE_AUTH_TOKEN]: localStorage.getItem(
+            import.meta.env.VITE_AUTH_TOKEN
+          ),
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -106,7 +112,9 @@ const TourContextProvider = (props) => {
       })
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
-          const contentType = response.headers.get("content-type");
+          const contentType = response.headers.get(
+            import.meta.env.VITE_CONTENT_TYPE
+          );
           if (contentType && contentType.includes("application/json")) {
             return response.json();
           } else {
