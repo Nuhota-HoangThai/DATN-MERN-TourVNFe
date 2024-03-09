@@ -9,7 +9,7 @@ const SidebarProfile = () => {
   const { logout, getTotalCartItems } = useContext(TourContext);
   return (
     <div className="mt-4  pt-8 h-[100vh]  bg-white ">
-      <Link to={"/profileUser"} className="no-underline">
+      <Link to={"/profile"} className="no-underline">
         <div className="flex items-center my-3 mx-5 py-2 pl-8 rounded-lg bg-slate-100 ">
           <ImProfile />
           <p className="pl-2">Thông tin cá nhân </p>

@@ -25,16 +25,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${BASE_URL}/user/login`, formData);
-      const { token, role } = response.data;
+      const { token } = response.data;
 
-      if (role === "customer") {
-        localStorage.setItem(import.meta.env.VITE_AUTH_TOKEN, token);
-        navigate("/");
-      } else {
-        setLoginError("Chỉ dành cho khách hàng.");
-      }
+      // Lưu trữ token vào localStorage và chuyển hướng người dùng
+      localStorage.setItem(import.meta.env.VITE_AUTH_TOKEN, token);
+      navigate("/");
     } catch (error) {
-      // Cập nhật thông báo lỗi dựa trên cách  xử lý lỗi từ API
       setLoginError("Đăng nhập thất bại: Email hoặc mật khẩu không đúng.");
       console.error("Lỗi đăng nhập", error);
     }

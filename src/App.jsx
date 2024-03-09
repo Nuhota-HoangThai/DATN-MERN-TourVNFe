@@ -17,6 +17,7 @@ import miennam from "./assets/img/banner_biendao.png";
 import Thanks from "./pages/user/Thanks";
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
+import Booking from "./pages/user/Booking";
 
 const App = () => {
   return (
@@ -37,16 +38,29 @@ const App = () => {
             path="/mb"
             element={<TourCategory banner={mienbac} regions="miền Bắc" />}
           />
-          <Route path="/tour" element={<TourDetail />}>
-            <Route path=":tourId" element={<TourDetail />} />
-          </Route>
+          <Route path="/tour/:tourId" element={<TourDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+
           <Route path="/cart" element={<Cart />} />
+          <Route path="/booking" element={<Booking />} />
           <Route path="/thanks" element={<Thanks />} />
-          <Route path="/userOrder" element={<UserOrder />} />
-          <Route path="/profileUser" element={<ProfileUser />} />
+          <Route
+            path="/userOrder"
+            element={
+              <Profile>
+                <UserOrder />
+              </Profile>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile>
+                <ProfileUser />
+              </Profile>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>

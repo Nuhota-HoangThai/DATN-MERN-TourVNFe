@@ -9,6 +9,8 @@ const UserProfile = () => {
     name: "",
     email: "",
     phone: "",
+    address: "",
+    role: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -17,7 +19,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem("auth-token");
+        const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
         if (!token) {
           setError("Authentication token is not available.");
           setLoading(false);
@@ -30,7 +32,9 @@ const UserProfile = () => {
 
         const config = {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+            Authorization: `Bearer ${localStorage.getItem(
+              import.meta.env.VITE_AUTH_TOKEN
+            )}`,
           },
         };
 
@@ -73,7 +77,13 @@ const UserProfile = () => {
             <strong className="font-medium">Số Điện Thoại:</strong>{" "}
             {userProfile.phone}
           </p>
-          {/* Thêm bất kỳ thông tin nào khác bạn muốn hiển thị */}
+          <p>
+            <strong className="font-medium">Địa chỉ:</strong>{" "}
+            {userProfile.address}
+          </p>
+          <p>
+            <strong className="font-medium">Vai trò:</strong> {userProfile.role}
+          </p>
         </div>
       </div>
     </div>

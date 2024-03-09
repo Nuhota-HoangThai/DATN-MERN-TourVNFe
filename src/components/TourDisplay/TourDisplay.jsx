@@ -1,10 +1,7 @@
 import { useContext } from "react";
-import { CiStar } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
 import { TourContext } from "../../context/TourContext";
-import { FaOpencart } from "react-icons/fa6";
-import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { BASE_URL } from "../../utils/config";
+import { useNavigate } from "react-router-dom";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,7 +9,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 const TourDisplay = (props) => {
   const { tour } = props;
-  const { addToCart } = useContext(TourContext);
+  const { addToCart, allTour } = useContext(TourContext);
+  const navigate = useNavigate();
 
   // Cấu hình cho slider
   const settings = {
@@ -24,14 +22,21 @@ const TourDisplay = (props) => {
     autoplay: true,
     autoplaySpeed: 1500,
     cssEase: "linear",
+    arrows: false,
+  };
+
+  const handleBooking = () => {
+    const tourData = allTour.find((tour) => tour._id === tour._id);
+
+    navigate("/booking", { state: { tour: tourData } });
   };
 
   if (!tour) {
-    return <div>Loading...</div>; // Hoặc một thông báo lỗi/phản hồi phù hợp
+    return <div>Loading...</div>;
   }
 
   return (
-    <div className="container mx-auto my-8 px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto my-4 px-4 sm:px-6 lg:px-8 py-10 ">
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           {Array.isArray(tour.image) && tour.image.length > 1 ? (
@@ -67,18 +72,21 @@ const TourDisplay = (props) => {
             </span>
           </p>
 
-          <div className="mt-4">
+          <div className="mt-4  flex gap-5 items-center ">
             <button
-              onClick={() => addToCart(tour.id)}
-              className="flex justify-center items-center bg-gradient-to-r from-red-600 to-orange-500 text-white py-2 px-4 rounded"
+              onClick={() => addToCart(tour._id)}
+              className=" w-40 bg-gradient-to-r from-red-600 to-orange-500 text-white text-center py-2 px-4 rounded"
             >
               Thêm vào so sánh
             </button>
+            <button
+              onClick={handleBooking}
+              className="text-center w-40 bg-gradient-to-r from-blue-800 to-blue-950 text-white py-2 px-4 rounded"
+            >
+              Đặt ngay
+            </button>
           </div>
         </div>
-      </div>
-      <div className="mt-8">
-        <h1 className="text-2xl font-semibold">Lịch trình</h1>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ const TourComparison = () => {
   const { allTour, cartItems } = useContext(TourContext);
 
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
-  const toursInCart = allTour.filter((tour) => cartItems[tour.id]);
+  const toursInCart = allTour.filter((tour) => cartItems[tour._id]);
   // Chọn ra 2 tour đầu tiên trong giỏ hàng để so sánh
   const toursToCompare = toursInCart.slice(0, 2);
 
@@ -38,7 +38,7 @@ const TourComparison = () => {
                     Tên
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour.id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="py-3 px-6 text-left">
                       {tour.nameTour}
                     </td>
                   ))}
@@ -48,7 +48,7 @@ const TourComparison = () => {
                     Giá
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour.id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="py-3 px-6 text-left">
                       {tour.price.toLocaleString()} đ/khách
                     </td>
                   ))}
@@ -58,7 +58,7 @@ const TourComparison = () => {
                     Ngày khởi hành
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour.id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="py-3 px-6 text-left">
                       {formatDateVN(tour.startDate)}
                     </td>
                   ))}
@@ -68,7 +68,7 @@ const TourComparison = () => {
                     Ngày kết thúc
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour.id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="py-3 px-6 text-left">
                       {formatDateVN(tour.endDate)}
                     </td>
                   ))}
@@ -78,7 +78,7 @@ const TourComparison = () => {
                     Chỗ còn trống
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour.id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="py-3 px-6 text-left">
                       {tour.maxParticipants}
                     </td>
                   ))}

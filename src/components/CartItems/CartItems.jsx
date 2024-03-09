@@ -106,7 +106,7 @@ const CartItems = () => {
     let totalAdultPrice = 0;
     allTour.forEach((tour) => {
       if (cartItems[tour.id]) {
-        const quantity = cartItems[tour.id]; // Số lượng mua cho mỗi tour
+        const quantity = cartItems[tour._id]; // Số lượng mua cho mỗi tour
         const adultPrice = tour.price; // Giá người lớn
 
         // Tính tổng tiền dựa trên số lượng người lớn
@@ -120,8 +120,8 @@ const CartItems = () => {
   const calculateChildrenPrice = () => {
     let totalChildrenPrice = 0;
     allTour.forEach((tour) => {
-      if (cartItems[tour.id]) {
-        const quantity = cartItems[tour.id]; // Số lượng mua cho mỗi tour
+      if (cartItems[tour._id]) {
+        const quantity = cartItems[tour._id]; // Số lượng mua cho mỗi tour
         const childrenPrice = tour.price * 0.8; // Giá trẻ em (giảm 20%)
 
         // Tính tổng tiền dựa trên số lượng trẻ em
@@ -172,11 +172,11 @@ const CartItems = () => {
       </div>
       <hr className="my-4" />
       {allTour.map((tour) => {
-        const quantity = cartItems[tour.id];
+        const quantity = cartItems[tour._id];
         if (!quantity || quantity <= 0) return null;
 
         return (
-          <div key={tour.id}>
+          <div key={tour._id}>
             <div className="grid grid-cols-5 justify-items-center gap-4 items-center my-4">
               {Array.isArray(tour.image) ? (
                 <img
@@ -193,7 +193,7 @@ const CartItems = () => {
               <p className="pl-16 text-red-500 font-medium">{tour.price} đ</p>
               <MdOutlineClear
                 className="cursor-pointer text-red-600 hover:text-red-800"
-                onClick={() => removeFromCart(tour.id)}
+                onClick={() => removeFromCart(tour._id)}
               />
             </div>
             <hr />

@@ -63,7 +63,7 @@ const Popular = () => {
             {popularTours.map((item, i) => (
               <Item
                 key={i}
-                id={item.id}
+                _id={item._id}
                 image={item.image}
                 nameTour={item.nameTour}
                 price={item.price}

@@ -43,7 +43,7 @@ const TourCategory = (props) => {
         {filteredProducts.slice(0, visibleProducts).map((item, i) => (
           <Item
             key={i}
-            id={item.id}
+            _id={item._id}
             image={item.image}
             nameTour={item.nameTour}
             regions={item.regions}

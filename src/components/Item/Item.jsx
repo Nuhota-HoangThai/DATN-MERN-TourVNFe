@@ -24,7 +24,7 @@ const Item = (props) => {
   return (
     <div className="w-full md:w-96 lg:w-96 rounded-2xl border shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out relative bg-white">
       <Link
-        to={`/tour/${props.id}`}
+        to={`/tour/${props._id}`}
         onClick={() => window.scrollTo(0, 0)}
         className="block relative"
       >
