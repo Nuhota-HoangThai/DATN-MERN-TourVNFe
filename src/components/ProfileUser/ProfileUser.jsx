@@ -54,6 +54,15 @@ const UserProfile = () => {
     fetchUserProfile();
   }, [navigate]);
 
+  const translateRole = (role) => {
+    const roles = {
+      admin: "Quản trị viên",
+      customer: "Khách hàng",
+      company: "Công ty",
+    };
+    return roles[role] || "Không xác định";
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -64,25 +73,26 @@ const UserProfile = () => {
 
   return (
     <div className="max-w-4xl mt-20 mx-auto p-5">
-      <div className="bg-white shadow-lg rounded-lg p-6 mt-10">
+      <div className="bg-white shadow-2xl rounded-lg p-6 mt-10">
         <h1 className="text-2xl font-semibold mb-4">Thông tin cá nhân</h1>
         <div className="space-y-3">
           <p>
-            <strong className="font-medium">Tên:</strong> {userProfile.name}
+            <strong className="font-medium">Tên: </strong> {userProfile.name}
           </p>
           <p>
-            <strong className="font-medium">Email:</strong> {userProfile.email}
+            <strong className="font-medium">Email: </strong> {userProfile.email}
           </p>
           <p>
-            <strong className="font-medium">Số Điện Thoại:</strong>{" "}
+            <strong className="font-medium">Số Điện Thoại: </strong>{" "}
             {userProfile.phone}
           </p>
           <p>
-            <strong className="font-medium">Địa chỉ:</strong>{" "}
+            <strong className="font-medium">Địa chỉ: </strong>{" "}
             {userProfile.address}
           </p>
           <p>
-            <strong className="font-medium">Vai trò:</strong> {userProfile.role}
+            <strong className="font-medium">Vai trò: </strong>
+            {translateRole(userProfile.role)}
           </p>
         </div>
       </div>

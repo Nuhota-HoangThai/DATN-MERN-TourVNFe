@@ -40,6 +40,16 @@ const UserOrder = () => {
     fetchOrders();
   }, []);
 
+  const translateStatus = (status) => {
+    const statusTranslations = {
+      pending: "Chờ xử lý",
+      confirmed: "Đã xác nhận",
+      cancelled: "Đã hủy",
+      completed: "Hoàn thành",
+    };
+    return statusTranslations[status] || "N/A";
+  };
+
   // tình trạng đơn hàng
   const getStatusStyle = (status) => {
     switch (status) {
@@ -82,10 +92,8 @@ const UserOrder = () => {
 
   return (
     <div>
-      <div className="container mx-auto px-4 py-8 mt-16">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
-          Lịch sử đặt tour
-        </h1>
+      <div className="container mx-auto px-4 py-8 my-16 bg-white shadow-2xl">
+        <h1 className="text-2xl font-semibold  mb-6">Lịch sử đặt tour</h1>
         {orders.length > 0 ? (
           <div className="flex flex-col">
             {orders.map((order) => (
@@ -98,16 +106,16 @@ const UserOrder = () => {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <p className="text-gray-600">
-                    <span className="font-semibold">Tour:</span>
+                    <span className="font-semibold">Tour: </span>
                     {order.tour ? order.tour.nameTour : "Không còn tour này"}
                   </p>
                   <p className="text-gray-600">
-                    <span className="font-semibold">Tổng tiền:</span>
+                    <span className="font-semibold">Tổng tiền: </span>
                     {order.totalAmount.toLocaleString()} đ
                   </p>
                   <p className={`px-4 py-2 ${getStatusStyle(order.status)}`}>
-                    <span className="font-semibold">Trạng thái đơn hàng:</span>
-                    {order.status}
+                    <span className="font-semibold">Trạng thái đơn hàng: </span>
+                    {translateStatus(order.status)}
                   </p>
                   <p>
                     {order.status !== "completed" &&
