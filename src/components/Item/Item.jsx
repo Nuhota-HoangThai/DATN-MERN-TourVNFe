@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../../../admin/src/utils/config";
-import { FaStar, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { FaStar, FaRegHeart } from "react-icons/fa";
 
 const Item = (props) => {
   const formatDateVN = (dateString) => {
@@ -72,8 +72,7 @@ const Item = (props) => {
       </Link>
 
       <div className="absolute bottom-2 left-3 right-0 bg-white p-3 flex justify-between items-center">
-        <button className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-900 rounded hover:bg-blue-800 transition-colors">
-          <FaShoppingCart className="mr-2" />
+        <button className="flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-blue-900 rounded hover:bg-blue-800 transition-colors">
           Đặt hàng
         </button>
         <div className="absolute top-4 right-3 flex">
