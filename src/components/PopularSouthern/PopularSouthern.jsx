@@ -6,18 +6,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const PopularNorth = () => {
-  const [popularNorthTours, setPopularNorthTours] = useState([]);
+const PopularSouthern = () => {
+  const [popularSouthernTours, setPopularSouthernTours] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tour/getPopularInNorth`)
+    fetch(`${BASE_URL}/tour/getPopularInSouthern`)
       .then((response) => response.json())
-      .then((data) => setPopularNorthTours(data));
+      .then((data) => setPopularSouthernTours(data));
   }, []);
 
   const settings = {
     dots: true,
-    infinite: popularNorthTours.length > 1,
+    infinite: popularSouthernTours.length > 1,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -54,13 +54,13 @@ const PopularNorth = () => {
   return (
     <div className="mb-8">
       <h1 className="text-left pl-24 mb-0.5 text-gray-800 md:text-2xl font-semibold">
-        Tour phổ biến miền Bắc
+        Tour phổ biến miền Nam
       </h1>
       <div className="border-b-2 mx-24 border-blue-950 mb-5"></div>
       <div className=" px-24">
         <div className="">
           <Slider {...settings}>
-            {popularNorthTours.map((item, i) => (
+            {popularSouthernTours.map((item, i) => (
               <Item
                 key={i}
                 _id={item._id}
@@ -80,4 +80,4 @@ const PopularNorth = () => {
   );
 };
 
-export default PopularNorth;
+export default PopularSouthern;
