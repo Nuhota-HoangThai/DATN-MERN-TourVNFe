@@ -7,17 +7,17 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const PopularNorth = () => {
-  const [popularTours, setPopularTours] = useState([]);
+  const [popularNorthTours, setPopularNorthTours] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tour/getPopularInCentral`)
+    fetch(`${BASE_URL}/tour/getPopularInNorth`)
       .then((response) => response.json())
-      .then((data) => setPopularTours(data));
+      .then((data) => setPopularNorthTours(data));
   }, []);
 
   const settings = {
     dots: true,
-    infinite: popularTours.length > 3,
+    infinite: popularNorthTours.length > 3,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -60,7 +60,7 @@ const PopularNorth = () => {
       <div className=" px-24">
         <div className="">
           <Slider {...settings}>
-            {popularTours.map((item, i) => (
+            {popularNorthTours.map((item, i) => (
               <Item
                 key={i}
                 _id={item._id}
