@@ -60,7 +60,7 @@ const Navbar = () => {
               setMenu("tour");
             }}
           >
-            <Link to="/">Tour</Link>
+            <Link to="/">Du lịch</Link>
             {menu === "tour" ? (
               <hr className="border-red-700 border-b-2 w-2/3 mx-auto" />
             ) : (
