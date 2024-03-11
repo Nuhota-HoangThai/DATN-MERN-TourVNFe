@@ -19,7 +19,7 @@ const NewCollections = () => {
 
   const settings = {
     dots: true,
-    infinite: newCollection.length > 3,
+    infinite: newCollection.length > 1,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
