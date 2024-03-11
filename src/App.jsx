@@ -28,15 +28,15 @@ const App = () => {
           <Route path="/" element={<Tours />} />
           <Route
             path="/mn"
-            element={<TourCategory banner={miennam} regions="miền Nam" />}
+            element={<TourCategory banner={miennam} regions="mn" />}
           />
           <Route
             path="/mt"
-            element={<TourCategory banner={mientrung} regions="miền Trung" />}
+            element={<TourCategory banner={mientrung} regions="mt" />}
           />
           <Route
             path="/mb"
-            element={<TourCategory banner={mienbac} regions="miền Bắc" />}
+            element={<TourCategory banner={mienbac} regions="mb" />}
           />
           <Route path="/tour/:tourId" element={<TourDetail />} />
           <Route path="/login" element={<Login />} />

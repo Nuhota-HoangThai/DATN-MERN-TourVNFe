@@ -21,7 +21,7 @@ const UserProfile = () => {
       try {
         const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
         if (!token) {
-          setError("Authentication token is not available.");
+          setError("Mã xác thực không có");
           setLoading(false);
           navigate("/login");
           return;

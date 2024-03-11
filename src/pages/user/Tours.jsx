@@ -1,6 +1,7 @@
 import {} from "react";
+
 import Banner from "../../components/Banner/Banner";
-import Popular from "../../components/Popular/Popular";
+import PopularCentralRegion from "../../components/PopularCentralRegion/Popular";
 import Offers from "../../components/Offers/Offers";
 import NewCollections from "../../components/NewCollections/NewCollections";
 import NewsLetter from "../../components/NewsLetter/NewsLetter";
@@ -9,7 +10,7 @@ const Tours = () => {
   return (
     <div className="mt-24">
       <Banner />
-      <Popular />
+      <PopularCentralRegion />
       <Offers />
       <NewCollections />
       <NewsLetter />

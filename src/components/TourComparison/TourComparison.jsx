@@ -6,6 +6,7 @@ const TourComparison = () => {
 
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
   const toursInCart = allTour.filter((tour) => cartItems[tour._id]);
+
   // Chọn ra 2 tour đầu tiên trong giỏ hàng để so sánh
   const toursToCompare = toursInCart.slice(0, 2);
 
@@ -13,7 +14,7 @@ const TourComparison = () => {
   const formatDateVN = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.getMonth() + 1; // JavaScript months are 0-based.
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
@@ -83,7 +84,6 @@ const TourComparison = () => {
                     </td>
                   ))}
                 </tr>
-                {/* Thêm các dòng thông tin khác ở đây */}
               </tbody>
             </table>
           </div>
