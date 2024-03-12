@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import { BASE_URL } from "../../../utils/config";
 
 const TourComparison = () => {
@@ -7,26 +7,32 @@ const TourComparison = () => {
   const [cartItems, setCartItems] = useState({});
 
   useEffect(() => {
-    const fetchTours = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/tour/getAllTours`);
-        setAllTour(response.data);
-      } catch (error) {
-        console.error("Failed to fetch tours:", error);
-      }
-    };
+    const authToken = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
 
-    const fetchCartItems = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/cart/getCart`);
-        setCartItems(response.data);
-      } catch (error) {
-        console.error("Failed to fetch cart items:", error);
-      }
-    };
+    if (authToken) {
+      fetch(`${BASE_URL}/tour/getAllTours`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllTour(data);
+        });
 
-    fetchTours();
-    fetchCartItems();
+      if (authToken) {
+        fetch(`${BASE_URL}/cart/getCart`, {
+          method: "POST",
+          headers: {
+            Accept: "application/form-data",
+            [import.meta.env.VITE_AUTH_TOKEN]: authToken,
+            "Content-Type": "application/json",
+          },
+          body: "",
+        })
+          .then((response) => response.json())
+          .then((data) => setCartItems(data));
+      }
+    } else {
+      alert("Bạn chưa đăng nhập.");
+    }
+    //
   }, []);
 
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
@@ -48,7 +54,7 @@ const TourComparison = () => {
     <div className="my-10">
       {toursToCompare.length >= 2 && (
         <div className="compare-section max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-6">So sánh Tour</h2>
+          <h2 className="text-2xl font-bold text-center my-12">So sánh Tour</h2>
           <div className="overflow-x-auto">
             <table className="table-fixed w-full">
               <thead>
