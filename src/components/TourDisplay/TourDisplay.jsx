@@ -1,5 +1,6 @@
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
+//import axios from "axios";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -20,6 +21,40 @@ const TourDisplay = ({ tour }) => {
     autoplaySpeed: 1500,
     cssEase: "linear",
     arrows: false,
+  };
+
+  // add comparisons
+  const addComparison = async (tourId) => {
+    if (localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN)) {
+      fetch(`${BASE_URL}/cart/addToCart`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          [import.meta.env.VITE_AUTH_TOKEN]: localStorage.getItem(
+            import.meta.env.VITE_AUTH_TOKEN
+          ),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          itemId: tourId,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          const contentType = response.headers.get(
+            import.meta.env.VITE_CONTENT_TYPE
+          );
+          if (contentType && contentType.includes("application/json")) {
+            return response.json();
+          } else {
+            return response.text();
+          }
+        })
+        .then(() => {
+          alert("Thêm vào so sánh thành công");
+        })
+        .catch((error) => console.error("Error:", error));
+    }
   };
 
   const handleBooking = () => {
@@ -72,7 +107,10 @@ const TourDisplay = ({ tour }) => {
           </p>
 
           <div className="mt-4  flex gap-5 items-center ">
-            <button className=" w-40 bg-gradient-to-r from-red-600 to-orange-500 text-white text-center py-2 px-4 rounded">
+            <button
+              onClick={() => addComparison(tour._id)}
+              className=" w-40 bg-gradient-to-r from-red-600 to-orange-500 text-white text-center py-2 px-4 rounded"
+            >
               Thêm vào so sánh
             </button>
             <button
