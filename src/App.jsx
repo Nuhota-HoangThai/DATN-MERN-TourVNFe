@@ -18,6 +18,7 @@ import Thanks from "./pages/user/Thanks";
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
 import Booking from "./pages/user/Booking";
+import TourComparison from "./components/CartComponent/TourComparison/TourComparison";
 
 const App = () => {
   return (
@@ -61,7 +62,16 @@ const App = () => {
               </Profile>
             }
           />
+          <Route
+            path="/comparison"
+            element={
+              <Profile>
+                <TourComparison />
+              </Profile>
+            }
+          />
         </Routes>
+
         <Footer />
       </BrowserRouter>
     </div>

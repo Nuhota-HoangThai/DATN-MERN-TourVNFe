@@ -1,17 +1,29 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { TourContext } from "../../context/TourContext";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("auth-token") !== null
+  );
 
-  const { isLoggedIn, logout } = useContext(TourContext);
+  useEffect(() => {
+    const handleAuthChange = () => {
+      setIsLoggedIn(localStorage.getItem("auth-token"));
+    };
+
+    window.addEventListener("storage", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("storage", handleAuthChange);
+    };
+  }, []);
 
   useEffect(() => {
     const path = location.pathname;
@@ -133,15 +145,6 @@ const Navbar = () => {
               Đăng nhập
             </Link>
           )}
-          {/* <Link
-            to="/cart"
-            className="border ml-3 w-32 px-4 py-2 flex justify-center items-center rounded-full border-black hover:bg-blue-900 hover:text-white"
-          >
-            So sánh
-            <div className="flex ml-2  text-white border rounded-full px-1.5 border-red-700 bg-red-700">
-              {getTotalCartItems()}
-            </div>
-          </Link> */}
         </div>
       </div>
       <style>{`

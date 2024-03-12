@@ -1,19 +1,21 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { TourContext } from "../../context/TourContext";
-import TourComparison from "../TourComparison/TourComparison";
-import { MdOutlineClear } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../utils/config";
+import { BASE_URL } from "../../../utils/config";
 import { jwtDecode } from "jwt-decode";
-import CartMan from "../../assets/img/cart-man.png";
-import TourNone from "../../assets/img/dulichCart.png";
+
+import { MdOutlineClear } from "react-icons/md";
 import { FcNext } from "react-icons/fc";
 
+import CartMan from "../../../assets/img/cart-man.png";
+import TourNone from "../../../assets/img/dulichCart.png";
+
+import TourComparison from "../../CartComponent/TourComparison/TourComparison";
+import CartSummary from "../CartSummary/CartSummary";
+
 const CartItems = () => {
-  const { allTour, cartItems, clearCart, removeFromCart } =
-    useContext(TourContext);
+  const [cartItems, setCartItems] = useState({});
+  const [allTour, setAllTour] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -22,10 +24,73 @@ const CartItems = () => {
     adults: 0,
   });
 
+  // Thay đổi: lấy dữ liệu giỏ hàng và tour từ API
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        // Giả sử URL lấy giỏ hàng hiện tại của người dùng
+        const cartResponse = await axios.get(`${BASE_URL}/cart/getCart`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+          },
+        });
+        setCartItems(cartResponse.data);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    const fetchAllTours = async () => {
+      try {
+        const toursResponse = await axios.get(`${BASE_URL}/tour/getAllTours`);
+        setAllTour(toursResponse.data);
+      } catch (error) {
+        console.error("Error fetching tours:", error);
+      }
+    };
+
+    fetchCartItems();
+    fetchAllTours();
+  }, []);
+
+  // Bổ sung: Xóa item khỏi giỏ hàng
+  const removeFromCart = async (tourId) => {
+    try {
+      // Giả sử có API xóa một item khỏi giỏ hàng
+      await axios.delete(`${BASE_URL}/cart/removeFromCart`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        },
+      });
+      // Cập nhật state sau khi xóa
+      const updatedCartItems = { ...cartItems };
+      delete updatedCartItems[tourId];
+      setCartItems(updatedCartItems);
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+
+  // Bổ sung: Xóa toàn bộ giỏ hàng
+  // const clearCart = async () => {
+  //   try {
+  //     // Giả sử có API xóa toàn bộ giỏ hàng
+  //     await axios.delete(`${BASE_URL}/cart/removeFromCart`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+  //       },
+  //     });
+  //     setCartItems({});
+  //   } catch (error) {
+  //     console.error("Error clearing cart:", error);
+  //   }
+  // };
+
   // Kiểm tra số lượng sản phẩm trong giỏ hàng
   const hasProducts =
     Object.values(cartItems).reduce((acc, cur) => acc + cur, 0) > 0;
 
+  //console.log(cartItems);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setOrderInfo((prevState) => ({
@@ -82,9 +147,9 @@ const CartItems = () => {
           },
         }
       );
-      console.log(response.data);
+      //console.log(response.data);
       alert("Tour đã được đặt thành công!");
-      clearCart();
+      // clearCart();
       navigate("/thanks");
     } catch (error) {
       console.error(
@@ -249,35 +314,12 @@ const CartItems = () => {
           </button>
           {error && <p className="text-red-500 text-xs italic">{error}</p>}
         </form>
-        <div className="lg:w-2/3 bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Tổng cộng</h2>
-          <div className="flex justify-between mb-4">
-            <span>Tổng giá người lớn:</span>
-            <span>{calculateAdultPrice().toLocaleString()} đ</span>
-          </div>
-          <div className="flex justify-between mb-4">
-            <div>
-              <p>Tổng giá trẻ em </p>
-              <p>(Trẻ em được giảm 20% giá/khách):</p>
-            </div>
-            <span>{calculateChildrenPrice().toLocaleString()} đ</span>
-          </div>
-          <div className="flex justify-between mb-4">
-            <span>Tổng tiền:</span>
-            <span>{calculateSubtotal().toLocaleString()} đ</span>
-          </div>
-          <div className="flex justify-between mb-4">
-            <span>Phí phụ thu (5% tổng tiền):</span>
-            <span>{(calculateSubtotal() * 0.05).toLocaleString()} đ</span>
-          </div>
-          <hr />
-          <div className="flex justify-between mt-4">
-            <span className="font-bold">Tổng thanh toán:</span>
-            <span className="font-bold">
-              {calculateTotal().toLocaleString()} đ
-            </span>
-          </div>
-        </div>
+        <CartSummary
+          calculateAdultPrice={calculateAdultPrice}
+          calculateChildrenPrice={calculateChildrenPrice}
+          calculateSubtotal={calculateSubtotal}
+          calculateTotal={calculateTotal}
+        />
         <div className="lg:w-2/3 bg-white shadow-lg rounded-lg p-6">
           <img src={CartMan} alt="" />
         </div>

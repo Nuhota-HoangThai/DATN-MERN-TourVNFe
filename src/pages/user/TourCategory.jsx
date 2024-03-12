@@ -1,21 +1,32 @@
-import { useContext, useState } from "react";
-import { TourContext } from "../../context/TourContext";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Item from "../../components/Item/Item";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Search from "../../components/Search/Search";
+import { BASE_URL } from "../../utils/config";
 
 const TourCategory = (props) => {
-  const { allTour } = useContext(TourContext);
+  const [allTour, setAllTour] = useState([]);
   const [visibleProducts, setVisibleProducts] = useState(8);
+
+  useEffect(() => {
+    const fetchAllTours = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/tour/getAllTours`);
+        setAllTour(response.data);
+      } catch (error) {
+        console.error("There was an error fetching the tours:", error);
+      }
+    };
+    fetchAllTours();
+  }, []);
 
   const showMoreProducts = () => {
     setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
   };
 
   const filteredProducts = allTour
-    ? allTour.filter((item) => {
-        return item.regions === props.regions;
-      })
+    ? allTour.filter((item) => item.regions === props.regions)
     : [];
 
   const displayRange = `Hiển thị ${Math.min(
@@ -41,17 +52,7 @@ const TourCategory = (props) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 rounded-lg justify-items-center">
         {filteredProducts.slice(0, visibleProducts).map((item, i) => (
-          <Item
-            key={i}
-            _id={item._id}
-            image={item.image}
-            nameTour={item.nameTour}
-            regions={item.regions}
-            price={item.price}
-            startDate={item.startDate}
-            endDate={item.endDate}
-            maxParticipants={item.maxParticipants}
-          />
+          <Item key={i} {...item} />
         ))}
       </div>
       {visibleProducts < filteredProducts.length && (

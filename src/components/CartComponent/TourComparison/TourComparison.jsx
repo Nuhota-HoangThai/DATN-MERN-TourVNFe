@@ -1,8 +1,33 @@
-import React, { useContext } from "react";
-import { TourContext } from "../../context/TourContext";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../../utils/config";
 
 const TourComparison = () => {
-  const { allTour, cartItems } = useContext(TourContext);
+  const [allTour, setAllTour] = useState([]);
+  const [cartItems, setCartItems] = useState({});
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/tour/getAllTours`);
+        setAllTour(response.data);
+      } catch (error) {
+        console.error("Failed to fetch tours:", error);
+      }
+    };
+
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/cart/getCart`);
+        setCartItems(response.data);
+      } catch (error) {
+        console.error("Failed to fetch cart items:", error);
+      }
+    };
+
+    fetchTours();
+    fetchCartItems();
+  }, []);
 
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
   const toursInCart = allTour.filter((tour) => cartItems[tour._id]);

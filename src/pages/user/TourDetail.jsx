@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -12,19 +12,19 @@ const TourDetail = () => {
   const { tourId } = useParams();
   const [tour, setTour] = useState();
 
-  const getTour = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/tour/getTourById/${tourId}`);
-      console.log(res.data);
-      setTour(res.data.tour);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
+    const getTour = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/tour/getTourById/${tourId}`);
+
+        setTour(res.data.tour);
+        console.log("getTour in tour details");
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getTour();
-  }, []);
-  console.log(tour);
+  }, [tourId]);
 
   return (
     <div className="mx-20 mt-20">
