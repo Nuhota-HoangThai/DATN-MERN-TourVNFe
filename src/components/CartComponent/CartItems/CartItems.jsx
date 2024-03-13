@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { BASE_URL } from "../../../utils/config";
 
-import TourComparison from "../../CartComponent/TourComparison/TourComparison";
-
 const CartItems = () => {
   const [cartItems, setCartItems] = useState({});
   const [allTour, setAllTour] = useState([]);
@@ -61,18 +59,8 @@ const CartItems = () => {
     }
   };
 
-  const hasProducts =
-    Object.values(cartItems).reduce((acc, cur) => acc + cur, 0) > 0;
-
-  if (!hasProducts) {
-    return <TourComparison />;
-  }
-
   return (
     <div className="container mx-auto my-5 p-4 px-10">
-      <div>
-        <TourComparison />
-      </div>
       <h1 className="text-xl font-semibold underline">
         Danh sách tour so sánh
       </h1>

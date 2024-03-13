@@ -51,10 +51,10 @@ const TourComparison = () => {
   };
 
   return (
-    <div className="my-10 ">
+    <div className="container mx-auto my-5 p-4 px-10">
       {toursToCompare.length >= 2 && (
         <div className="compare-section mx-auto w-full">
-          <h2 className="my-12 text-center text-2xl font-bold">So sánh Tour</h2>
+          <h2 className="my-8 text-center text-2xl font-bold">So sánh Tour</h2>
           <div className="overflow-x-auto">
             <table className="w-full table-fixed">
               <thead>

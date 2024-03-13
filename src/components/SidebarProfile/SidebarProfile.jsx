@@ -24,7 +24,7 @@ const SidebarProfile = () => {
         </div>
       </Link>
 
-      <Link to={"/comparison"} className="no-underline">
+      <Link to={"/cart"} className="no-underline">
         <div className="mx-5 my-3  flex items-center rounded-lg bg-slate-100 py-2 pl-8 ">
           <p className="pl-2">So sánh tour</p>
         </div>

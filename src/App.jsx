@@ -19,7 +19,7 @@ import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
 import Booking from "./pages/user/Booking";
 //import TourComparison from "./components/CartComponent/TourComparison/TourComparison";
-import CartItems from "./components/CartComponent/CartItems/CartItems";
+//import Cart from "./pages/user/Cart";
 
 const App = () => {
   return (
@@ -44,7 +44,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/booking" element={<Booking />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route
@@ -64,10 +64,10 @@ const App = () => {
             }
           />
           <Route
-            path="/comparison"
+            path="/cart"
             element={
               <Profile>
-                <CartItems />
+                <Cart />
               </Profile>
             }
           />
