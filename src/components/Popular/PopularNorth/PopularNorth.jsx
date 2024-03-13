@@ -17,19 +17,20 @@ const PopularNorth = () => {
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: popularNorthTours.length > 1,
     speed: 500,
-    slidesToShow: popularNorthTours.length >= 3 ? 3 : 1,
+    slidesToShow: popularNorthTours.length >= 3 ? 3 : popularNorthTours.length,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: popularNorthTours.length > 1,
     autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: popularNorthTours.length >= 2 ? 2 : 1,
+          slidesToShow:
+            popularNorthTours.length >= 2 ? 2 : popularNorthTours.length,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: popularNorthTours.length > 2,
           dots: true,
         },
       },
@@ -39,6 +40,7 @@ const PopularNorth = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 2,
+          infinite: popularNorthTours.length > 1,
         },
       },
       {
@@ -46,6 +48,7 @@ const PopularNorth = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: popularNorthTours.length > 1,
         },
       },
     ],

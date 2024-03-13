@@ -17,19 +17,21 @@ const PopularSouthern = () => {
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: popularSouthernTours.length > 1,
     speed: 500,
-    slidesToShow: popularSouthernTours.length >= 3 ? 3 : 1,
+    slidesToShow:
+      popularSouthernTours.length >= 3 ? 3 : popularSouthernTours.length,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: popularSouthernTours.length > 1,
     autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: popularSouthernTours.length >= 2 ? 2 : 1,
+          slidesToShow:
+            popularSouthernTours.length >= 2 ? 2 : popularSouthernTours.length,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: popularSouthernTours.length > 2,
           dots: true,
         },
       },
@@ -39,6 +41,7 @@ const PopularSouthern = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 2,
+          infinite: popularSouthernTours.length > 1,
         },
       },
       {
@@ -46,6 +49,7 @@ const PopularSouthern = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: popularSouthernTours.length > 1,
         },
       },
     ],
