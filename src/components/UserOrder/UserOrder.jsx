@@ -23,7 +23,7 @@ const UserOrder = () => {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.user.id;
       try {
-        const response = await axios.get(`${BASE_URL}/order/user/${userId}`, {
+        const response = await axios.get(`${BASE_URL}/booking/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,7 +32,7 @@ const UserOrder = () => {
       } catch (error) {
         console.log(
           "Lỗi khi tìm đơn hàng:",
-          error.response ? error.response.data : error
+          error.response ? error.response.data : error,
         );
       }
     };
@@ -74,12 +74,12 @@ const UserOrder = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.status === 200) {
         const updatedOrders = orders.map((order) =>
-          order._id === orderId ? { ...order, status: "cancelled" } : order
+          order._id === orderId ? { ...order, status: "cancelled" } : order,
         );
         setOrders(updatedOrders);
       } else {
@@ -92,19 +92,19 @@ const UserOrder = () => {
 
   return (
     <div>
-      <div className="container mx-auto px-4 py-8 my-16 bg-white shadow-2xl">
-        <h1 className="text-2xl font-semibold  mb-6">Lịch sử đặt tour</h1>
+      <div className="container mx-auto my-16 bg-white px-4 py-8 shadow-2xl">
+        <h1 className="mb-6 text-2xl  font-semibold">Lịch sử đặt tour</h1>
         {orders.length > 0 ? (
           <div className="flex flex-col">
             {orders.map((order) => (
               <div
                 key={order._id}
-                className="bg-white shadow-md rounded-lg p-6 mb-6"
+                className="mb-6 rounded-lg bg-white p-6 shadow-md"
               >
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="mb-4 text-xl font-semibold">
                   Id đặt tour: {formatOrderId(order._id)}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   <p className="text-gray-600">
                     <span className="font-semibold">Tour: </span>
                     {order.tour ? order.tour.nameTour : "Không còn tour này"}
@@ -122,7 +122,7 @@ const UserOrder = () => {
                       order.status !== "confirmed" &&
                       order.status !== "cancelled" && (
                         <button
-                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-150 ease-in-out"
+                          className="rounded bg-red-500 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700"
                           onClick={() => cancelOrder(order._id)}
                         >
                           Hủy đơn hàng

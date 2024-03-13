@@ -5,11 +5,11 @@ const Tour = (props) => {
   const { tour } = props;
 
   return (
-    <div className="flex flex-col sm:flex-row items-center text-indigo-900 py-2 px-4 sm:py-4 sm:px-16 text-sm sm:text-base font-semibold">
+    <div className="flex flex-col items-center px-4 py-2 text-sm font-semibold text-indigo-900 sm:flex-row sm:px-16 sm:py-4 sm:text-base">
       <span>Tour</span>
-      <MdNavigateNext className="text-sm mx-1" />
+      <MdNavigateNext className="mx-1 text-sm" />
       <span className="hidden sm:block">{tour?.regions}</span>
-      <MdNavigateNext className="text-sm mx-1" />
+      <MdNavigateNext className="mx-1 text-sm" />
       <span>{tour.nameTour}</span>
     </div>
   );

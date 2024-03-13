@@ -55,10 +55,10 @@ const Popular = () => {
 
   return (
     <div className="mb-8">
-      <h1 className="text-left pl-24 mb-0.5 text-gray-800 md:text-2xl font-semibold">
+      <h1 className="mb-0.5 pl-24 text-left font-semibold text-gray-800 md:text-2xl">
         Tour phổ biến miền Trung
       </h1>
-      <div className="border-b-2 mx-24 border-blue-950 mb-5"></div>
+      <div className="mx-24 mb-5 border-b-2 border-blue-950"></div>
       <div className="">
         <div className=" mx-24 ">
           <Slider {...settings}>

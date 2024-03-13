@@ -33,14 +33,14 @@ const UserProfile = () => {
         const config = {
           headers: {
             Authorization: `Bearer ${localStorage.getItem(
-              import.meta.env.VITE_AUTH_TOKEN
+              import.meta.env.VITE_AUTH_TOKEN,
             )}`,
           },
         };
 
         const { data } = await axios.get(
           `${BASE_URL}/user/getUserById/${userId}`,
-          config
+          config,
         );
 
         setUserProfile(data.user);
@@ -72,9 +72,9 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="max-w-4xl mt-20 mx-auto p-5">
-      <div className="bg-white shadow-2xl rounded-lg p-6 mt-10">
-        <h1 className="text-2xl font-semibold mb-4">Thông tin cá nhân</h1>
+    <div className="mx-auto mt-20 max-w-4xl p-5">
+      <div className="mt-10 rounded-lg bg-white p-6 shadow-2xl">
+        <h1 className="mb-4 text-2xl font-semibold">Thông tin cá nhân</h1>
         <div className="space-y-3">
           <p>
             <strong className="font-medium">Tên: </strong> {userProfile.name}

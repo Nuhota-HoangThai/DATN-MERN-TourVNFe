@@ -15,40 +15,40 @@ const Item = (props) => {
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <FaStar key={i} color={i <= rating ? "#ffc107" : "#e4e5e9"} />
+        <FaStar key={i} color={i <= rating ? "#ffc107" : "#e4e5e9"} />,
       );
     }
     return <div className="flex">{stars}</div>;
   };
 
   return (
-    <div className="w-full md:w-96 lg:w-96 rounded-2xl border shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out relative bg-white">
+    <div className="relative w-full overflow-hidden rounded-2xl border bg-white shadow-xl transition-shadow duration-300 ease-in-out hover:shadow-2xl md:w-96 lg:w-96">
       <Link
         to={`/tour/${props._id}`}
         onClick={() => window.scrollTo(0, 0)}
-        className="block relative"
+        className="relative block"
       >
         {Array.isArray(props.image) && props.image.length > 0 && (
           <>
             <img
-              className="w-full h-48 object-cover rounded-t-lg"
+              className="h-48 w-full rounded-t-lg object-cover"
               src={`${BASE_URL}/${props.image[0].replace(/\\/g, "/")}`}
               alt="Tour Main Image"
             />
 
-            <button className="absolute top-2 left-2 p-2 rounded-full bg-white shadow-md hover:shadow-lg text-red-500 hover:bg-red-100 transition-all">
+            <button className="absolute left-2 top-2 rounded-full bg-white p-2 text-red-500 shadow-md transition-all hover:bg-red-100 hover:shadow-lg">
               <FaRegHeart />
             </button>
           </>
         )}
         <div className="px-6 pb-16 pt-4 ">
-          <p className="text-xl font-semibold mb-3 hover:text-gray-600 transition-colors overflow-hidden line-clamp-2">
+          <p className="mb-3 line-clamp-2 overflow-hidden text-xl font-semibold transition-colors hover:text-gray-600">
             {props.nameTour}
           </p>
-          <p className="text-red-600 text-lg font-medium mb-1">
+          <p className="mb-1 text-lg font-medium text-red-600">
             {props.price} đ
           </p>
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-4">
             <p>
               <span>Khu vực: </span>
               <span className="font-medium">{props.regions}</span>
@@ -71,11 +71,11 @@ const Item = (props) => {
         </div>
       </Link>
 
-      <div className="absolute bottom-2 left-3 right-0 bg-white p-3 flex justify-between items-center">
-        <button className="flex items-center justify-center px-6 py-2 text-sm font-medium text-white bg-blue-900 rounded hover:bg-blue-800 transition-colors">
+      <div className="absolute bottom-2 left-3 right-0 flex items-center justify-between bg-white p-3">
+        <button className="flex items-center justify-center rounded bg-blue-900 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-800">
           Đặt hàng
         </button>
-        <div className="absolute top-4 right-3 flex">
+        <div className="absolute right-3 top-4 flex">
           {renderRating(props.rating)}
         </div>
       </div>

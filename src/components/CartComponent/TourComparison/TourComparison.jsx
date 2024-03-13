@@ -51,66 +51,66 @@ const TourComparison = () => {
   };
 
   return (
-    <div className="my-10">
+    <div className="my-10 ">
       {toursToCompare.length >= 2 && (
-        <div className="compare-section max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center my-12">So sánh Tour</h2>
+        <div className="compare-section mx-auto w-full">
+          <h2 className="my-12 text-center text-2xl font-bold">So sánh Tour</h2>
           <div className="overflow-x-auto">
-            <table className="table-fixed w-full">
+            <table className="w-full table-fixed">
               <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left ">Thông tin</th>
-                  <th className="py-3 px-6 text-left">Tour 1</th>
-                  <th className="py-3 px-6 text-left">Tour 2</th>
+                <tr className="bg-gray-200 text-sm uppercase leading-normal text-gray-600">
+                  <th className="px-6 py-3 text-left ">Thông tin</th>
+                  <th className="px-6 py-3 text-left">Tour 1</th>
+                  <th className="px-6 py-3 text-left">Tour 2</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-sm font-ligh t">
+              <tbody className="font-ligh t text-sm text-gray-600">
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left whitespace-nowrap font-bold">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Tên
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour._id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="px-6 py-3 text-left">
                       {tour.nameTour}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left whitespace-nowrap font-bold">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Giá
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour._id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="px-6 py-3 text-left">
                       {tour.price.toLocaleString()} đ/khách
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left whitespace-nowrap font-bold">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Ngày khởi hành
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour._id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="px-6 py-3 text-left">
                       {formatDateVN(tour.startDate)}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left whitespace-nowrap font-bold">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Ngày kết thúc
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour._id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="px-6 py-3 text-left">
                       {formatDateVN(tour.endDate)}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left whitespace-nowrap font-bold">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Chỗ còn trống
                   </td>
                   {toursToCompare.map((tour) => (
-                    <td key={tour._id} className="py-3 px-6 text-left">
+                    <td key={tour._id} className="px-6 py-3 text-left">
                       {tour.maxParticipants}
                     </td>
                   ))}

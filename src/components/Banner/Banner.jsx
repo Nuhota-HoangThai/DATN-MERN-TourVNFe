@@ -5,25 +5,25 @@ import "./banner.css";
 const Banner = () => {
   return (
     <div
-      className="relative bg-cover bg-center h-[400px] md:h-[500px] text-white flex items-center justify-center  mx-24 rounded-3xl mb-5"
+      className="relative mx-24 mb-5 flex h-[400px] items-center justify-center rounded-3xl bg-cover  bg-center text-white md:h-[500px]"
       style={{
         backgroundImage:
           "url('https://thamhiemmekong.com/wp-content/uploads/2019/11/canh-dong-ta-pa-an-giang-1.jpg')",
       }}
     >
-      <div className="absolute  bg-black bg-opacity-0 rounded-3xl ">
+      <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
         <div className="py-[16%] ">
-          <h1 className="text-3xl font-bold text-white text-center font">
+          <h1 className="font text-center text-3xl font-bold text-white">
             Hành trình mới, kỷ niệm mới
           </h1>
-          <p className="font-bold text-5xl py-3 text-blue-950 text-center">
-            <span className="text-white text-3xl font">cùng </span>ViVu 3 Miền
+          <p className="py-3 text-center text-5xl font-bold text-blue-950">
+            <span className="font text-3xl text-white">cùng </span>ViVu 3 Miền
           </p>
-          <h1 className="text-3xl  font-bold text-white font text-center">
+          <h1 className="font  text-center text-3xl font-bold text-white">
             khám phá Việt Nam.
           </h1>
           <div className="pt-6  text-center ">
-            <button className="shadow-2xl text-white  rounded-xl px-3 py-2 font-semibold font bg-gradient-to-r from-blue-800 to-blue-950">
+            <button className="font rounded-xl  bg-gradient-to-r from-blue-800 to-blue-950 px-3 py-2 font-semibold text-white shadow-2xl">
               KHÁM PHÁ NGAY
             </button>
           </div>

@@ -2,8 +2,8 @@ import {} from "react";
 
 const DescriptionBox = () => {
   return (
-    <div className="px-4 sm:px-12 md:px-24 bg-blue-200 my-2 py-2">
-      <div className="flex flex-col sm:flex-row justify-between text-center sm:text-left">
+    <div className="my-2 bg-blue-200 px-4 py-2 sm:px-12 md:px-24">
+      <div className="flex flex-col justify-between text-center sm:flex-row sm:text-left">
         <div className="mb-2 sm:mb-0">Description</div>
         <div>Reviews</div>
       </div>

@@ -4,7 +4,7 @@ import ChuaBa from "../../assets/img/ChuaBa.png";
 
 const Offers = () => {
   return (
-    <div className="offers mb-8 mx-24">
+    <div className="offers mx-24 mb-8">
       <div className="offers-left">
         <h1>Ưu Đãi Dành Riêng Cho Bạn</h1>
         <p>ONLY ON BEST SELLERS PRODUCT</p>

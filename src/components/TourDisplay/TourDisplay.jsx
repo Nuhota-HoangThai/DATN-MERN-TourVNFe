@@ -31,7 +31,7 @@ const TourDisplay = ({ tour }) => {
         headers: {
           Accept: "application/json",
           [import.meta.env.VITE_AUTH_TOKEN]: localStorage.getItem(
-            import.meta.env.VITE_AUTH_TOKEN
+            import.meta.env.VITE_AUTH_TOKEN,
           ),
           "Content-Type": "application/json",
         },
@@ -42,7 +42,7 @@ const TourDisplay = ({ tour }) => {
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
           const contentType = response.headers.get(
-            import.meta.env.VITE_CONTENT_TYPE
+            import.meta.env.VITE_CONTENT_TYPE,
           );
           if (contentType && contentType.includes("application/json")) {
             return response.json();
@@ -66,8 +66,8 @@ const TourDisplay = ({ tour }) => {
   }
 
   return (
-    <div className="container mx-auto my-4 px-4 sm:px-6 lg:px-8 py-10 ">
-      <div className="grid md:grid-cols-2 gap-8">
+    <div className="container mx-auto my-4 px-4 py-10 sm:px-6 lg:px-8 ">
+      <div className="grid gap-8 md:grid-cols-2">
         <div>
           {Array.isArray(tour.image) && tour.image.length > 0 ? (
             tour.image.length > 1 ? (
@@ -75,7 +75,7 @@ const TourDisplay = ({ tour }) => {
                 {tour.image.map((image, index) => (
                   <div key={index}>
                     <img
-                      className="w-full h-[400px] object-cover rounded-lg shadow"
+                      className="h-[400px] w-full rounded-lg object-cover shadow"
                       src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
                       alt={`Tour Image ${index}`}
                     />
@@ -84,7 +84,7 @@ const TourDisplay = ({ tour }) => {
               </Slider>
             ) : (
               <img
-                className="w-full h-[400px] object-cover rounded-lg shadow"
+                className="h-[400px] w-full rounded-lg object-cover shadow"
                 src={`${BASE_URL}/${tour.image[0].replace(/\\/g, "/")}`}
                 alt="Tour Image"
               />
@@ -94,28 +94,28 @@ const TourDisplay = ({ tour }) => {
           )}
         </div>
 
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-          <h3 className="font-bold text-2xl mb-2 text-indigo-900">
+        <div className="rounded-lg bg-gray-100 p-6 shadow-md">
+          <h3 className="mb-2 text-2xl font-bold text-indigo-900">
             {tour.nameTour}
           </h3>
 
-          <p className="text-red-600 font-bold text-xl">
+          <p className="text-xl font-bold text-red-600">
             {tour.price} đ
-            <span className="text-indigo-800 text-base font-normal">
+            <span className="text-base font-normal text-indigo-800">
               /khách
             </span>
           </p>
 
-          <div className="mt-4  flex gap-5 items-center ">
+          <div className="mt-4  flex items-center gap-5 ">
             <button
               onClick={() => addComparison(tour._id)}
-              className=" w-40 bg-gradient-to-r from-red-600 to-orange-500 text-white text-center py-2 px-4 rounded"
+              className=" w-40 rounded bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2 text-center text-white"
             >
               Thêm vào so sánh
             </button>
             <button
               onClick={handleBooking}
-              className="text-center w-40 bg-gradient-to-r from-blue-800 to-blue-950 text-white py-2 px-4 rounded"
+              className="w-40 rounded bg-gradient-to-r from-blue-800 to-blue-950 px-4 py-2 text-center text-white"
             >
               Đặt ngay
             </button>

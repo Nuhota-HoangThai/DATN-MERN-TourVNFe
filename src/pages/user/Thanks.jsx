@@ -3,25 +3,25 @@ import { Link } from "react-router-dom";
 
 const Thanks = () => {
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col justify-center items-center">
-      <div className="bg-white p-6 md:p-12 rounded-lg shadow-xl">
-        <h2 className="text-2xl md:text-4xl font-bold text-center text-blue-600 mb-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-blue-50">
+      <div className="rounded-lg bg-white p-6 shadow-xl md:p-12">
+        <h2 className="mb-4 text-center text-2xl font-bold text-blue-600 md:text-4xl">
           Cảm ơn bạn đã đặt tour!
         </h2>
-        <p className="text-md md:text-lg text-gray-600 text-center mb-6">
+        <p className="text-md mb-6 text-center text-gray-600 md:text-lg">
           Email xác nhận đã được gửi. Vui lòng kiểm tra hộp thư của bạn.
         </p>
         <div className="flex justify-center">
           <img
             src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png"
             alt="Thank you"
-            className="w-40 h-40 md:w-48 md:h-48"
+            className="h-40 w-40 md:h-48 md:w-48"
           />
         </div>
-        <div className="text-center mt-8">
+        <div className="mt-8 text-center">
           <Link
             to="/"
-            className="inline-block bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold text-sm md:text-md hover:bg-blue-700 transition-colors"
+            className="md:text-md inline-block rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           >
             Trở về trang chủ
           </Link>

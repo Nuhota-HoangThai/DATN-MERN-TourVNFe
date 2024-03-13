@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("auth-token") !== null
+    localStorage.getItem("auth-token") !== null,
   );
 
   useEffect(() => {
@@ -43,11 +43,11 @@ const Navbar = () => {
   return (
     <>
       {/* fixed top-0 z-50 */}
-      <div className="fixed top-0 z-50 w-full py-4 px-24 flex justify-between items-center shadow-lg shadow-gray-500/50 mb-5 bg-white ">
+      <div className="fixed top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-24 py-4 shadow-lg shadow-gray-500/50 ">
         <Link to="/">
-          <div className="flex items-center gap-1 font-bold  group">
-            <GiMountains className="text-blue-950 text-4xl transition duration-300 ease-in-out transform group-hover:rotate-12 group-hover:scale-110" />
-            <span className="text-3xl transition duration-300 ease-in-out shadow-2xl group-hover:text-blue-900 group-hover:shadow-lg">
+          <div className="group flex items-center gap-1  font-bold">
+            <GiMountains className="transform text-4xl text-blue-950 transition duration-300 ease-in-out group-hover:rotate-12 group-hover:scale-110" />
+            <span className="text-3xl shadow-2xl transition duration-300 ease-in-out group-hover:text-blue-900 group-hover:shadow-lg">
               ViVu3Mien
             </span>
           </div>
@@ -62,9 +62,9 @@ const Navbar = () => {
           </button>
         </div>
         <ul
-          className={`absolute text-center text-black md:relative top-14 rounded-full right-0 md:top-auto md:right-auto  w-full md:w-auto md:p-2 md:pl-10 transition-transform duration-300 ${
+          className={`absolute right-0 top-14 w-full rounded-full text-center text-black transition-transform duration-300  md:relative md:right-auto md:top-auto md:w-auto md:p-2 md:pl-10 ${
             isMenuOpen ? "block" : "hidden"
-          } md:flex gap-9 font-semibold text-black `}
+          } gap-9 font-semibold text-black md:flex `}
         >
           <li
             tabIndex="0"
@@ -74,7 +74,7 @@ const Navbar = () => {
           >
             <Link to="/">Du lịch</Link>
             {menu === "tour" ? (
-              <hr className="border-red-700 border-b-2 w-2/3 mx-auto" />
+              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
             ) : (
               <></>
             )}
@@ -87,7 +87,7 @@ const Navbar = () => {
           >
             <Link to="/mn">Miền Nam</Link>
             {menu === "mn" ? (
-              <hr className="border-red-700 border-b-2 w-2/3 mx-auto" />
+              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
             ) : (
               <></>
             )}
@@ -100,7 +100,7 @@ const Navbar = () => {
           >
             <Link to="/mt">Miền Trung</Link>
             {menu === "mt" ? (
-              <hr className="border-red-700 border-b-2 w-2/3 mx-auto" />
+              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
             ) : (
               <></>
             )}
@@ -113,7 +113,7 @@ const Navbar = () => {
           >
             <Link to="/mb"> Miền Bắc</Link>
             {menu === "mb" ? (
-              <hr className="border-red-700 border-b-2 w-2/3 mx-auto" />
+              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
             ) : (
               <></>
             )}
@@ -129,18 +129,18 @@ const Navbar = () => {
             </li>
           )}
         </ul>
-        <div className="hidden md:flex items-center font-semibold">
+        <div className="hidden items-center font-semibold md:flex">
           {isLoggedIn ? (
             <Link
               to="/profile"
-              className=" px-4 w-32 text-center py-2 border rounded-full border-black  hover:bg-blue-900 hover:text-white"
+              className=" w-32 rounded-full border border-black px-4 py-2 text-center  hover:bg-blue-900 hover:text-white"
             >
               Tài khoản
             </Link>
           ) : (
             <Link
               to="/login"
-              className="px-4 py-2 w-32 text-center border border-black rounded-full hover:bg-blue-800 hover:text-white"
+              className="w-32 rounded-full border border-black px-4 py-2 text-center hover:bg-blue-800 hover:text-white"
             >
               Đăng nhập
             </Link>

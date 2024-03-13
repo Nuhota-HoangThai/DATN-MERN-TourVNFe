@@ -4,7 +4,7 @@ import SidebarProfile from "../../components/SidebarProfile/SidebarProfile";
 
 const Profile = ({ children }) => {
   return (
-    <div className="grid grid-cols-5 gap-4 mt-10">
+    <div className="mt-10 grid grid-cols-5 gap-4">
       <div className=" col-span-1 h-full w-full">
         <SidebarProfile />
       </div>

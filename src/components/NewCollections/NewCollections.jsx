@@ -55,10 +55,10 @@ const NewCollections = () => {
 
   return (
     <div className="mb-8 px-24">
-      <h1 className="text-gray-800  text-2xl font-semibold mb-1">
+      <h1 className="mb-1  text-2xl font-semibold text-gray-800">
         Tour mới nhất
       </h1>
-      <div className="border-b-2 border-blue-950 mb-5"></div>
+      <div className="mb-5 border-b-2 border-blue-950"></div>
       <div className="">
         <Slider {...settings}>
           {newCollection.map((item, index) => (

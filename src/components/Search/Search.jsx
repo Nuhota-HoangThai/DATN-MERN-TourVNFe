@@ -25,7 +25,7 @@ const Search = () => {
           (key) =>
             encodeURIComponent(key) +
             "=" +
-            encodeURIComponent(searchParams[key])
+            encodeURIComponent(searchParams[key]),
         )
         .join("&");
       const response = await fetch(`${BASE_URL}/searchTour?${queryString}`);
@@ -37,7 +37,7 @@ const Search = () => {
   };
 
   return (
-    <div className="w-[1000px] mx-auto p-4 ">
+    <div className="mx-auto w-[1000px] p-4 ">
       <div className="">
         <form onSubmit={handleSubmit} className="flex flex-row space-x-4  ">
           <input
@@ -46,7 +46,7 @@ const Search = () => {
             placeholder="Tên tour"
             value={searchParams.name}
             onChange={handleChange}
-            className=" px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500 transition  flex-grow"
+            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2  focus:ring-blue-500"
           />
           <input
             type="number"
@@ -54,7 +54,7 @@ const Search = () => {
             placeholder="Điểm đến"
             value={searchParams.distance}
             onChange={handleChange}
-            className=" px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500 transition flex-grow"
+            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="number"
@@ -62,11 +62,11 @@ const Search = () => {
             placeholder="Số lượng khách"
             value={searchParams.maxGroupSize}
             onChange={handleChange}
-            className=" px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500 transition  flex-grow"
+            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2  focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors  duration-150 flex-shrink-0"
+            className="flex-shrink-0 rounded bg-red-500 px-4 py-2 text-white transition-colors  duration-150 hover:bg-blue-700"
           >
             Tìm kiếm
           </button>
@@ -82,7 +82,7 @@ const Search = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-red-500 text-center">No tours found</p>
+            <p className="text-center text-red-500">No tours found</p>
           )}
         </div>
       </div>
