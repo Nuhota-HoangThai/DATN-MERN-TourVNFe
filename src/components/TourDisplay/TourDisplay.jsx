@@ -23,6 +23,27 @@ const TourDisplay = ({ tour }) => {
     arrows: false,
   };
 
+  const formatDateVN = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  const formatRegion = (region) => {
+    switch (region) {
+      case "mn":
+        return "miền Nam";
+      case "mb":
+        return "miền Bắc";
+      case "mt":
+        return "miền Trung";
+      default:
+        return "Không xác định";
+    }
+  };
+
   // add comparisons
   const addComparison = async (tourId) => {
     if (localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN)) {
@@ -90,35 +111,51 @@ const TourDisplay = ({ tour }) => {
               />
             )
           ) : (
-            <div>No Image Available</div>
+            <div>Không có hình ảnh</div>
           )}
         </div>
 
         <div className="rounded-lg bg-gray-100 p-6 shadow-md">
-          <h3 className="mb-2 text-2xl font-bold text-indigo-900">
-            {tour.nameTour}
-          </h3>
+          <div className="px-6 pb-16 pt-4 ">
+            <p className="mb-3 line-clamp-2 overflow-hidden text-xl font-semibold transition-colors hover:text-gray-600">
+              {tour.nameTour}
+            </p>
+            <p className="mb-1 text-lg font-medium text-red-600">
+              {tour.price} đ
+            </p>
+            <p className="mb-1">
+              <span>Khu vực: </span>
+              <span className="font-medium">{formatRegion(tour.regions)}</span>
+            </p>
+            <p className="mb-1">
+              <span>Chỗ trống: </span>
+              <span className="font-medium">{tour.maxParticipants}</span>
+            </p>
+            <p className="mb-1">
+              <span>Ngày khởi hành: </span>
+              <span className="font-medium">
+                {formatDateVN(tour.startDate)}
+              </span>
+            </p>
+            <p className="mb-1">
+              <span>Ngày kết thúc: </span>
+              <span className="font-medium">{formatDateVN(tour.endDate)}</span>
+            </p>
 
-          <p className="text-xl font-bold text-red-600">
-            {tour.price} đ
-            <span className="text-base font-normal text-indigo-800">
-              /khách
-            </span>
-          </p>
-
-          <div className="mt-4  flex items-center gap-5 ">
-            <button
-              onClick={() => addComparison(tour._id)}
-              className=" w-40 rounded bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2 text-center text-white"
-            >
-              Thêm vào so sánh
-            </button>
-            <button
-              onClick={handleBooking}
-              className="w-40 rounded bg-gradient-to-r from-blue-800 to-blue-950 px-4 py-2 text-center text-white"
-            >
-              Đặt ngay
-            </button>
+            <div className="mt-8  flex items-center gap-5 ">
+              <button
+                onClick={() => addComparison(tour._id)}
+                className=" w-40 rounded bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2 text-center text-white"
+              >
+                Thêm vào so sánh
+              </button>
+              <button
+                onClick={handleBooking}
+                className="w-40 rounded bg-gradient-to-r from-blue-800 to-blue-950 px-4 py-2 text-center text-white"
+              >
+                Đặt ngay
+              </button>
+            </div>
           </div>
         </div>
       </div>
