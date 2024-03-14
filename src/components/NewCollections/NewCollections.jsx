@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Item from "../Item/Item";
 import { BASE_URL } from "../../utils/config";
 import Slider from "react-slick";
@@ -54,29 +54,35 @@ const NewCollections = () => {
   };
 
   return (
-    <div className="mb-8 px-24">
-      <h1 className="mb-1  text-2xl font-semibold text-gray-800">
-        Tour mới nhất
-      </h1>
-      <div className="mb-5 border-b-2 border-blue-950"></div>
-      <div className="">
-        <Slider {...settings}>
-          {newCollection.map((item, index) => (
-            <div key={index} className="">
-              <Item
-                id={item.id}
-                image={item.image}
-                nameTour={item.nameTour}
-                price={item.price}
-                regions={item.regions}
-                maxParticipants={item.maxParticipants}
-                startDate={item.startDate}
-                endDate={item.endDate}
-              />
-            </div>
-          ))}
-        </Slider>
-      </div>
+    <div>
+      {newCollection.length > 0 ? (
+        <div className="mb-8 px-24">
+          <h1 className="mb-1  text-2xl font-semibold text-gray-800">
+            Tour mới nhất
+          </h1>
+          <div className="mb-5 border-b-2 border-blue-950"></div>
+          <div className="">
+            <Slider {...settings}>
+              {newCollection.map((item, index) => (
+                <div key={index} className="">
+                  <Item
+                    id={item.id}
+                    image={item.image}
+                    nameTour={item.nameTour}
+                    price={item.price}
+                    regions={item.regions}
+                    maxParticipants={item.maxParticipants}
+                    startDate={item.startDate}
+                    endDate={item.endDate}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+      ) : (
+        <p className=""></p>
+      )}
     </div>
   );
 };

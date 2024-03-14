@@ -1,34 +1,62 @@
+import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { BASE_URL } from "../../utils/config";
+import axios from "axios";
 
 const Navbar = () => {
-  const [menu, setMenu] = useState("");
+  const [menu, setMenu] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("auth-token") !== null,
-  );
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState({ name: "" });
 
   useEffect(() => {
-    const handleAuthChange = () => {
-      setIsLoggedIn(localStorage.getItem("auth-token"));
+    const updateLoginStatus = async () => {
+      const token = localStorage.getItem("auth-token");
+      setIsLoggedIn(token !== null);
+      if (token && token.split(".").length === 3) {
+        try {
+          const decodedToken = jwtDecode(token);
+          const userId = decodedToken.user.id; // Đảm bảo cấu trúc decodedToken phù hợp với JWT của bạn
+          const { data } = await axios.get(
+            `${BASE_URL}/user/getUserById/${userId}`,
+          );
+          setUserProfile(data.user);
+        } catch (error) {
+          console.error("Error decoding token:", error);
+        }
+      } else {
+        console.error("Invalid token format:", token);
+      }
     };
 
-    window.addEventListener("storage", handleAuthChange);
+    updateLoginStatus();
+
+    const handleAuthChange = () => {
+      updateLoginStatus();
+    };
+
+    window.addEventListener("loginStatusChanged", handleAuthChange);
 
     return () => {
-      window.removeEventListener("storage", handleAuthChange);
+      window.removeEventListener("loginStatusChanged", handleAuthChange);
     };
   }, []);
+
+  const toggleMenu = () => setMenu(!menu);
+  const toggleTourMenu = () => setIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     const path = location.pathname;
     if (path === "/") {
-      setMenu("tour");
+      setMenu("home");
+    } else if (path === "/tours") {
+      setMenu("tours");
     } else if (path === "/mn") {
       setMenu("mn");
     } else if (path === "/mt") {
@@ -45,15 +73,13 @@ const Navbar = () => {
       {/* fixed top-0 z-50 */}
       <div className="fixed top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-24 py-4 shadow-lg shadow-gray-500/50 ">
         <Link to="/">
-          <div className="group flex items-center gap-1  font-bold">
-            <GiMountains className="transform text-4xl text-blue-950 transition duration-300 ease-in-out group-hover:rotate-12 group-hover:scale-110" />
-            <span className="text-3xl shadow-2xl transition duration-300 ease-in-out group-hover:text-blue-900 group-hover:shadow-lg">
-              ViVu3Mien
-            </span>
+          <div className="group flex items-center gap-1 font-bold">
+            <GiMountains className="text-4xl text-blue-950" />
+            <span className="text-3xl shadow-2xl">ViVu3Mien</span>
           </div>
         </Link>
-        <div className="md:hidden ">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <div className="md:hidden">
+          <button onClick={toggleMenu}>
             {isMenuOpen ? (
               <FaTimes className="text-black" size={24} />
             ) : (
@@ -62,80 +88,52 @@ const Navbar = () => {
           </button>
         </div>
         <ul
-          className={`absolute right-0 top-14 w-full rounded-full text-center text-black transition-transform duration-300  md:relative md:right-auto md:top-auto md:w-auto md:p-2 md:pl-10 ${
-            isMenuOpen ? "block" : "hidden"
-          } gap-9 font-semibold text-black md:flex `}
+          className={`absolute right-0 top-14 w-full text-center transition-transform duration-300 md:relative md:right-auto md:top-auto md:w-auto md:p-2 md:pl-10 ${isMenuOpen ? "block" : "hidden"} gap-14 font-semibold text-black md:flex`}
         >
-          <li
-            tabIndex="0"
-            onClick={() => {
-              setMenu("tour");
-            }}
-          >
-            <Link to="/">Du lịch</Link>
-            {menu === "tour" ? (
-              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
-            ) : (
-              <></>
-            )}
+          <li>
+            <Link to="/">Trang chủ</Link>
           </li>
           <li
-            tabIndex="0"
-            onClick={() => {
-              setMenu("mn");
-            }}
+            className="relative"
+            onMouseEnter={toggleTourMenu}
+            onMouseLeave={toggleTourMenu}
           >
-            <Link to="/mn">Miền Nam</Link>
-            {menu === "mn" ? (
-              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
-            ) : (
-              <></>
+            <Link to="/tours">Tours</Link>
+            {isMenuOpen && (
+              <div className="absolute left-1/2 top-full  w-48 -translate-x-1/2 transform rounded-md bg-white shadow-lg">
+                <Link to="/mn" className="block px-4 py-2 hover:bg-gray-100">
+                  <span className="font-normal hover:font-semibold">
+                    Tour miền Nam
+                  </span>
+                </Link>
+                <Link to="/mt" className="block px-4 py-2 hover:bg-gray-100">
+                  <span className="font-normal hover:font-semibold">
+                    Tour miền Trung
+                  </span>
+                </Link>
+                <Link to="/mb" className="block px-4 py-2 hover:bg-gray-100">
+                  <span className="font-normal hover:font-semibold">
+                    Tour miền Bắc
+                  </span>
+                </Link>
+              </div>
             )}
           </li>
-          <li
-            tabIndex="0"
-            onClick={() => {
-              setMenu("mt");
-            }}
-          >
-            <Link to="/mt">Miền Trung</Link>
-            {menu === "mt" ? (
-              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
-            ) : (
-              <></>
-            )}
+          <li>
+            <Link to="/">Tin tức</Link>
           </li>
-          <li
-            tabIndex="0"
-            onClick={() => {
-              setMenu("mb");
-            }}
-          >
-            <Link to="/mb"> Miền Bắc</Link>
-            {menu === "mb" ? (
-              <hr className="mx-auto w-2/3 border-b-2 border-red-700" />
-            ) : (
-              <></>
-            )}
+          <li>
+            <Link to="/">Liên hệ</Link>
           </li>
-          <hr />
-          {isLoggedIn ? (
-            <li className="md:hidden">
-              <Link to="/profile">Tài khoản</Link>
-            </li>
-          ) : (
-            <li className="md:hidden">
-              <Link to="/login">Đăng nhập</Link>
-            </li>
-          )}
+          <li>
+            <Link to="/">Giới thiệu</Link>
+          </li>
         </ul>
-        <div className="hidden items-center font-semibold md:flex">
+        <div className="hidden items-center md:flex">
           {isLoggedIn ? (
-            <Link
-              to="/profile"
-              className=" w-32 rounded-full border border-black px-4 py-2 text-center  hover:bg-blue-900 hover:text-white"
-            >
-              Tài khoản
+            <Link to="/profile" className="text-center">
+              <span>Xin chào: </span>
+              <span className="font-semibold">{userProfile.name}</span>
             </Link>
           ) : (
             <Link

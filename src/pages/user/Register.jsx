@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
@@ -24,6 +24,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${BASE_URL}/user/signup`, formData);
+      console.log(response);
       setSuccessMessage("Bạn đã đăng ký thành công.");
       setTimeout(() => {
         navigate("/login");

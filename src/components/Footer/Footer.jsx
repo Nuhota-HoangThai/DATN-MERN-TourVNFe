@@ -1,4 +1,4 @@
-import React from "react";
+import {} from "react";
 import { Link } from "react-router-dom";
 import { GiMountains } from "react-icons/gi";
 import { FaInstagramSquare, FaFacebook, FaTelegram } from "react-icons/fa";
@@ -6,7 +6,7 @@ import { SiZalo } from "react-icons/si";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-gray-800 bg-white text-black shadow-2xl">
+    <footer className=" border-t-2 border-gray-800 bg-white text-black shadow-2xl">
       <div className="container mx-auto px-6 pb-6 pt-10">
         <div className="flex flex-wrap justify-between">
           <div className="mb-6 w-full md:mb-0 md:w-1/3">

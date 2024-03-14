@@ -121,7 +121,7 @@ const TourDisplay = ({ tour }) => {
               {tour.nameTour}
             </p>
             <p className="mb-1 text-lg font-medium text-red-600">
-              {tour.price} đ
+              {tour.price.toLocaleString()} đ
             </p>
             <p className="mb-1">
               <span>Khu vực: </span>
