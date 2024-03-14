@@ -67,6 +67,15 @@ const Item = (props) => {
               <span>Ngày kết thúc: </span>
               <span className="font-medium">{formatDateVN(props.endDate)}</span>
             </p>
+            {/* <div
+              dangerouslySetInnerHTML={{ __html: props.description }}
+              style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "200px",
+              }}
+            ></div> */}
           </div>
         </div>
       </Link>

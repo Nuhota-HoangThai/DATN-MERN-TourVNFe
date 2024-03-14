@@ -21,6 +21,8 @@ import Booking from "./pages/user/Booking";
 //import TourComparison from "./components/CartComponent/TourComparison/TourComparison";
 //import Cart from "./pages/user/Cart";
 
+import "./services/axios";
+
 const App = () => {
   return (
     <div>

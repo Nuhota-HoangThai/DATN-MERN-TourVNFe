@@ -87,7 +87,7 @@ const TourDisplay = ({ tour }) => {
   }
 
   return (
-    <div className="container mx-auto my-4 px-4 py-10 sm:px-6 lg:px-8 ">
+    <div className="">
       <div className="grid gap-8 md:grid-cols-2">
         <div>
           {Array.isArray(tour.image) && tour.image.length > 0 ? (

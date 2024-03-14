@@ -1,113 +1,275 @@
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../../utils/config";
+import { jwtDecode } from "jwt-decode";
 
 const Booking = () => {
   const location = useLocation();
   const { tour } = location.state || {};
+  const navigate = useNavigate();
+
+  const [bookingData, setBookingData] = useState({
+    tourId: tour?._id,
+    numberOfAdults: 1,
+    numberOfChildren: 0,
+    additionalInformation: "",
+  });
+
+  ////
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const [userProfile, setUserProfile] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
+        if (!token) {
+          setError("Mã xác thực không có");
+          setLoading(false);
+          navigate("/login");
+          return;
+        }
+
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.user.id;
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(
+              import.meta.env.VITE_AUTH_TOKEN,
+            )}`,
+          },
+        };
+
+        const { data } = await axios.get(
+          `${BASE_URL}/user/getUserById/${userId}`,
+          config,
+        );
+
+        setUserProfile(data.user);
+        setLoading(false);
+      } catch (error) {
+        setError(error.response ? error.response.data.message : error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [navigate]);
+
+  ////
+  const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
+
+  useEffect(() => {
+    const pricePerChild = tour?.price / 2 || 0;
+    const calculatedTotal =
+      bookingData.numberOfAdults * tour?.price +
+      bookingData.numberOfChildren * pricePerChild;
+    setTotalAmount(calculatedTotal);
+  }, [bookingData.numberOfAdults, bookingData.numberOfChildren, tour?.price]);
+
+  const handleChange = (e) => {
+    setBookingData({ ...bookingData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+      alert("Vui lòng đăng nhập để đặt tour!!!");
+    } else {
+      try {
+        const response = await axios.post(`${BASE_URL}/booking/createBooking`, {
+          ...bookingData,
+          totalAmount: totalAmount,
+          bookingDate: new Date(),
+        });
+
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   const formatDateVN = (dateString) => {
     const date = new Date(dateString);
-    const day = `0${date.getDate()}`.slice(-2); // Thêm số 0 phía trước nếu cần
-    const month = `0${date.getMonth() + 1}`.slice(-2); // Thêm số 0 phía trước và +1 vì getMonth() trả về từ 0-11
+    const day = `0${date.getDate()}`.slice(-2);
+    const month = `0${date.getMonth() + 1}`.slice(-2);
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
 
-  // Thông tin mẫu, bạn có thể thay đổi hoặc thêm thông tin từ state hoặc props
-  const bookingInfo = {
-    customerName: "Nguyễn Văn A",
-    phoneNumber: "0123456789",
-    email: "email@example.com",
-    participants: 4,
-    paymentMethod: "Chuyển khoản",
-  };
+  if (loading) {
+    return <p>Đang tải trang...</p>;
+  }
+
+  if (error) {
+    return <p>Lỗi: {error}</p>;
+  }
 
   return (
-    <div className="mx-20 mb-8 mt-28 grid grid-cols-2 gap-4 ">
-      <div className="bg-slate-50 p-4">
-        <h1 className="mb-4 text-xl font-bold">Thông tin tour</h1>
-        <div className="overflow-x-auto ">
-          <table className="w-full table-auto">
-            <tbody className=" text-sm font-light">
-              <tr className="  text-sm leading-normal">
-                <td className="px-6 py-3 text-left font-medium">Tên tour</td>
-                <td className="px-6 py-3 text-left">{tour?.nameTour}</td>
+    <div className="mx-4 mb-8 mt-10 grid grid-cols-1 gap-4 md:mx-20 md:mt-28 md:grid-cols-2">
+      <div className="rounded-lg bg-white p-6 shadow">
+        <h1 className="mb-4 text-2xl font-semibold text-gray-800">
+          Thông tin tour
+        </h1>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm text-gray-500">
+            <tbody>
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Tên tour
+                </th>
+                <td className="px-6 py-4">{tour?.nameTour}</td>
               </tr>
-              <tr>
-                <td className="px-6 py-3 text-left  text-sm  font-medium leading-normal">
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Giá
-                </td>
-                <td className="px-6 py-3 text-left">{tour?.price} đ</td>
+                </th>
+                <td className="px-6 py-4">{tour?.price} đ</td>
               </tr>
-              <tr className="text-sm leading-normal">
-                <td className="px-6 py-3 text-left font-medium">
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Số chỗ trống
-                </td>
-                <td className="px-6 py-3 text-left">{tour?.maxParticipants}</td>
+                </th>
+                <td className="px-6 py-4">{tour?.maxParticipants}</td>
               </tr>
-              <tr>
-                <td className="px-6 py-3 text-left text-sm  font-medium leading-normal">
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Ngày bắt đầu
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {formatDateVN(tour?.startDate)}
-                </td>
+                </th>
+                <td className="px-6 py-4">{formatDateVN(tour?.startDate)}</td>
               </tr>
-              <tr className="text-sm leading-normal">
-                <td className="px-6 py-3 text-left font-medium">
+              <tr className="bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Ngày kết thúc
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {formatDateVN(tour?.endDate)}
-                </td>
+                </th>
+                <td className="px-6 py-4">{formatDateVN(tour?.endDate)}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div className="bg-slate-50 p-4">
-        <h1 className="mb-4 text-xl font-bold">Thông tin đặt tour</h1>
-        <div className="overflow-x-auto">
-          <table className="w-full table-auto">
-            <tbody className="text-sm font-light">
-              <tr>
-                <td className="px-6 py-3 text-left font-medium">
-                  Tên khách hàng
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {bookingInfo.customerName}
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-3 text-left font-medium">
-                  Số điện thoại
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {bookingInfo.phoneNumber}
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-3 text-left font-medium">Email</td>
-                <td className="px-6 py-3 text-left">{bookingInfo.email}</td>
-              </tr>
-              <tr>
-                <td className="px-6 py-3 text-left font-medium">
-                  Số người tham gia
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {bookingInfo.participants}
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-3 text-left font-medium">
-                  Phương thức thanh toán
-                </td>
-                <td className="px-6 py-3 text-left">
-                  {bookingInfo.paymentMethod}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div className="rounded-lg bg-white p-6 shadow">
+        <h1 className="mb-4 text-2xl font-semibold text-gray-800">
+          Thông tin đặt tour
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor=""
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Người đặt:
+            </label>
+            <input
+              type="text"
+              value={userProfile.name}
+              onChange={handleChange}
+              required
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor=""
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Địa chỉ:
+            </label>
+            <input
+              type="text"
+              value={userProfile.address}
+              onChange={handleChange}
+              required
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor=""
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Số điện thoại:
+            </label>
+            <input
+              type="tel"
+              value={userProfile.phone}
+              onChange={handleChange}
+              required
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="numberOfAdults"
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Số người lớn:
+            </label>
+            <input
+              type="number"
+              name="numberOfAdults"
+              id="numberOfAdults"
+              value={bookingData.numberOfAdults}
+              onChange={handleChange}
+              required
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="numberOfChildren"
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Số trẻ em:
+            </label>
+            <input
+              type="number"
+              name="numberOfChildren"
+              id="numberOfChildren"
+              value={bookingData.numberOfChildren}
+              onChange={handleChange}
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="additionalInformation"
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Thông tin thêm:
+            </label>
+            <textarea
+              name="additionalInformation"
+              id="additionalInformation"
+              value={bookingData.additionalInformation}
+              onChange={handleChange}
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-900">
+              Tổng tiền:
+            </label>
+            <p className="text-lg font-semibold">{totalAmount} đ</p>
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            Đặt tour
+          </button>
+        </form>
       </div>
     </div>
   );

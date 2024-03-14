@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Tour from "../../components/Tour/Tour";
 import TourDisplay from "../../components/TourDisplay/TourDisplay";
 import DescriptionBox from "../../components/DescriptionBox/DescriptionBox";
-import RelatedTour from "../../components/RelatedTour/RelatedTour";
+//import RelatedTour from "../../components/RelatedTour/RelatedTour";
 import { BASE_URL } from "../../utils/config";
 
 const TourDetail = () => {
@@ -34,8 +34,8 @@ const TourDetail = () => {
         <>
           <Tour tour={tour} />
           <TourDisplay tour={tour} />
-          <DescriptionBox />
-          <RelatedTour />
+          <DescriptionBox tour={tour} />
+          {/* <RelatedTour /> */}
         </>
       )}
     </div>
