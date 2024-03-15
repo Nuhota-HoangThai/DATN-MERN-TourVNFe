@@ -4,7 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 
 const Register = () => {
-  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -23,14 +24,21 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true); // Ensure loading state is set to true when the request starts
       const response = await axios.post(`${BASE_URL}/user/signup`, formData);
-      console.log(response);
-      setSuccessMessage("Bạn đã đăng ký thành công.");
-      setTimeout(() => {
-        navigate("/login");
-      }, 4000); // Redirect after 3 seconds
+      const data = response.data; // Axios automatically handles converting the response to JSON
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+
+      navigate("/loginAdmin");
     } catch (error) {
-      console.error("Error during registration:", error.response.data);
+      setLoading(false);
+      setError(error.response?.data?.message || error.message); // Better error handling with Axios
     }
   };
 
@@ -43,9 +51,7 @@ const Register = () => {
     <div className="flex min-h-screen items-center justify-center  bg-gray-100">
       <div className="w-96 rounded bg-white p-8 shadow-md">
         <h1 className="mb-6 text-2xl font-bold text-red-700">ĐĂNG KÝ</h1>
-        {successMessage && (
-          <div className="mb-4 text-green-500">{successMessage}</div>
-        )}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
@@ -113,8 +119,9 @@ const Register = () => {
             disabled={!acceptedTerms}
             className="w-full rounded-md bg-red-700 p-2 text-white hover:bg-red-600 focus:border-blue-300 focus:outline-none focus:ring"
           >
-            Đăng ký
+            {loading ? "Loading..." : "Sign Up"}
           </button>
+          {error && <p className="mt-5 text-red-500">{error}</p>}
         </form>
       </div>
     </div>
