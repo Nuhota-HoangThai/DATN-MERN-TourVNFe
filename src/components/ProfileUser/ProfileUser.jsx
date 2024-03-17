@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { jwtDecode } from "jwt-decode";
 import { BASE_URL } from "../../utils/config";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
@@ -12,6 +12,7 @@ const UserProfile = () => {
     address: "",
     role: "",
   });
+  const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Initialize useNavigate
@@ -19,46 +20,27 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
-        if (!token) {
-          setError("Mã xác thực không có");
-          setLoading(false);
-          navigate("/login");
-          return;
-        }
-
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.user.id;
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              import.meta.env.VITE_AUTH_TOKEN,
-            )}`,
-          },
-        };
-
-        const { data } = await axios.get(
-          `${BASE_URL}/user/getUserById/${userId}`,
-          config,
-        );
-
+        const { data } = await axios.get(`${BASE_URL}/user/getUserById`, {
+          headers: { Authorization: "Bearer " + currentUser.token },
+        });
         setUserProfile(data.user);
         setLoading(false);
       } catch (error) {
+        console.error(error);
         setError(error.response ? error.response.data.message : error.message);
         setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, [navigate]);
+  }, [navigate, currentUser]);
 
   const translateRole = (role) => {
     const roles = {
       admin: "Quản trị viên",
       customer: "Khách hàng",
       company: "Công ty",
+      guide: "Hướng dẫn viên",
     };
     return roles[role] || "Không xác định";
   };

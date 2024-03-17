@@ -1,52 +1,17 @@
-import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { BASE_URL } from "../../utils/config";
-import axios from "axios";
+
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState({ name: "" });
-
-  useEffect(() => {
-    const updateLoginStatus = async () => {
-      const token = localStorage.getItem("auth-token");
-      setIsLoggedIn(token !== null);
-      if (token && token.split(".").length === 3) {
-        try {
-          const decodedToken = jwtDecode(token);
-          const userId = decodedToken.user.id; // Đảm bảo cấu trúc decodedToken phù hợp với JWT của bạn
-          const { data } = await axios.get(
-            `${BASE_URL}/user/getUserById/${userId}`,
-          );
-          setUserProfile(data.user);
-        } catch (error) {
-          console.error("Error decoding token:", error);
-        }
-      } else {
-        console.error("Invalid token format:", token);
-      }
-    };
-
-    updateLoginStatus();
-
-    const handleAuthChange = () => {
-      updateLoginStatus();
-    };
-
-    window.addEventListener("loginStatusChanged", handleAuthChange);
-
-    return () => {
-      window.removeEventListener("loginStatusChanged", handleAuthChange);
-    };
-  }, []);
+  const { currentUser } = useSelector((state) => state.user);
 
   const toggleMenu = () => setMenu(!menu);
   const toggleTourMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -130,10 +95,9 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="hidden items-center md:flex">
-          {isLoggedIn ? (
-            <Link to="/profile" className="text-center">
-              <span>Xin chào: </span>
-              <span className="font-semibold">{userProfile.name}</span>
+          {currentUser ? (
+            <Link to={`/profile`} className="text-center">
+              <span className="font-semibold">{currentUser.name}</span>
             </Link>
           ) : (
             <Link

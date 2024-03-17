@@ -1,15 +1,17 @@
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 //import axios from "axios";
+import { useSelector } from "react-redux";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 const TourDisplay = ({ tour }) => {
   // const [tour, setTour] = useState(null);
   const navigate = useNavigate();
-
+  const { token } = useSelector((state) => state.user.currentUser);
   // Cấu hình cho slider
   const settings = {
     dots: true,
@@ -46,30 +48,30 @@ const TourDisplay = ({ tour }) => {
 
   // add comparisons
   const addComparison = async (tourId) => {
-    if (localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN)) {
-      fetch(`${BASE_URL}/cart/addToCart`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          [import.meta.env.VITE_AUTH_TOKEN]: localStorage.getItem(
-            import.meta.env.VITE_AUTH_TOKEN,
-          ),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemId: tourId,
-        }),
-      })
+    if (token) {
+      axios
+        .post(
+          `${BASE_URL}/cart/addToCart`,
+          {
+            itemId: tourId,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          },
+        )
         .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          const contentType = response.headers.get(
-            import.meta.env.VITE_CONTENT_TYPE,
-          );
-          if (contentType && contentType.includes("application/json")) {
-            return response.json();
-          } else {
-            return response.text();
-          }
+          console.log(response);
+
+          // const contentType = response.headers.get(
+          //   import.meta.env.VITE_CONTENT_TYPE,
+          // );
+          // if (contentType && contentType.includes("application/json")) {
+          //   return response;
+          // } else {
+          //   return response;
+          // }
         })
         .then(() => {
           alert("Thêm vào so sánh thành công");

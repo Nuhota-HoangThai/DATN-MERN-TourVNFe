@@ -4,14 +4,14 @@ import App from "./App.jsx";
 import "./index.css";
 //import TourContextProvider from "./context/TourContext.jsx";
 
-import { store, persistor } from "./redux/store.js";
+import { store, persistor } from "./redux/store/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />{" "}
+      <App />
     </PersistGate>
   </Provider>,
 );

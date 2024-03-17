@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
-import { jwtDecode } from "jwt-decode";
+import { useSelector } from "react-redux";
 
 const UserOrder = () => {
-  const [orders, setOrders] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const { token } = useSelector((state) => state.user.currentUser);
 
   const formatOrderId = (id) => {
     // Kiểm tra nếu id không đủ dài, trả về nguyên vẹn
@@ -15,20 +16,17 @@ const UserOrder = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const token = localStorage.getItem("auth-token");
       if (!token) {
         console.log("Người dùng chưa đăng nhập");
         return;
       }
-      const decodedToken = jwtDecode(token);
-      const userId = decodedToken.user.id;
       try {
-        const response = await axios.get(`${BASE_URL}/booking/user/${userId}`, {
+        const response = await axios.get(`${BASE_URL}/booking/user`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
           },
         });
-        setOrders(response.data);
+        setBookings(response.data);
       } catch (error) {
         console.log(
           "Lỗi khi tìm đơn hàng:",
@@ -61,27 +59,26 @@ const UserOrder = () => {
   };
 
   const cancelOrder = async (orderId) => {
-    const token = localStorage.getItem("auth-token");
     if (!token) {
       console.log("Người dùng chưa đăng nhập");
       return;
     }
     try {
       const response = await axios.patch(
-        `${BASE_URL}/order/${orderId}/cancel`,
+        `${BASE_URL}/booking/${orderId}/cancel`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
           },
         },
       );
 
       if (response.status === 200) {
-        const updatedOrders = orders.map((order) =>
+        const updatedOrders = bookings.map((order) =>
           order._id === orderId ? { ...order, status: "cancelled" } : order,
         );
-        setOrders(updatedOrders);
+        setBookings(updatedOrders);
       } else {
         throw new Error("Failed to cancel the order.");
       }
@@ -94,9 +91,9 @@ const UserOrder = () => {
     <div>
       <div className="container mx-auto my-16 bg-white px-4 py-8 shadow-2xl">
         <h1 className="mb-6 text-2xl  font-semibold">Lịch sử đặt tour</h1>
-        {orders.length > 0 ? (
+        {bookings.length > 0 ? (
           <div className="flex flex-col">
-            {orders.map((order) => (
+            {bookings.map((order) => (
               <div
                 key={order._id}
                 className="mb-6 rounded-lg bg-white p-6 shadow-md"
@@ -134,7 +131,7 @@ const UserOrder = () => {
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">You have no orders.</p>
+          <p className="text-gray-600">You have no bookings.</p>
         )}
       </div>
     </div>

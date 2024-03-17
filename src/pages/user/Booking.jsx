@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
-import { jwtDecode } from "jwt-decode";
+import { useSelector } from "react-redux";
 
 const Booking = () => {
+  const { token } = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const { tour } = location.state || {};
   const navigate = useNavigate();
@@ -15,8 +16,6 @@ const Booking = () => {
     numberOfChildren: 0,
     additionalInformation: "",
   });
-
-  ////
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -30,29 +29,11 @@ const Booking = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
-        if (!token) {
-          setError("Mã xác thực không có");
-          setLoading(false);
-          navigate("/login");
-          return;
-        }
-
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.user.id;
-
-        const config = {
+        const { data } = await axios.get(`${BASE_URL}/user/getUserById`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem(
-              import.meta.env.VITE_AUTH_TOKEN,
-            )}`,
+            Authorization: "Bearer " + token,
           },
-        };
-
-        const { data } = await axios.get(
-          `${BASE_URL}/user/getUserById/${userId}`,
-          config,
-        );
+        });
 
         setUserProfile(data.user);
         setLoading(false);
@@ -63,7 +44,7 @@ const Booking = () => {
     };
 
     fetchUserProfile();
-  }, [navigate]);
+  }, [navigate, token]);
 
   ////
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
@@ -82,16 +63,24 @@ const Booking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("auth-token");
+
     if (!token) {
       alert("Vui lòng đăng nhập để đặt tour!!!");
     } else {
       try {
-        const response = await axios.post(`${BASE_URL}/booking/createBooking`, {
-          ...bookingData,
-          totalAmount: totalAmount,
-          bookingDate: new Date(),
-        });
+        await axios.post(
+          `${BASE_URL}/booking/createBooking`,
+          {
+            ...bookingData,
+            totalAmount: totalAmount,
+            bookingDate: new Date(),
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          },
+        );
 
         navigate("/");
       } catch (error) {

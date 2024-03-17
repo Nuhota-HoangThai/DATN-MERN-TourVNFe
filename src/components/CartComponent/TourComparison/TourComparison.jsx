@@ -1,45 +1,9 @@
-import React, { useEffect, useState } from "react";
-
-import { BASE_URL } from "../../../utils/config";
-
-const TourComparison = () => {
-  const [allTour, setAllTour] = useState([]);
-  const [cartItems, setCartItems] = useState({});
-
-  useEffect(() => {
-    const authToken = localStorage.getItem(import.meta.env.VITE_AUTH_TOKEN);
-
-    if (authToken) {
-      fetch(`${BASE_URL}/tour/getAllTours`)
-        .then((response) => response.json())
-        .then((data) => {
-          setAllTour(data);
-        });
-
-      if (authToken) {
-        fetch(`${BASE_URL}/cart/getCart`, {
-          method: "POST",
-          headers: {
-            Accept: "application/form-data",
-            [import.meta.env.VITE_AUTH_TOKEN]: authToken,
-            "Content-Type": "application/json",
-          },
-          body: "",
-        })
-          .then((response) => response.json())
-          .then((data) => setCartItems(data));
-      }
-    } else {
-      alert("Bạn chưa đăng nhập.");
-    }
-    //
-  }, []);
-
+const TourComparison = ({ allTour = [], cartItems }) => {
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
-  const toursInCart = allTour.filter((tour) => cartItems[tour._id]);
+  const toursInCart = allTour?.filter((tour) => cartItems[tour._id]);
 
   // Chọn ra 2 tour đầu tiên trong giỏ hàng để so sánh
-  const toursToCompare = toursInCart.slice(0, 2);
+  const toursToCompare = toursInCart?.slice(0, 2);
 
   //định dạng ngày tháng năm
   const formatDateVN = (dateString) => {
@@ -64,7 +28,7 @@ const TourComparison = () => {
                   <th className="px-6 py-3 text-left">Tour 2</th>
                 </tr>
               </thead>
-              <tbody className="font-ligh t text-sm text-gray-600">
+              <tbody className="text-sm font-light text-gray-600">
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Tên

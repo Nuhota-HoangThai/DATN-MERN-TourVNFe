@@ -19,9 +19,9 @@ const ToursList = () => {
   }, []);
 
   return (
-    <div className="tours-list">
+    <div className="mt-28">
+      <h1>Tất cả các tours</h1>
       <div className="mb-8">
-        <div className="mx-24 mb-5 border-b-2 border-blue-950"></div>
         <div className="">
           <div className=" mx-24 ">
             {tours.map((item, i) => (
