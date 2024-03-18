@@ -8,7 +8,6 @@ const UserOrder = () => {
   const { token } = useSelector((state) => state.user.currentUser);
 
   const formatOrderId = (id) => {
-    // Kiểm tra nếu id không đủ dài, trả về nguyên vẹn
     if (id.length <= 8) return id;
     // Lấy 5 ký tự đầu và 3 ký tự cuối
     return `${id.substring(0, 5)}...${id.substring(id.length - 3)}`;
