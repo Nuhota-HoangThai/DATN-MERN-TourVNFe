@@ -21,8 +21,6 @@ import mienbac from "./assets/img/banner_mb.png";
 import mientrung from "./assets/img/banner_home.png";
 import miennam from "./assets/img/banner_biendao.png";
 
-import "./services/axios";
-
 const App = () => {
   return (
     <div>

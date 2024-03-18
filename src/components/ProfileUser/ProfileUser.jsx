@@ -20,9 +20,12 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const { data } = await axios.get(`${BASE_URL}/user/getUserById`, {
-          headers: { Authorization: "Bearer " + currentUser.token },
-        });
+        const { data } = await axios.get(
+          `${BASE_URL}/user/getUserById/${currentUser.id}`,
+          {
+            headers: { Authorization: "Bearer " + currentUser.token },
+          },
+        );
         setUserProfile(data.user);
         setLoading(false);
       } catch (error) {
@@ -39,7 +42,7 @@ const UserProfile = () => {
     const roles = {
       admin: "Quản trị viên",
       customer: "Khách hàng",
-      company: "Công ty",
+      staff: "Nhân viên",
       guide: "Hướng dẫn viên",
     };
     return roles[role] || "Không xác định";

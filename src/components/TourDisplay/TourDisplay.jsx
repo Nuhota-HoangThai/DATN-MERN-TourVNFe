@@ -63,15 +63,6 @@ const TourDisplay = ({ tour }) => {
         )
         .then((response) => {
           console.log(response);
-
-          // const contentType = response.headers.get(
-          //   import.meta.env.VITE_CONTENT_TYPE,
-          // );
-          // if (contentType && contentType.includes("application/json")) {
-          //   return response;
-          // } else {
-          //   return response;
-          // }
         })
         .then(() => {
           alert("Thêm vào so sánh thành công");
