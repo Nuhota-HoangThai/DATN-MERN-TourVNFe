@@ -27,7 +27,7 @@ const TourDetail = () => {
   }, [tourId]);
 
   return (
-    <div className="mx-20 mt-20">
+    <div className="mx-24 mt-32">
       {!tour ? (
         "loading"
       ) : (

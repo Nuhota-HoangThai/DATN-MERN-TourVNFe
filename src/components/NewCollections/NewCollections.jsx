@@ -54,34 +54,32 @@ const NewCollections = () => {
   };
 
   return (
-    <div>
+    <div className="my-24 flex justify-center">
       {newCollection.length > 0 ? (
-        <div className="mb-8 px-24">
-          <h1 className="mb-1  text-2xl font-semibold text-gray-800">
-            Tour mới nhất
+        <div className="w-full max-w-6xl px-4">
+          <h1 className="my-8 text-center text-3xl font-bold">
+            Tours mới nhất
           </h1>
-          <div className="mb-5 border-b-2 border-blue-950"></div>
-          <div className="">
-            <Slider {...settings}>
-              {newCollection.map((item, index) => (
-                <div key={index} className="">
-                  <Item
-                    id={item.id}
-                    image={item.image}
-                    nameTour={item.nameTour}
-                    price={item.price}
-                    regions={item.regions}
-                    maxParticipants={item.maxParticipants}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
+          {/* <div className="mb-5 border-b-2 border-blue-900"></div> */}
+          <Slider {...settings}>
+            {newCollection.map((item, index) => (
+              <div key={index} className="px-2">
+                <Item
+                  id={item.id}
+                  image={item.image}
+                  nameTour={item.nameTour}
+                  price={item.price}
+                  regions={item.regions}
+                  maxParticipants={item.maxParticipants}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       ) : (
-        <p className=""></p>
+        <p className="text-center">Loading...</p>
       )}
     </div>
   );

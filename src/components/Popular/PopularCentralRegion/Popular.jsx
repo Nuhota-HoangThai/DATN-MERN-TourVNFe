@@ -54,32 +54,29 @@ const Popular = () => {
   };
 
   return (
-    <div>
+    <div className="my-24 flex justify-center">
       {popularTours.length > 0 ? (
-        <div className="mb-8">
-          <h1 className="mb-0.5 pl-24 text-left font-semibold text-gray-800 md:text-2xl">
-            Tour phổ biến miền Trung
+        <div className="w-full max-w-6xl px-4">
+          <h1 className="my-8 text-center text-3xl font-bold">
+            Tours phổ biến ở miền Trung
           </h1>
-          <div className="mx-24 mb-5 border-b-2 border-blue-950"></div>
-          <div className="">
-            <div className=" mx-24 ">
-              <Slider {...settings}>
-                {popularTours.map((item, i) => (
-                  <Item
-                    key={i}
-                    _id={item._id}
-                    image={item.image}
-                    nameTour={item.nameTour}
-                    price={item.price}
-                    regions={item.regions}
-                    maxParticipants={item.maxParticipants}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                  />
-                ))}
-              </Slider>
-            </div>
-          </div>
+          {/* <div className="mx-24 mb-5 border-b-2 border-blue-950"></div> */}
+
+          <Slider {...settings}>
+            {popularTours.map((item, i) => (
+              <Item
+                key={i}
+                _id={item._id}
+                image={item.image}
+                nameTour={item.nameTour}
+                price={item.price}
+                regions={item.regions}
+                maxParticipants={item.maxParticipants}
+                startDate={item.startDate}
+                endDate={item.endDate}
+              />
+            ))}
+          </Slider>
         </div>
       ) : (
         <p className=""></p>

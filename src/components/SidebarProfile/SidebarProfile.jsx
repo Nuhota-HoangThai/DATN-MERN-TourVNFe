@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/user/userSlide";
 
 const SidebarProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const logout = () => {
+  const handleLogout = () => {
+    dispatch(logout());
     localStorage.removeItem("auth-token");
-
     navigate("/login");
   };
 
@@ -30,7 +33,7 @@ const SidebarProfile = () => {
       </Link>
 
       <div className="mx-5 my-3  flex items-center rounded-lg bg-slate-100 py-2 pl-8">
-        <button className="pl-2" onClick={logout}>
+        <button className="pl-2" onClick={handleLogout}>
           Đăng xuất
         </button>
       </div>

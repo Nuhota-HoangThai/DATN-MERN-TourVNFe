@@ -1,18 +1,13 @@
 import { BASE_URL } from "../../utils/config";
-import { useNavigate } from "react-router-dom";
-//import axios from "axios";
-import { useSelector } from "react-redux";
-
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
+import { PiBarcodeBold } from "react-icons/pi";
 
 const TourDisplay = ({ tour }) => {
-  // const [tour, setTour] = useState(null);
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.user.currentUser);
-  // Cấu hình cho slider
+
   const settings = {
     dots: true,
     infinite: true,
@@ -46,29 +41,14 @@ const TourDisplay = ({ tour }) => {
     }
   };
 
-  // add comparisons
-  const addComparison = async (tourId) => {
-    if (token) {
-      axios
-        .post(
-          `${BASE_URL}/cart/addToCart`,
-          {
-            itemId: tourId,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          },
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .then(() => {
-          alert("Thêm vào so sánh thành công");
-        })
-        .catch((error) => console.error("Error:", error));
-    }
+  const formatDateVNWithTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
 
   const handleBooking = () => {
@@ -80,16 +60,20 @@ const TourDisplay = ({ tour }) => {
   }
 
   return (
-    <div className="">
-      <div className="grid gap-8 md:grid-cols-2">
-        <div>
+    <div className="mx-auto w-full">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+        <div className="slider-container w-full" style={{ minHeight: "600px" }}>
           {Array.isArray(tour.image) && tour.image.length > 0 ? (
             tour.image.length > 1 ? (
               <Slider {...settings}>
                 {tour.image.map((image, index) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    className="h-full w-full overflow-hidden rounded-lg shadow-lg"
+                    style={{ minHeight: "600px" }} // Ensure minimum height for the slider item
+                  >
                     <img
-                      className="h-[400px] w-full rounded-lg object-cover shadow"
+                      className="h-full w-full object-cover" // Adjust here to ensure aspect ratio is maintained
                       src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
                       alt={`Tour Image ${index}`}
                     />
@@ -97,58 +81,79 @@ const TourDisplay = ({ tour }) => {
                 ))}
               </Slider>
             ) : (
-              <img
-                className="h-[400px] w-full rounded-lg object-cover shadow"
-                src={`${BASE_URL}/${tour.image[0].replace(/\\/g, "/")}`}
-                alt="Tour Image"
-              />
+              <div
+                style={{ minHeight: "600px" }}
+                className="h-full w-full overflow-hidden rounded-lg shadow"
+              >
+                <img
+                  className="h-full w-full object-cover"
+                  src={`${BASE_URL}/${tour.image[0].replace(/\\/g, "/")}`}
+                  alt="Tour Image"
+                />
+              </div>
             )
           ) : (
-            <div>Không có hình ảnh</div>
+            <div
+              className="flex h-full items-center justify-center"
+              style={{ minHeight: "600px" }}
+            >
+              Không có hình ảnh
+            </div>
           )}
         </div>
 
-        <div className="rounded-lg bg-gray-100 p-6 shadow-md">
-          <div className="px-6 pb-16 pt-4 ">
-            <p className="mb-3 line-clamp-2 overflow-hidden text-xl font-semibold transition-colors hover:text-gray-600">
-              {tour.nameTour}
+        <div className="space-y-4 rounded-lg bg-white p-6 shadow-md">
+          <p className="flex items-center gap-3 text-sm text-gray-700 md:text-base">
+            <PiBarcodeBold className="text-xl" /> {tour._id}
+          </p>
+          <p className="text-xl font-semibold text-gray-800">{tour.nameTour}</p>
+          <p className="text-lg font-medium text-red-600">
+            {tour.price.toLocaleString()} đ
+          </p>
+          <div className="space-y-2">
+            <p className="text-gray-700">
+              Thời gian tập trung:{" "}
+              <span className="font-medium">
+                {formatDateVNWithTime(tour.convergeTime)}
+              </span>
             </p>
-            <p className="mb-1 text-lg font-medium text-red-600">
-              {tour.price.toLocaleString()} đ
-            </p>
-            <p className="mb-1">
-              <span>Khu vực: </span>
+            <p className="text-gray-700">
+              Khu vực:{" "}
               <span className="font-medium">{formatRegion(tour.regions)}</span>
             </p>
-            <p className="mb-1">
-              <span>Chỗ trống: </span>
+            <p className="text-gray-700">
+              Nơi khởi hành:{" "}
+              <span className="font-medium">{tour.startingGate}</span>
+            </p>
+            <p className="text-gray-700">
+              Số chỗ còn:{" "}
               <span className="font-medium">{tour.maxParticipants}</span>
             </p>
-            <p className="mb-1">
-              <span>Ngày khởi hành: </span>
+            <p className="text-gray-700">
+              Ngày khởi hành:{" "}
               <span className="font-medium">
                 {formatDateVN(tour.startDate)}
               </span>
             </p>
-            <p className="mb-1">
-              <span>Ngày kết thúc: </span>
+            <p className="text-gray-700">
+              Ngày kết thúc:{" "}
               <span className="font-medium">{formatDateVN(tour.endDate)}</span>
             </p>
+          </div>
 
-            <div className="mt-8  flex items-center gap-5 ">
-              <button
-                onClick={() => addComparison(tour._id)}
-                className=" w-40 rounded bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2 text-center text-white"
-              >
-                Thêm vào so sánh
-              </button>
-              <button
-                onClick={handleBooking}
-                className="w-40 rounded bg-gradient-to-r from-blue-800 to-blue-950 px-4 py-2 text-center text-white"
-              >
-                Đặt ngay
-              </button>
-            </div>
+          <div className="flex gap-4">
+            <button
+              onClick={handleBooking}
+              className="flex-1 rounded bg-gradient-to-r from-blue-500 to-blue-700 py-3 text-center font-semibold text-white hover:bg-blue-600"
+            >
+              Đặt ngay
+            </button>
+            <Link
+              to="/contact"
+              className="flex-1 rounded border border-blue-500 py-3 text-center font-semibold text-blue-500 hover:bg-blue-500 hover:text-white"
+            >
+              Liên hệ tư vấn
+            </Link>
           </div>
         </div>
       </div>

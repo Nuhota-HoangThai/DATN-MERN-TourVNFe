@@ -5,7 +5,7 @@ import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 
 const Booking = () => {
-  const { token } = useSelector((state) => state.user.currentUser);
+  const { token, id } = useSelector((state) => state.user.currentUser);
   const location = useLocation();
   const { tour } = location.state || {};
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const { data } = await axios.get(`${BASE_URL}/user/getUserById`, {
+        const { data } = await axios.get(`${BASE_URL}/user/getUserById/${id}`, {
           headers: {
             Authorization: "Bearer " + token,
           },

@@ -1,11 +1,11 @@
-import React from "react";
+import {} from "react";
 
 import "./banner.css";
 
 const Banner = () => {
   return (
     <div
-      className="relative mx-24 mb-5 flex h-[400px] items-center justify-center rounded-3xl bg-cover  bg-center text-white md:h-[500px]"
+      className="relative mx-24 mb-5 mt-28 flex h-[600px] items-center justify-center rounded-3xl bg-cover  bg-center text-white "
       style={{
         backgroundImage:
           "url('https://thamhiemmekong.com/wp-content/uploads/2019/11/canh-dong-ta-pa-an-giang-1.jpg')",

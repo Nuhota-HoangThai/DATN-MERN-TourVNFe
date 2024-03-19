@@ -35,9 +35,9 @@ const TourCategory = (props) => {
   )}-${Math.min(visibleProducts, filteredProducts.length)} sản phẩm`;
 
   return (
-    <div className="mx-20 mb-8 mt-24 px-4 sm:px-6 lg:px-8">
+    <div className="mx-24 mb-8 mt-28  ">
       <img
-        className="my-8 w-full rounded-lg shadow-md"
+        className="my-8 h-[600px] w-full rounded-3xl shadow-md"
         src={props.banner}
         alt="banner"
       />
@@ -52,7 +52,18 @@ const TourCategory = (props) => {
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-8 rounded-lg sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {filteredProducts.slice(0, visibleProducts).map((item, i) => (
-          <Item key={i} {...item} />
+          <Item
+            key={i}
+            _id={item._id}
+            image={item.image}
+            nameTour={item.nameTour}
+            price={item.price}
+            regions={item.regions}
+            maxParticipants={item.maxParticipants}
+            startDate={item.startDate}
+            endDate={item.endDate}
+            startingGate={item.startingGate}
+          />
         ))}
       </div>
       {visibleProducts < filteredProducts.length && (
