@@ -13,30 +13,42 @@ const SidebarProfile = () => {
   };
 
   return (
-    <div className="mt-4  h-[100vh] bg-gray-100 pl-16 pt-24 font-bold">
-      <Link to={`/profile`} className="no-underline">
-        <div className="mx-5 my-3 flex items-center rounded-lg bg-slate-100 py-2 pl-8 ">
-          <p className="pl-2">Thông tin cá nhân </p>
-        </div>
-      </Link>
+    <div className="mt-24 flex  w-full max-w-xs flex-col rounded-2xl bg-white p-4 shadow-2xl ">
+      <div className="pt-24">
+        <Link
+          to={`/profile`}
+          className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
+        >
+          <div className="flex items-center space-x-2">
+            <p>Thông tin cá nhân</p>
+          </div>
+        </Link>
 
-      <Link to={"/userOrder"} className="no-underline">
-        <div className="mx-5 my-3  flex items-center rounded-lg bg-slate-100 py-2 pl-8 ">
-          <p className="pl-2">Lịch sử đặt tour</p>
-        </div>
-      </Link>
+        <Link
+          to={"/userOrder"}
+          className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
+        >
+          <div className="flex items-center space-x-2">
+            <p>Lịch sử đặt tour</p>
+          </div>
+        </Link>
 
-      <Link to={`/cart`} className="no-underline">
-        <div className="mx-5 my-3  flex items-center rounded-lg bg-slate-100 py-2 pl-8 ">
-          <p className="pl-2">So sánh tour</p>
-        </div>
-      </Link>
-
-      <div className="mx-5 my-3  flex items-center rounded-lg bg-slate-100 py-2 pl-8">
-        <button className="pl-2" onClick={handleLogout}>
-          Đăng xuất
-        </button>
+        <Link
+          to={`/cart`}
+          className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
+        >
+          <div className="flex items-center space-x-2">
+            <p>So sánh tour</p>
+          </div>
+        </Link>
       </div>
+
+      <button
+        onClick={handleLogout}
+        className="mt-4 w-full rounded-lg px-3 py-2 text-left transition-colors hover:bg-slate-200"
+      >
+        Đăng xuất
+      </button>
     </div>
   );
 };

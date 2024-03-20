@@ -12,14 +12,15 @@ import Profile from "./pages/user/Profile";
 import Footer from "./components/Footer/Footer";
 import Thanks from "./pages/user/Thanks";
 import Booking from "./pages/user/Booking";
+import SearchResult from "./pages/user/SearchResult";
 
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
 
 //import banner
-import mienbac from "./assets/img/banner_mb.png";
-import mientrung from "./assets/img/banner_home.png";
-import miennam from "./assets/img/banner_biendao.png";
+import mienbac from "./assets/img/bannerHaNoi.png";
+import mientrung from "./assets/img/bannerHue.png";
+import miennam from "./assets/img/bannerMienNam.png";
 
 const App = () => {
   return (
@@ -44,7 +45,7 @@ const App = () => {
           <Route path="/tour/:tourId" element={<TourDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
+          <Route path="/search" element={<SearchResult />} />
           {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/booking" element={<Booking />} />
           <Route path="/thanks" element={<Thanks />} />

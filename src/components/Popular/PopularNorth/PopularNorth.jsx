@@ -75,6 +75,8 @@ const PopularNorth = () => {
                 maxParticipants={item.maxParticipants}
                 startDate={item.startDate}
                 endDate={item.endDate}
+                convergeTime={item.convergeTime}
+                startingGate={item.startingGate}
               />
             ))}
           </Slider>

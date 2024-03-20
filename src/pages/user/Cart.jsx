@@ -30,7 +30,7 @@ const Cart = () => {
     }
   }, [currentUser]);
   return (
-    <div className="my-5">
+    <div className="my-5 max-w-6xl">
       <TourComparison
         setAllTour={setAllTour}
         allTour={allTour}

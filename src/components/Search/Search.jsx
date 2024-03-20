@@ -1,93 +1,125 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
+import { useNavigate } from "react-router-dom";
 
-const Search = () => {
-  const [searchParams, setSearchParams] = useState({
-    name: "",
-    distance: "",
-    maxGroupSize: "",
+function SearchForm() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    // regions: "",
+    nameTour: "",
+    startDate: "",
+    price: "",
+    maxParticipants: "",
   });
-  const [tours, setTours] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSearchParams((prevParams) => ({
-      ...prevParams,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { nameTour, startDate, price, maxParticipants } = formData; // Destructuring để lấy giá trị từ formData
+
     try {
-      const queryString = Object.keys(searchParams)
-        .map(
-          (key) =>
-            encodeURIComponent(key) +
-            "=" +
-            encodeURIComponent(searchParams[key]),
-        )
-        .join("&");
-      const response = await fetch(`${BASE_URL}/searchTour?${queryString}`);
-      const data = await response.json();
-      setTours(data);
+      const response = await fetch(
+        `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&price=${price}&maxParticipants=${maxParticipants}`,
+        {
+          method: "GET",
+        },
+      );
+
+      const result = await response.json(); // Giả sử response trả về dạng JSON
+      console.log(result);
+
+      navigate("/search", { state: { searchResults: result.tours } });
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error(error);
+      alert("Đã xảy ra lỗi trong quá trình tìm kiếm.");
     }
   };
 
   return (
-    <div className="mx-auto w-[1000px] p-4 ">
-      <div className="">
-        <form onSubmit={handleSubmit} className="flex flex-row space-x-4  ">
+    <div className="mb-8 flex justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap justify-between gap-8 rounded-lg bg-white px-16 py-16 shadow-md"
+      >
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+          <label htmlFor="nameTour" className="mb-2 border-b-2 font-bold">
+            Tên tour
+          </label>
           <input
             type="text"
-            name="name"
-            placeholder="Tên tour"
-            value={searchParams.name}
+            id="nameTour"
+            name="nameTour"
+            value={formData.nameTour}
             onChange={handleChange}
-            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2  focus:ring-blue-500"
+            placeholder="Chuyến du lịch"
+            className="w-full px-2 py-1"
           />
-          <input
-            type="number"
-            name="distance"
-            placeholder="Điểm đến"
-            value={searchParams.distance}
-            onChange={handleChange}
-            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="number"
-            name="maxGroupSize"
-            placeholder="Số lượng khách"
-            value={searchParams.maxGroupSize}
-            onChange={handleChange}
-            className=" flex-grow rounded border px-4 py-2 transition focus:ring-2  focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            className="flex-shrink-0 rounded bg-red-500 px-4 py-2 text-white transition-colors  duration-150 hover:bg-blue-700"
-          >
-            Tìm kiếm
-          </button>
-        </form>
-        <div className="mt-6">
-          {tours.length > 0 ? (
-            <ul>
-              {tours.map((tour) => (
-                <li key={tour.id} className="border-b py-2">
-                  {tour.name} - {tour.distance}km - Max group:{" "}
-                  {tour.maxGroupSize}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-center text-red-500">No tours found</p>
-          )}
         </div>
-      </div>
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+          <label htmlFor="startDate" className="mb-2 border-b-2 font-bold">
+            Ngày bắt đầu
+          </label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            className="w-full px-2 py-1"
+          />
+        </div>
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+          <label htmlFor="price" className="mb-2 border-b-2 font-bold">
+            Khoảng giá
+          </label>
+          <select
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full px-2 py-1"
+          >
+            <option value="">Chọn khoảng giá</option>
+            <option value="duoi-1000000">Dưới 1.000.000</option>
+            <option value="1000000-5000000">1.000.000 - 5.000.000</option>
+            <option value="5000000-10000000">5.000.000 - 10.000.000</option>
+            <option value="tren-10000000">Trên 10.000.000</option>
+          </select>
+        </div>
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg  border-2 border-blue-600 px-2 py-1">
+          <label
+            htmlFor="maxParticipants"
+            className="mb-2 border-b-2 font-bold"
+          >
+            Số người tối đa
+          </label>
+          <input
+            type="number"
+            id="maxParticipants"
+            name="maxParticipants"
+            value={formData.maxParticipants}
+            onChange={handleChange}
+            placeholder="Số chỗ muốn đặt"
+            className="w-full px-2 py-1"
+          />
+        </div>
+        <button
+          type="submit"
+          className="rounded-lg border bg-blue-800 px-16 text-lg font-bold text-white"
+        >
+          Tìm kiếm
+        </button>
+      </form>
     </div>
   );
-};
+}
 
-export default Search;
+export default SearchForm;

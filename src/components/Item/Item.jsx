@@ -17,14 +17,12 @@ const Item = (props) => {
   //   const year = date.getFullYear();
   //   return `${day}-${month}-${year}`;
   // };
-  const formatDateVNWithTime = (dateTimeString) => {
-    const date = new Date(dateTimeString);
+  const formatDateVN = (dateString) => {
+    const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${day}-${month}-${year} ${hours}:${minutes}`;
+    return `${day}/${month}/${year}`;
   };
 
   const formatRegion = (region) => {
@@ -87,7 +85,7 @@ const Item = (props) => {
         )}
         <div className="p-4">
           <p className="text-base text-blue-900">
-            {formatDateVNWithTime(props.convergeTime)}
+            {formatDateVN(props.startDate)} - {formatDateVN(props.endDate)}
           </p>
           <p className="mt-1 truncate text-lg font-bold text-blue-950 hover:text-blue-600">
             {props.nameTour}

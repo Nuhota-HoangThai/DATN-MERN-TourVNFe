@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
-.font {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-style: italic;
-}
-
 .vivu3mien {
   font-family: "Pacifico", cursive; /* Thay 'Pacifico' bằng tên phông chữ bạn chọn */
   text-transform: none;
