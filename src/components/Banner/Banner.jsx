@@ -13,10 +13,11 @@ const Banner = () => {
         alt=""
         className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
       />
-      <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
-        <div className="vivu3mien mb-36 pl-40 text-5xl ">
-          <p>Chào mừng bạn đến với</p>
-          <p className="vivu3mien mt-10  text-7xl ">ViVu3Mien</p>
+      <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
+        <div className="norican-regular mb-44 pl-40 text-5xl ">
+          <p>Khám phá mỗi góc Việt Nam, </p>
+          <p className="mt-2">trải nghiệm mỗi chuyến đi cùng</p>
+          <p className="norican-regular mt-10  text-7xl ">ViVu3Mien</p>
         </div>
         <SearchForm />
       </div>

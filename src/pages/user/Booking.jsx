@@ -81,8 +81,8 @@ const Booking = () => {
             },
           },
         );
-
-        navigate("/");
+        alert("Đặt tour thành công!");
+        navigate("/thanks");
       } catch (error) {
         console.error(error);
       }

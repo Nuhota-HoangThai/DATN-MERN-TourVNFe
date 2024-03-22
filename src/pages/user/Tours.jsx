@@ -33,7 +33,7 @@ const ToursList = () => {
   };
 
   return (
-    <div className="mx-24 mt-28">
+    <div className="mx-24  mt-28">
       <div className="relative flex items-end justify-center  text-white ">
         <img
           src={bannerTours}
@@ -41,7 +41,7 @@ const ToursList = () => {
           className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
         />
 
-        <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
+        <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
           <div className="vivu3mien mb-32 text-center text-5xl ">
             <p>Trãi nghiệm tất cả các chuyến du lịch có ở</p>
             <p className="vivu3mien mt-10  text-7xl ">ViVu3Mien</p>
@@ -50,7 +50,9 @@ const ToursList = () => {
         </div>
       </div>
 
-      <h1 className="my-8 text-center text-3xl font-bold">Tất cả các tours</h1>
+      <h1 className="mb-8 mt-24 text-center text-3xl font-bold">
+        Tất cả các tours
+      </h1>
       <div className="flex flex-col items-center">
         <div className="mb-8 grid grid-cols-4  gap-6">
           {tours.slice(0, visibleTours).map((item, i) => (

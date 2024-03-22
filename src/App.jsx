@@ -17,6 +17,7 @@ import SearchResult from "./pages/user/SearchResult";
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
 
+//import Rate from "./components/ReviewTour/Rate";
 //import banner
 import mienbac from "./assets/img/bannerHaNoi.png";
 import mientrung from "./assets/img/bannerHue.png";
@@ -46,8 +47,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResult />} />
-          {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/booking" element={<Booking />} />
+          {/* <Route path="/rate" element={<Rate />} /> */}
           <Route path="/thanks" element={<Thanks />} />
           <Route
             path="/userOrder"

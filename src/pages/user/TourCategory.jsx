@@ -43,7 +43,7 @@ const TourCategory = (props) => {
           className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
         />
 
-        <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
+        <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
           {/* <div className="vivu3mien-search mb-20 text-center text-5xl ">
             <p className="text-white">Nếm trọn vị Việt từ Bắc vào Nam </p>
             <p className="vivu3mien-search my-10  text-7xl text-white">
@@ -56,7 +56,7 @@ const TourCategory = (props) => {
           <SearchForm />
         </div>
       </div>
-      <div className="flex items-center justify-between py-5">
+      <div className="mt-20 flex items-center justify-between py-5">
         <p className="text-lg font-semibold">{displayRange}</p>
         <div className="flex items-center rounded-full border border-gray-300 px-3 py-2 text-sm">
           Sắp xếp theo <RiArrowDropDownLine className="ml-2 text-2xl" />

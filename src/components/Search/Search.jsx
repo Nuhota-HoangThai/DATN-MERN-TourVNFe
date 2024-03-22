@@ -34,7 +34,7 @@ function SearchForm() {
       );
 
       const result = await response.json(); // Giả sử response trả về dạng JSON
-      console.log(result);
+      // console.log(result);
 
       navigate("/search", { state: { searchResults: result.tours } });
     } catch (error) {
@@ -44,12 +44,12 @@ function SearchForm() {
   };
 
   return (
-    <div className="mb-8 flex justify-center">
+    <div className="mb-8 flex justify-center rounded-3xl bg-white shadow-2xl">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-wrap justify-between gap-8 rounded-lg bg-white px-16 py-16 shadow-md"
+        className="flex flex-wrap justify-between gap-8 rounded-lg  px-16 py-16 "
       >
-        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="nameTour" className="mb-2 border-b-2 font-bold">
             Tên tour
           </label>
@@ -63,7 +63,7 @@ function SearchForm() {
             className="w-full px-2 py-1"
           />
         </div>
-        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="startDate" className="mb-2 border-b-2 font-bold">
             Ngày bắt đầu
           </label>
@@ -76,7 +76,7 @@ function SearchForm() {
             className="w-full px-2 py-1"
           />
         </div>
-        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-600 px-2 py-1">
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="price" className="mb-2 border-b-2 font-bold">
             Khoảng giá
           </label>
@@ -94,7 +94,7 @@ function SearchForm() {
             <option value="tren-10000000">Trên 10.000.000</option>
           </select>
         </div>
-        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg  border-2 border-blue-600 px-2 py-1">
+        <div className="flex min-w-[160px] flex-1 flex-col rounded-lg  border-2 border-blue-900 px-2 py-1">
           <label
             htmlFor="maxParticipants"
             className="mb-2 border-b-2 font-bold"
@@ -113,7 +113,7 @@ function SearchForm() {
         </div>
         <button
           type="submit"
-          className="rounded-lg border bg-blue-800 px-16 text-lg font-bold text-white"
+          className="rounded-lg border bg-blue-900 px-16 text-lg font-bold text-white"
         >
           Tìm kiếm
         </button>

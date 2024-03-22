@@ -2,21 +2,41 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
+import ReviewForm from "../ReviewTour/Rate";
 
-const UserOrder = () => {
+const UserBooking = () => {
   const [bookings, setBookings] = useState([]);
   const { token } = useSelector((state) => state.user.currentUser);
 
-  const formatOrderId = (id) => {
+  //////////////////////////////////////////
+  const submitReview = async ({ bookingId, tourId, reviewText, rating }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/review/${tourId}`,
+        { bookingId, reviewText, rating },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (response.status === 200) {
+        alert("Đánh giá thành công!");
+      }
+    } catch (error) {
+      console.error("Failed to submit review:", error);
+      alert("Đánh giá không thành công. Vui lòng đánh giá lại!!!");
+    }
+  };
+  /////////////////////////////////////////
+  const formatBookingId = (id) => {
     if (id.length <= 8) return id;
-    // Lấy 5 ký tự đầu và 3 ký tự cuối
+
     return `${id.substring(0, 5)}...${id.substring(id.length - 3)}`;
   };
 
   useEffect(() => {
     const fetchOrders = async () => {
       if (!token) {
-        console.log("Người dùng chưa đăng nhập");
+        console.log("Người dùng chưa đăng nhập?");
         return;
       }
       try {
@@ -57,14 +77,14 @@ const UserOrder = () => {
     }
   };
 
-  const cancelOrder = async (orderId) => {
+  const cancelBooking = async (bookingId) => {
     if (!token) {
       console.log("Người dùng chưa đăng nhập");
       return;
     }
     try {
       const response = await axios.patch(
-        `${BASE_URL}/booking/${orderId}/cancel`,
+        `${BASE_URL}/booking/${bookingId}/cancel`,
         {},
         {
           headers: {
@@ -74,15 +94,17 @@ const UserOrder = () => {
       );
 
       if (response.status === 200) {
-        const updatedOrders = bookings.map((order) =>
-          order._id === orderId ? { ...order, status: "cancelled" } : order,
+        const updatedOrders = bookings.map((booking) =>
+          booking._id === bookingId
+            ? { ...booking, status: "cancelled" }
+            : booking,
         );
         setBookings(updatedOrders);
       } else {
-        throw new Error("Failed to cancel the order.");
+        throw new Error("Failed to cancel the booking.");
       }
     } catch (error) {
-      console.error("Error cancelling order:", error);
+      console.error("Error cancelling booking:", error);
     }
   };
 
@@ -92,40 +114,51 @@ const UserOrder = () => {
         <h1 className="mb-6 text-2xl  font-semibold">Lịch sử đặt tour</h1>
         {bookings.length > 0 ? (
           <div className="flex flex-col">
-            {bookings.map((order) => (
+            {bookings.map((booking) => (
               <div
-                key={order._id}
+                key={booking._id}
                 className="mb-6 rounded-lg bg-white p-6 shadow-md"
               >
                 <h2 className="mb-4 text-xl font-semibold">
-                  Id đặt tour: {formatOrderId(order._id)}
+                  Id đặt tour: {formatBookingId(booking._id)}
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   <p className="text-gray-600">
                     <span className="font-semibold">Tour: </span>
-                    {order.tour ? order.tour.nameTour : "Không còn tour này"}
+                    {booking.tour
+                      ? booking.tour.nameTour
+                      : "Không còn tour này"}
                   </p>
                   <p className="text-gray-600">
                     <span className="font-semibold">Tổng tiền: </span>
-                    {order.totalAmount.toLocaleString()} đ
+                    {booking.totalAmount.toLocaleString()} đ
                   </p>
-                  <p className={`px-4 py-2 ${getStatusStyle(order.status)}`}>
+                  <p className={`px-4 py-2 ${getStatusStyle(booking.status)}`}>
                     <span className="font-semibold">Trạng thái đơn hàng: </span>
-                    {translateStatus(order.status)}
+                    {translateStatus(booking.status)}
                   </p>
                   <p>
-                    {order.status !== "completed" &&
-                      order.status !== "confirmed" &&
-                      order.status !== "cancelled" && (
+                    {booking.status !== "completed" &&
+                      booking.status !== "confirmed" &&
+                      booking.status !== "cancelled" && (
                         <button
                           className="rounded bg-red-500 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700"
-                          onClick={() => cancelOrder(order._id)}
+                          onClick={() => cancelBooking(booking._id)}
                         >
                           Hủy đơn hàng
                         </button>
                       )}
                   </p>
                 </div>
+                {booking.status === "completed" && (
+                  <>
+                    <ReviewForm
+                      bookingId={booking._id}
+                      tourId={booking.tour._id}
+                      onSubmit={submitReview}
+                    />
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -137,4 +170,4 @@ const UserOrder = () => {
   );
 };
 
-export default UserOrder;
+export default UserBooking;

@@ -22,3 +22,10 @@
   flex: 1; /* Chiếm lấy phần còn lại của màn hình */
   overflow-y: auto;
 }
+
+/* .custom-underline {
+  background: linear-gradient(to right, #4f93ce, #f7b42c, #4f93ce);
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+} */

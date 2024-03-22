@@ -1,24 +1,26 @@
 import { BASE_URL } from "../../utils/config";
 import { Link, useNavigate } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "./tour-display.css";
+
+//import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import { PiBarcodeBold } from "react-icons/pi";
 
 const TourDisplay = ({ tour }) => {
   const navigate = useNavigate();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 1500,
-    cssEase: "linear",
-    arrows: false,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 1500,
+  //   cssEase: "linear",
+  //   arrows: false,
+  // };
 
   const formatDateVN = (dateString) => {
     const date = new Date(dateString);
@@ -59,50 +61,30 @@ const TourDisplay = ({ tour }) => {
     return <div>Loading...</div>;
   }
 
+  // Selecting up to first 4 images to display
+  const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
+
   return (
-    <div className="mx-auto w-full">
+    <div className="mx-auto max-h-[600px] w-full">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-        <div className="slider-container w-full" style={{ minHeight: "600px" }}>
-          {Array.isArray(tour.image) && tour.image.length > 0 ? (
-            tour.image.length > 1 ? (
-              <Slider {...settings}>
-                {tour.image.map((image, index) => (
-                  <div
-                    key={index}
-                    className="h-full w-full overflow-hidden rounded-lg shadow-lg"
-                    style={{ minHeight: "600px" }} // Ensure minimum height for the slider item
-                  >
-                    <img
-                      className="h-full w-full object-cover" // Adjust here to ensure aspect ratio is maintained
-                      src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
-                      alt={`Tour Image ${index}`}
-                    />
-                  </div>
-                ))}
-              </Slider>
-            ) : (
-              <div
-                style={{ minHeight: "600px" }}
-                className="h-full w-full overflow-hidden rounded-lg shadow"
-              >
+        <div className="image-grid-container min-h-[600px] w-full rounded-lg bg-white shadow-2xl">
+          {displayImages.length > 0 ? (
+            displayImages.map((image, index) => (
+              <div key={index} className="image-grid-item">
                 <img
-                  className="h-full w-full object-cover"
-                  src={`${BASE_URL}/${tour.image[0].replace(/\\/g, "/")}`}
-                  alt="Tour Image"
+                  src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
+                  alt={`Tour Image ${index + 1}`}
                 />
               </div>
-            )
+            ))
           ) : (
-            <div
-              className="flex h-full items-center justify-center"
-              style={{ minHeight: "600px" }}
-            >
+            <div className="col-span-2 flex h-full items-center justify-center">
               Không có hình ảnh
             </div>
           )}
         </div>
 
-        <div className="space-y-4 rounded-lg bg-white p-6 shadow-md">
+        <div className="space-y-4 rounded-lg bg-white p-6 shadow-2xl">
           <p className="flex items-center gap-3 text-sm text-gray-700 md:text-base">
             <PiBarcodeBold className="text-xl" /> {tour._id}
           </p>

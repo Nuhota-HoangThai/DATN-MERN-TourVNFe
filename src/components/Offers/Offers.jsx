@@ -1,10 +1,10 @@
-import React from "react";
+import {} from "react";
 import "./Offers.css";
 import ChuaBa from "../../assets/img/ChuaBa.png";
 
 const Offers = () => {
   return (
-    <div className="offers mx-24 mb-8">
+    <div className="offers mx-24 mt-12">
       <div className="offers-left">
         <h1>Ưu Đãi Dành Riêng Cho Bạn</h1>
         <p>ONLY ON BEST SELLERS PRODUCT</p>

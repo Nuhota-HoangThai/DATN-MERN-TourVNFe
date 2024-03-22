@@ -1,16 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Norican&display=swap");
 
-.font {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-style: italic;
-}
-
-.vivu3mien {
-  font-family: "Pacifico", cursive; /* Thay 'Pacifico' bằng tên phông chữ bạn chọn */
-  text-transform: none;
-}
-
-.vivu3mien:hover {
-  animation: rainbowText 1s infinite;
+.norican-regular {
+  font-family: "Norican", cursive;
+  font-weight: 400;
+  font-style: normal;
 }

@@ -1,8 +1,6 @@
-import React from "react";
-
 const NewsLetter = () => {
   return (
-    <div className="mb-4 flex flex-col  items-center justify-center rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 p-8 md:mx-24 md:h-64">
+    <div className="my-12 flex flex-col  items-center justify-center rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 p-8 md:mx-24 md:h-64">
       <div className="text-center text-white">
         <h1 className="mb-4 text-xl font-semibold md:text-2xl">
           Đăng ký Email để nhận ưu đãi và tin tức mới nhất!

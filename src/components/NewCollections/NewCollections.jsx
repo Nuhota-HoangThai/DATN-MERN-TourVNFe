@@ -19,66 +19,71 @@ const NewCollections = () => {
 
   const settings = {
     dots: true,
-    infinite: newCollection.length > 1,
+    infinite: newCollection.length > 3,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    autoplay: true,
+    slidesToShow: 3, // Mặc định hiển thị 4 slides trên một màn hình lớn
+    slidesToScroll: 1,
+    autoplay: newCollection.length > 3,
     autoplaySpeed: 2000,
+    arrows: false, // Tắt mũi tên điều hướng
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
+          slidesToShow: newCollection.length >= 3 ? 3 : newCollection.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
+          slidesToScroll: 1,
+          infinite: newCollection.length > 3,
           dots: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 2, // Giảm xuống 2 slides trên màn hình tablet
+          slidesToScroll: 1,
           initialSlide: 2,
+          infinite: newCollection.length > 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1, // Chỉ hiển thị 1 slide trên màn hình điện thoại
           slidesToScroll: 1,
+          infinite: newCollection.length > 1,
         },
       },
     ],
   };
 
   return (
-    <div className="my-24 flex justify-center">
+    <div className="mx-24 mt-12  rounded-3xl bg-slate-200 py-8">
       {newCollection.length > 0 ? (
-        <div className="w-full max-w-6xl px-4">
-          <h1 className="my-8 text-center text-3xl font-bold">
+        <div className="w-full px-4">
+          <h1 className="my-1 text-center text-3xl font-bold">
             Tours mới nhất
           </h1>
-          {/* <div className="mb-5 border-b-2 border-blue-900"></div> */}
-          <Slider {...settings}>
-            {newCollection.map((item, index) => (
-              <div key={index} className="px-2">
-                <Item
-                  id={item.id}
-                  image={item.image}
-                  nameTour={item.nameTour}
-                  price={item.price}
-                  regions={item.regions}
-                  maxParticipants={item.maxParticipants}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  convergeTime={item.convergeTime}
-                  startingGate={item.startingGate}
-                />
-              </div>
-            ))}
-          </Slider>
+          <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
+          <div className="ml-20">
+            <Slider {...settings}>
+              {newCollection.map((item, index) => (
+                <div key={index} className="px-2">
+                  <Item
+                    id={item.id}
+                    image={item.image}
+                    nameTour={item.nameTour}
+                    price={item.price}
+                    regions={item.regions}
+                    maxParticipants={item.maxParticipants}
+                    startDate={item.startDate}
+                    endDate={item.endDate}
+                    convergeTime={item.convergeTime}
+                    startingGate={item.startingGate}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
       ) : (
         <p className="text-center">Loading...</p>

@@ -17,69 +17,71 @@ const PopularNorth = () => {
 
   const settings = {
     dots: true,
-    infinite: popularNorthTours.length > 1,
+    infinite: popularNorthTours.length > 3,
     speed: 500,
-    slidesToShow: popularNorthTours.length >= 3 ? 3 : popularNorthTours.length,
+    slidesToShow: 3, // Mặc định hiển thị 4 slides trên một màn hình lớn
     slidesToScroll: 1,
-    autoplay: popularNorthTours.length > 1,
+    autoplay: popularNorthTours.length > 3,
     autoplaySpeed: 2000,
+    arrows: false, // Tắt mũi tên điều hướng
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow:
-            popularNorthTours.length >= 2 ? 2 : popularNorthTours.length,
+            popularNorthTours.length >= 3 ? 3 : popularNorthTours.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
           slidesToScroll: 1,
-          infinite: popularNorthTours.length > 2,
+          infinite: popularNorthTours.length > 3,
           dots: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2, // Giảm xuống 2 slides trên màn hình tablet
           slidesToScroll: 1,
           initialSlide: 2,
-          infinite: popularNorthTours.length > 1,
+          infinite: popularNorthTours.length > 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1, // Chỉ hiển thị 1 slide trên màn hình điện thoại
           slidesToScroll: 1,
           infinite: popularNorthTours.length > 1,
         },
       },
     ],
   };
-
   return (
-    <div className="mb-24 mt-8 flex justify-center">
+    <div className="mx-24  mt-28 rounded-3xl bg-slate-200 py-8">
       {popularNorthTours.length > 0 ? (
-        <div className="w-full max-w-6xl px-4">
-          <h1 className="my-8 text-center text-3xl font-bold">
+        <div className="w-full  px-4">
+          <h1 className="my-1 text-center text-3xl font-bold">
             Tours phổ biến ở miền Bắc
           </h1>
-          {/* <div className="mx-24 mb-5 border-b-2 border-blue-950"></div> */}
-
-          <Slider {...settings}>
-            {popularNorthTours.map((item, i) => (
-              <Item
-                key={i}
-                _id={item._id}
-                image={item.image}
-                nameTour={item.nameTour}
-                price={item.price}
-                regions={item.regions}
-                maxParticipants={item.maxParticipants}
-                startDate={item.startDate}
-                endDate={item.endDate}
-                convergeTime={item.convergeTime}
-                startingGate={item.startingGate}
-              />
-            ))}
-          </Slider>
+          <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
+          <div className="ml-20">
+            {" "}
+            <Slider {...settings}>
+              {popularNorthTours.map((item, i) => (
+                <Item
+                  key={i}
+                  _id={item._id}
+                  image={item.image}
+                  nameTour={item.nameTour}
+                  price={item.price}
+                  regions={item.regions}
+                  maxParticipants={item.maxParticipants}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  convergeTime={item.convergeTime}
+                  startingGate={item.startingGate}
+                />
+              ))}
+            </Slider>
+          </div>
         </div>
       ) : (
         <p className=""></p>
