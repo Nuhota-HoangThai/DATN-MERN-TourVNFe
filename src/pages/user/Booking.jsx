@@ -14,6 +14,7 @@ const Booking = () => {
     tourId: tour?._id,
     numberOfAdults: 1,
     numberOfChildren: 0,
+
     additionalInformation: "",
   });
 
@@ -48,14 +49,29 @@ const Booking = () => {
 
   ////
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
+  const [adultPrice, setAdultPrice] = useState(tour?.price);
+  const [childPrice, setChildPrice] = useState(tour?.priceForChildren);
+  const [infantPrice, setInfantPrice] = useState(tour?.priceForInfants);
+  const [surcharge, setSurcharge] = useState(tour?.additionalFees);
 
   useEffect(() => {
-    const pricePerChild = tour?.price / 2 || 0;
+    // Updated calculation to include children, infants, and surcharges
     const calculatedTotal =
-      bookingData.numberOfAdults * tour?.price +
-      bookingData.numberOfChildren * pricePerChild;
+      bookingData.numberOfAdults * adultPrice +
+      bookingData.numberOfChildren * childPrice +
+      // Assuming you might add numberOfInfants in bookingData
+      (bookingData.numberOfInfants || 0) * infantPrice +
+      (surcharge || 0); // Assuming surcharge is a fixed amount; adjust logic as needed
     setTotalAmount(calculatedTotal);
-  }, [bookingData.numberOfAdults, bookingData.numberOfChildren, tour?.price]);
+  }, [
+    bookingData.numberOfAdults,
+    bookingData.numberOfChildren,
+    bookingData.numberOfInfants, // Assuming you add this
+    adultPrice,
+    childPrice,
+    infantPrice,
+    surcharge,
+  ]);
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -111,6 +127,7 @@ const Booking = () => {
         <h1 className="mb-4 text-2xl font-semibold text-gray-800">
           Thông tin tour
         </h1>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-500">
             <tbody>
@@ -146,6 +163,89 @@ const Booking = () => {
               </tr>
             </tbody>
           </table>
+          <div className="mt-20 p-6">
+            <label className="mb-4 block text-2xl font-semibold text-gray-800">
+              Chi tiết giá
+            </label>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200 text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                    >
+                      Hạng mục
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                    >
+                      Số lượng
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                    >
+                      Đơn giá
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                    >
+                      Thành tiền
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  <tr>
+                    <td className="whitespace-nowrap px-6 py-4">Người lớn</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {bookingData.numberOfAdults}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {adultPrice} đ
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {bookingData.numberOfAdults * adultPrice} đ
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-6 py-4">Trẻ em</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {bookingData.numberOfChildren}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {childPrice} đ
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {bookingData.numberOfChildren * childPrice} đ
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-6 py-4">Trẻ sơ sinh</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {bookingData.numberOfInfants || 0}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {infantPrice} đ
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {(bookingData.numberOfInfants || 0) * infantPrice} đ
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="whitespace-nowrap px-6 py-4">Phụ phí</td>
+                    <td className="whitespace-nowrap px-6 py-4">—</td>
+                    <td className="whitespace-nowrap px-6 py-4">—</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {surcharge} đ
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div className="rounded-lg bg-white p-6 shadow">
@@ -227,6 +327,22 @@ const Booking = () => {
               name="numberOfChildren"
               id="numberOfChildren"
               value={bookingData.numberOfChildren}
+              onChange={handleChange}
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="numberOfInfants"
+              className="mb-2 block text-sm font-medium text-gray-900"
+            >
+              Số trẻ em:
+            </label>
+            <input
+              type="number"
+              name="numberOfInfants"
+              id="numberOfInfants"
+              value={bookingData.numberOfInfants}
               onChange={handleChange}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />

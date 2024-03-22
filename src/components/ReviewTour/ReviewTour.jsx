@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/config";
 import calculateAvgRating from "../../utils/avgRating";
 
-function ReviewForm({ tour }) {
+import Star from "../../assets/img/star.png";
+
+const ReviewForm = ({ tour }) => {
   const { token } = useSelector((state) => state.user.currentUser);
   const [reviews, setReviews] = useState([]);
-  const reviewMsgRef = useRef("");
-  const [tourRating, setTourRating] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
 
+  //console.log(reviews);
   useEffect(() => {
     const fetchReviews = async () => {
       setIsLoading(true);
@@ -31,89 +32,65 @@ function ReviewForm({ tour }) {
     fetchReviews();
   }, [tour, token]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const reviewText = reviewMsgRef.current.value;
-
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/review/${tour._id}`,
-        {
-          reviewText,
-          rating: tourRating,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      alert("Review submitted successfully!");
-      setReviews((prevReviews) => [...prevReviews, response.data.data]);
-      reviewMsgRef.current.value = "";
-    } catch (error) {
-      console.error("Error submitting review:", error);
-      alert("Failed to submit review. Please try again.");
-    }
-  };
-
   const { avgRating } = calculateAvgRating(reviews);
 
+  // Format date to Vietnamese
+  const formatVietnameseDate = (dateInput) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    return new Intl.DateTimeFormat("vi-VN", options).format(
+      new Date(dateInput),
+    );
+  };
+
   return (
-    <div className="mx-auto  max-w-4xl p-4">
-      <div className="text-lg font-semibold">
-        {avgRating ? `${avgRating} (${reviews.length})` : "Not rated yet"}
-      </div>
-      <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-        <div className="flex gap-2">
-          {[1, 2, 3, 4, 5].map((rating) => (
-            <button
-              key={rating}
-              type="button"
-              className={`rounded-full p-2 text-white transition-all duration-150 ease-in-out ${tourRating === rating ? "bg-blue-600" : "bg-gray-400"} hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-              onClick={() => setTourRating(rating)}
-            >
-              {rating}
-            </button>
-          ))}
+    <div className="my-16 w-full">
+      <div className="mb-2 flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-800">Đánh giá</h1>
+        <div className="text-lg font-semibold text-indigo-600">
+          {avgRating ? (
+            <div className="flex ">
+              {avgRating} <img src={Star} alt="" className="w-7" /> (
+              {reviews.length} đánh giá)
+            </div>
+          ) : (
+            "Chưa có đánh giá"
+          )}
         </div>
-        <textarea
-          ref={reviewMsgRef}
-          placeholder="Share your thoughts!"
-          className="w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          className="w-full rounded bg-blue-600 p-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Submit
-        </button>
-      </form>
-      <div className="mt-4 space-y-4">
+      </div>
+      <div className="space-y-4 rounded-2xl bg-slate-50 p-4">
         {isLoading ? (
-          <p>Loading reviews...</p>
+          <p className="text-center text-gray-500">Loading reviews...</p>
         ) : (
           reviews?.map((review, index) => (
             <div
-              className="rounded border border-gray-300 p-4 shadow-sm"
+              className="rounded-lg border border-gray-200 bg-white p-6 shadow-lg"
               key={index}
             >
-              <p className="text-sm text-gray-600">
-                {new Intl.DateTimeFormat("en-US", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                }).format(new Date(review.createdAt))}
-              </p>
-              <span className="block font-medium">{review.rating} Stars</span>
-              <p className="mt-2">{review.reviewText}</p>
+              <div className="flex justify-between">
+                <p className="text-lg font-semibold text-gray-800">
+                  {review.userId?.name || "Ẩn danh"}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {formatVietnameseDate(review.createdAt)}
+                </p>
+              </div>
+              <div className="mt-2 flex items-center">
+                <span className="mr-1 flex">
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <img key={i} src={Star} alt="" className="w-7" />
+                  ))}
+                </span>
+                <span className="text-md font-medium text-gray-700">
+                  ({review.rating} Sao)
+                </span>
+              </div>
+              <p className="mt-3 text-gray-600">{review.reviewText}</p>
             </div>
           ))
         )}
       </div>
     </div>
   );
-}
+};
 
 export default ReviewForm;

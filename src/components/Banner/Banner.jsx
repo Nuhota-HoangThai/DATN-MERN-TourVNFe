@@ -14,11 +14,13 @@ const Banner = () => {
         className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
       />
       <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
-        <div className="norican-regular mb-44 pl-40 text-5xl ">
+        {/* <div className="norican-regular mb-28 pl-40 text-5xl ">
           <p>Khám phá mỗi góc Việt Nam, </p>
           <p className="mt-2">trải nghiệm mỗi chuyến đi cùng</p>
-          <p className="norican-regular mt-10  text-7xl ">ViVu3Mien</p>
-        </div>
+          <p className="norican-regular mt-16  text-7xl text-white ">
+            ViVu3Mien
+          </p>
+        </div> */}
         <SearchForm />
       </div>
     </div>

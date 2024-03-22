@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 
+import { GoArrowSwitch } from "react-icons/go";
+
 function SearchForm() {
   const navigate = useNavigate();
 
@@ -47,7 +49,7 @@ function SearchForm() {
     <div className="mb-8 flex justify-center rounded-3xl bg-white shadow-2xl">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-wrap justify-between gap-8 rounded-lg  px-16 py-16 "
+        className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-16 "
       >
         <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="nameTour" className="mb-2 border-b-2 font-bold">
@@ -63,6 +65,7 @@ function SearchForm() {
             className="w-full px-2 py-1"
           />
         </div>
+
         <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="startDate" className="mb-2 border-b-2 font-bold">
             Ngày bắt đầu
@@ -76,6 +79,7 @@ function SearchForm() {
             className="w-full px-2 py-1"
           />
         </div>
+
         <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="price" className="mb-2 border-b-2 font-bold">
             Khoảng giá
@@ -94,6 +98,7 @@ function SearchForm() {
             <option value="tren-10000000">Trên 10.000.000</option>
           </select>
         </div>
+
         <div className="flex min-w-[160px] flex-1 flex-col rounded-lg  border-2 border-blue-900 px-2 py-1">
           <label
             htmlFor="maxParticipants"
@@ -113,7 +118,7 @@ function SearchForm() {
         </div>
         <button
           type="submit"
-          className="rounded-lg border bg-blue-900 px-16 text-lg font-bold text-white"
+          className="min-w-[160px] rounded-lg border bg-blue-900 px-12 py-6 text-lg font-bold text-white"
         >
           Tìm kiếm
         </button>

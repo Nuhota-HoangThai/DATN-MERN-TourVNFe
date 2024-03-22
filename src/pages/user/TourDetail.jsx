@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+import { BASE_URL } from "../../utils/config";
+
 import Tour from "../../components/Tour/Tour";
 import TourDisplay from "../../components/TourDisplay/TourDisplay";
 import DescriptionBox from "../../components/DescriptionBox/DescriptionBox";
 import ReviewTour from "../../components/ReviewTour/ReviewTour";
-import { BASE_URL } from "../../utils/config";
+import PriceDetail from "../../components/PriceDetail/PriceDetail";
 
 const TourDetail = () => {
   const { tourId } = useParams();
@@ -34,7 +36,10 @@ const TourDetail = () => {
         <>
           <Tour tour={tour} />
           <TourDisplay tour={tour} />
-          <DescriptionBox tour={tour} />
+          <div className="flex w-full gap-8">
+            <DescriptionBox tour={tour} />
+            <PriceDetail tour={tour} />
+          </div>
           <ReviewTour tour={tour} />
         </>
       )}

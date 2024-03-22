@@ -19,21 +19,22 @@ const SearchResultList = () => {
         />
 
         <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
-          <div className="vivu3mien-search mb-32  text-5xl ">
+          {/* <div className="vivu3mien-search mb-32  text-5xl ">
             <p className="text-white">Hành trình mới, kỷ niệm mới</p>
             <p className="vivu3mien-search mt-10  text-7xl text-white">
               ViVu3Mien và bạn
             </p>
-          </div>
+          </div> */}
           <SearchForm />
         </div>
       </div>
       <div className="mt-24">
         {Array.isArray(data) && data.length > 0 ? (
           <div>
-            <h2 className="my-8 text-center text-3xl font-bold ">
+            <h2 className="my-1 text-center text-3xl font-bold ">
               Kết quả tìm kiếm
-            </h2>
+            </h2>{" "}
+            <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>
             <div className="my-4 flex justify-center">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 {data.map((item, i) => (
