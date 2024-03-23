@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/config";
 import calculateAvgRating from "../../utils/avgRating";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
 import Star from "../../assets/img/star.png";
 
 const ReviewForm = ({ tour }) => {
@@ -42,6 +46,48 @@ const ReviewForm = ({ tour }) => {
     );
   };
 
+  // Cài đặt cho Slider
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="my-16 w-full">
       <div className="mb-2 flex items-center justify-between">
@@ -57,36 +103,37 @@ const ReviewForm = ({ tour }) => {
           )}
         </div>
       </div>
-      <div className="space-y-4 rounded-2xl bg-slate-50 p-4">
+      <div className=" space-y-4 rounded-2xl bg-slate-50 p-4">
         {isLoading ? (
           <p className="text-center text-gray-500">Loading reviews...</p>
         ) : (
-          reviews?.map((review, index) => (
-            <div
-              className="rounded-lg border border-gray-200 bg-white p-6 shadow-lg"
-              key={index}
-            >
-              <div className="flex justify-between">
-                <p className="text-lg font-semibold text-gray-800">
-                  {review.userId?.name || "Ẩn danh"}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {formatVietnameseDate(review.createdAt)}
-                </p>
+          <Slider {...sliderSettings}>
+            {reviews?.map((review, index) => (
+              <div key={index} className="">
+                <div className=" rounded-lg border border-gray-200 bg-white p-6 shadow-lg">
+                  <div className="flex justify-between">
+                    <p className="text-lg font-semibold text-gray-800">
+                      {review.userId?.name || "Ẩn danh"}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {formatVietnameseDate(review.createdAt)}
+                    </p>
+                  </div>
+                  <div className="mt-2 flex items-center">
+                    <span className="mr-1 flex">
+                      {Array.from({ length: review.rating }, (_, i) => (
+                        <img key={i} src={Star} alt="" className="w-7" />
+                      ))}
+                    </span>
+                    <span className="text-md font-medium text-gray-700">
+                      ({review.rating} Sao)
+                    </span>
+                  </div>
+                  <p className="mt-3 text-gray-600">{review.reviewText}</p>
+                </div>
               </div>
-              <div className="mt-2 flex items-center">
-                <span className="mr-1 flex">
-                  {Array.from({ length: review.rating }, (_, i) => (
-                    <img key={i} src={Star} alt="" className="w-7" />
-                  ))}
-                </span>
-                <span className="text-md font-medium text-gray-700">
-                  ({review.rating} Sao)
-                </span>
-              </div>
-              <p className="mt-3 text-gray-600">{review.reviewText}</p>
-            </div>
-          ))
+            ))}
+          </Slider>
         )}
       </div>
     </div>

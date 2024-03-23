@@ -21,7 +21,7 @@ import ProfileUser from "./components/ProfileUser/ProfileUser";
 //import banner
 import mienbac from "./assets/img/bannerHaNoi.png";
 import mientrung from "./assets/img/bannerHue.png";
-import miennam from "./assets/img/bannerMienNam.png";
+import miennam from "./assets/img/bannerNam.png";
 
 const App = () => {
   return (

@@ -1,30 +1,32 @@
 const TourPriceDetail = ({ tour }) => {
   return (
-    <div className="mt-16 w-1/2">
+    <div className="mt-16 w-1/2  ">
       <h2 className="mb-4 text-center text-2xl font-bold">Chi Tiết Giá</h2>
-      <div className="rounded-xl bg-white p-4 shadow-md md:max-w-2xl">
+      <div className="h-80 overflow-y-auto rounded-xl bg-white p-8 shadow-2xl md:max-w-2xl">
         <div className="flex flex-col space-y-2">
           <p className="text-gray-700">
             Người lớn (lớn hơn 12 tuổi):
-            <span className="font-semibold">
-              {tour.price.toLocaleString("vi-VN")}₫
+            <span className="pl-5 font-semibold">
+              {tour.price?.toLocaleString() || 0}₫
             </span>
           </p>
           <p className="text-gray-700">
-            Trẻ em (2-12 tuổi):{" "}
-            <span className="font-semibold">
-              {tour.priceForChildren.toLocaleString("vi-VN")}₫
+            Trẻ khách (2-12 tuổi):{" "}
+            <span className="pl-5 font-semibold">
+              {tour.priceForChildren?.toLocaleString() || 0}₫
             </span>
           </p>
           <p className="text-gray-700">
-            Trẻ em (dưới 2 tuổi):{" "}
-            <span className="font-semibold">
-              {tour.priceForInfants.toLocaleString("vi-VN")}₫
+            Trẻ khách (dưới 2 tuổi):{" "}
+            <span className="pl-5 font-semibold">
+              {tour.priceForInfants?.toLocaleString() || 0}₫
             </span>
           </p>
           <p className="text-gray-700">
-            Phí phụ thu (phòng đơn):
-            {tour.additionalFees.toLocaleString("vi-VN")}đ
+            Phí phụ thu:
+            <span className="pl-5 font-semibold">
+              {tour.additionalFees?.toLocaleString() || 0}đ
+            </span>
           </p>
         </div>
       </div>

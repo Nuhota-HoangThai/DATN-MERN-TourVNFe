@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
+import TourBooking from "../../components/BookingComponent/TourBooking";
 
 const Booking = () => {
   const { token, id } = useSelector((state) => state.user.currentUser);
@@ -14,7 +15,14 @@ const Booking = () => {
     tourId: tour?._id,
     numberOfAdults: 1,
     numberOfChildren: 0,
+    numberOfInfants: 0,
 
+    // priceOfAdults: 0,
+    // priceForChildren: 0,
+    // priceForInfants: 0,
+    // priceTotal: 0,
+
+    surcharge: 0,
     additionalInformation: "",
   });
 
@@ -45,33 +53,33 @@ const Booking = () => {
     };
 
     fetchUserProfile();
-  }, [navigate, token]);
+  }, [token, id]); // `navigate` removed from dependencies because it's not used inside useEffect
 
-  ////
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
-  const [adultPrice, setAdultPrice] = useState(tour?.price);
-  const [childPrice, setChildPrice] = useState(tour?.priceForChildren);
-  const [infantPrice, setInfantPrice] = useState(tour?.priceForInfants);
-  const [surcharge, setSurcharge] = useState(tour?.additionalFees);
 
   useEffect(() => {
-    // Updated calculation to include children, infants, and surcharges
-    const calculatedTotal =
-      bookingData.numberOfAdults * adultPrice +
-      bookingData.numberOfChildren * childPrice +
-      // Assuming you might add numberOfInfants in bookingData
-      (bookingData.numberOfInfants || 0) * infantPrice +
-      (surcharge || 0); // Assuming surcharge is a fixed amount; adjust logic as needed
-    setTotalAmount(calculatedTotal);
-  }, [
-    bookingData.numberOfAdults,
-    bookingData.numberOfChildren,
-    bookingData.numberOfInfants, // Assuming you add this
-    adultPrice,
-    childPrice,
-    infantPrice,
-    surcharge,
-  ]);
+    // Tinh tong tien
+    const calculateTotalAmount = () => {
+      const totalAdultAmount = tour?.price * bookingData.numberOfAdults;
+      const totalChildAmount =
+        tour?.priceForChildren * bookingData.numberOfChildren || 0;
+      const totalInfantAmount =
+        tour?.priceForInfants * bookingData.numberOfInfants || 0;
+
+      const totalAdditionalFees =
+        tour?.additionalFees * bookingData.numberOfAdults || 0;
+
+      const calculatedTotal =
+        totalAdultAmount +
+        totalChildAmount +
+        totalInfantAmount +
+        totalAdditionalFees;
+
+      setTotalAmount(calculatedTotal);
+    };
+
+    calculateTotalAmount();
+  }, [bookingData, tour]);
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -88,7 +96,7 @@ const Booking = () => {
           `${BASE_URL}/booking/createBooking`,
           {
             ...bookingData,
-            totalAmount: totalAmount,
+            totalAmount,
             bookingDate: new Date(),
           },
           {
@@ -105,14 +113,6 @@ const Booking = () => {
     }
   };
 
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = `0${date.getDate()}`.slice(-2);
-    const month = `0${date.getMonth() + 1}`.slice(-2);
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  };
-
   if (loading) {
     return <p>Đang tải trang...</p>;
   }
@@ -123,131 +123,8 @@ const Booking = () => {
 
   return (
     <div className="mx-4 mb-8 mt-10 grid grid-cols-1 gap-4 md:mx-20 md:mt-28 md:grid-cols-2">
-      <div className="rounded-lg bg-white p-6 shadow">
-        <h1 className="mb-4 text-2xl font-semibold text-gray-800">
-          Thông tin tour
-        </h1>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-500">
-            <tbody>
-              <tr className="border-b bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Tên tour
-                </th>
-                <td className="px-6 py-4">{tour?.nameTour}</td>
-              </tr>
-              <tr className="border-b bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Giá
-                </th>
-                <td className="px-6 py-4">{tour?.price} đ</td>
-              </tr>
-              <tr className="border-b bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Số chỗ trống
-                </th>
-                <td className="px-6 py-4">{tour?.maxParticipants}</td>
-              </tr>
-              <tr className="border-b bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Ngày bắt đầu
-                </th>
-                <td className="px-6 py-4">{formatDateVN(tour?.startDate)}</td>
-              </tr>
-              <tr className="bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Ngày kết thúc
-                </th>
-                <td className="px-6 py-4">{formatDateVN(tour?.endDate)}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="mt-20 p-6">
-            <label className="mb-4 block text-2xl font-semibold text-gray-800">
-              Chi tiết giá
-            </label>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-                    >
-                      Hạng mục
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-                    >
-                      Số lượng
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-                    >
-                      Đơn giá
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-                    >
-                      Thành tiền
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  <tr>
-                    <td className="whitespace-nowrap px-6 py-4">Người lớn</td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {bookingData.numberOfAdults}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {adultPrice} đ
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {bookingData.numberOfAdults * adultPrice} đ
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-6 py-4">Trẻ em</td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {bookingData.numberOfChildren}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {childPrice} đ
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {bookingData.numberOfChildren * childPrice} đ
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-6 py-4">Trẻ sơ sinh</td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {bookingData.numberOfInfants || 0}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {infantPrice} đ
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {(bookingData.numberOfInfants || 0) * infantPrice} đ
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="whitespace-nowrap px-6 py-4">Phụ phí</td>
-                    <td className="whitespace-nowrap px-6 py-4">—</td>
-                    <td className="whitespace-nowrap px-6 py-4">—</td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {surcharge} đ
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <TourBooking />
+      {/********************************************/}
       <div className="rounded-lg bg-white p-6 shadow">
         <h1 className="mb-4 text-2xl font-semibold text-gray-800">
           Thông tin đặt tour
@@ -347,6 +224,7 @@ const Booking = () => {
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
+
           <div>
             <label
               htmlFor="additionalInformation"
@@ -362,11 +240,60 @@ const Booking = () => {
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
-          <div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900">
+                Tổng giá người lớn:
+              </label>
+              <p className="text-lg font-semibold">
+                {(tour?.price * bookingData.numberOfAdults).toLocaleString()} đ
+              </p>
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900">
+                Tổng giá khách (2-12 tuổi):
+              </label>
+              <p className="text-lg font-semibold">
+                {(
+                  tour?.priceForChildren * bookingData.numberOfChildren
+                ).toLocaleString()}{" "}
+                đ
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900">
+                Tổng giá khách (dưới 2 tuổi):
+              </label>
+              <p className="text-lg font-semibold">
+                {(
+                  tour?.priceForInfants * bookingData.numberOfInfants
+                ).toLocaleString()}{" "}
+                đ
+              </p>
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900">
+                Phí phụ thu:
+              </label>
+              <p className="text-lg font-semibold">
+                {(
+                  tour?.additionalFees * bookingData.numberOfAdults
+                ).toLocaleString()}
+                đ
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t-2">
             <label className="mb-2 block text-sm font-medium text-gray-900">
               Tổng tiền:
             </label>
-            <p className="text-lg font-semibold">{totalAmount} đ</p>
+            <p className="text-lg font-bold text-red-600">
+              {totalAmount?.toLocaleString()} đ
+            </p>
           </div>
           <button
             type="submit"
@@ -376,6 +303,7 @@ const Booking = () => {
           </button>
         </form>
       </div>
+      {/********************************************/}
     </div>
   );
 };
