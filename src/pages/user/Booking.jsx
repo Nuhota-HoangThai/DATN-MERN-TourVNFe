@@ -19,12 +19,11 @@ const Booking = () => {
     numberOfYoungChildren: 0,
     numberOfInfants: 0,
 
-    // priceOfAdults: 0,
-    // priceForChildren: 0,
-    // priceForInfants: 0,
-    // priceTotal: 0,
+    priceOfAdults: 0 || tour.price,
+    priceForChildren: 0 || tour.priceForChildren,
+    priceForInfants: 0 || tour.priceForInfants,
+    priceForYoungChildren: 0 || tour.priceForYoungChildren,
 
-    surcharge: 0,
     additionalInformation: "",
   });
 
@@ -55,36 +54,49 @@ const Booking = () => {
     };
 
     fetchUserProfile();
-  }, [token, id]); // `navigate` removed from dependencies because it's not used inside useEffect
+  }, [token, id]);
 
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
 
+  const [surcharge, setTotalAdditionalFees] = useState(
+    tour?.additionalFees || 0,
+  );
+
+  // Tinh phi phu thu
+  const calculateTotalFees = () => {
+    const totalAdditionalFees =
+      tour?.additionalFees * bookingData.numberOfAdults || 0;
+
+    setTotalAdditionalFees(totalAdditionalFees);
+  };
+
+  // Tinh tong tien
+  const calculateTotalAmount = () => {
+    const totalAdultAmount = tour?.price * bookingData.numberOfAdults;
+    const totalChildAmount =
+      tour?.priceForChildren * bookingData.numberOfChildren || 0;
+
+    const totalYoungChildren =
+      tour?.priceForYoungChildren * bookingData.numberOfYoungChildren || 0;
+
+    const totalInfantAmount =
+      tour?.priceForInfants * bookingData.numberOfInfants || 0;
+
+    const totalAdditionalFees =
+      tour?.additionalFees * bookingData.numberOfAdults || 0;
+
+    const calculatedTotal =
+      totalAdultAmount +
+      totalChildAmount +
+      totalYoungChildren +
+      totalInfantAmount +
+      totalAdditionalFees;
+
+    setTotalAmount(calculatedTotal);
+  };
+
   useEffect(() => {
-    // Tinh tong tien
-    const calculateTotalAmount = () => {
-      const totalAdultAmount = tour?.price * bookingData.numberOfAdults;
-      const totalChildAmount =
-        tour?.priceForChildren * bookingData.numberOfChildren || 0;
-
-      const totalYoungChildren =
-        tour?.priceForYoungChildren * bookingData.numberOfYoungChildren || 0;
-
-      const totalInfantAmount =
-        tour?.priceForInfants * bookingData.numberOfInfants || 0;
-
-      const totalAdditionalFees =
-        tour?.additionalFees * bookingData.numberOfAdults || 0;
-
-      const calculatedTotal =
-        totalAdultAmount +
-        totalChildAmount +
-        totalYoungChildren +
-        totalInfantAmount +
-        totalAdditionalFees;
-
-      setTotalAmount(calculatedTotal);
-    };
-
+    calculateTotalFees();
     calculateTotalAmount();
   }, [bookingData, tour]);
 
@@ -104,6 +116,7 @@ const Booking = () => {
           {
             ...bookingData,
             totalAmount,
+            surcharge,
             bookingDate: new Date(),
           },
           {
