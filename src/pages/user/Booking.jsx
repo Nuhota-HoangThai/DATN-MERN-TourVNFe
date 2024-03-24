@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
+
 import TourBooking from "../../components/BookingComponent/TourBooking";
 
 const Booking = () => {
@@ -15,6 +16,7 @@ const Booking = () => {
     tourId: tour?._id,
     numberOfAdults: 1,
     numberOfChildren: 0,
+    numberOfYoungChildren: 0,
     numberOfInfants: 0,
 
     // priceOfAdults: 0,
@@ -63,6 +65,10 @@ const Booking = () => {
       const totalAdultAmount = tour?.price * bookingData.numberOfAdults;
       const totalChildAmount =
         tour?.priceForChildren * bookingData.numberOfChildren || 0;
+
+      const totalYoungChildren =
+        tour?.priceForYoungChildren * bookingData.numberOfYoungChildren || 0;
+
       const totalInfantAmount =
         tour?.priceForInfants * bookingData.numberOfInfants || 0;
 
@@ -72,6 +78,7 @@ const Booking = () => {
       const calculatedTotal =
         totalAdultAmount +
         totalChildAmount +
+        totalYoungChildren +
         totalInfantAmount +
         totalAdditionalFees;
 
@@ -175,56 +182,77 @@ const Booking = () => {
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
-          <div>
-            <label
-              htmlFor="numberOfAdults"
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Số người lớn:
-            </label>
-            <input
-              type="number"
-              name="numberOfAdults"
-              id="numberOfAdults"
-              value={bookingData.numberOfAdults}
-              onChange={handleChange}
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="numberOfChildren"
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Số trẻ em:
-            </label>
-            <input
-              type="number"
-              name="numberOfChildren"
-              id="numberOfChildren"
-              value={bookingData.numberOfChildren}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="numberOfInfants"
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Số trẻ em:
-            </label>
-            <input
-              type="number"
-              name="numberOfInfants"
-              id="numberOfInfants"
-              value={bookingData.numberOfInfants}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="numberOfAdults"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Số người lớn (trên 16 tuổi):
+              </label>
+              <input
+                type="number"
+                name="numberOfAdults"
+                id="numberOfAdults"
+                value={bookingData.numberOfAdults}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
 
+            <div>
+              <label
+                htmlFor="numberOfChildren"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Số khách (6-16 tuổi):
+              </label>
+              <input
+                type="number"
+                name="numberOfChildren"
+                id="numberOfChildren"
+                value={bookingData.numberOfChildren}
+                onChange={handleChange}
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="numberOfAdults"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Số khách (3-6 tuổi):
+              </label>
+              <input
+                type="number"
+                name="numberOfYoungChildren"
+                id="numberOfYoungChildren"
+                value={bookingData.numberOfYoungChildren}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="numberOfInfants"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Số khách (dưới 3 tuổi):
+              </label>
+              <input
+                type="number"
+                name="numberOfInfants"
+                id="numberOfInfants"
+                value={bookingData.numberOfInfants}
+                onChange={handleChange}
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+          </div>
           <div>
             <label
               htmlFor="additionalInformation"
@@ -243,7 +271,7 @@ const Booking = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-900">
-                Tổng giá người lớn:
+                Tổng giá khách (trên 16 tuổi):
               </label>
               <p className="text-lg font-semibold">
                 {(tour?.price * bookingData.numberOfAdults).toLocaleString()} đ
@@ -251,12 +279,12 @@ const Booking = () => {
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-900">
-                Tổng giá khách (2-12 tuổi):
+                Tổng giá khách (6-16 tuổi):
               </label>
               <p className="text-lg font-semibold">
                 {(
                   tour?.priceForChildren * bookingData.numberOfChildren
-                ).toLocaleString()}{" "}
+                ).toLocaleString()}
                 đ
               </p>
             </div>
@@ -264,43 +292,61 @@ const Booking = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-900">
-                Tổng giá khách (dưới 2 tuổi):
+                Tổng giá khách (3-6 tuổi):
+              </label>
+              <p className="text-lg font-semibold">
+                {(
+                  tour?.priceForYoungChildren *
+                  bookingData.numberOfYoungChildren
+                ).toLocaleString()}
+                đ
+              </p>
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900">
+                Tổng giá khách (dưới 3 tuổi):
               </label>
               <p className="text-lg font-semibold">
                 {(
                   tour?.priceForInfants * bookingData.numberOfInfants
-                ).toLocaleString()}{" "}
-                đ
-              </p>
-            </div>
-
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-900">
-                Phí phụ thu:
-              </label>
-              <p className="text-lg font-semibold">
-                {(
-                  tour?.additionalFees * bookingData.numberOfAdults
                 ).toLocaleString()}
                 đ
               </p>
             </div>
           </div>
-
-          <div className="border-t-2">
+          <div>
             <label className="mb-2 block text-sm font-medium text-gray-900">
-              Tổng tiền:
+              Phí phụ thu:
             </label>
-            <p className="text-lg font-bold text-red-600">
+            <p className="text-lg font-semibold">
+              {(
+                tour?.additionalFees * bookingData.numberOfAdults
+              ).toLocaleString()}
+              đ
+            </p>
+          </div>
+          <div className="flex justify-between border-t-2">
+            <p className="mb-2 block text-lg font-medium text-gray-900">
+              Tổng tiền:
+            </p>
+            <p className="text-xl font-bold text-red-600">
               {totalAmount?.toLocaleString()} đ
             </p>
           </div>
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >
-            Đặt tour
-          </button>
+          <div className="flex  gap-4">
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+              Đặt tour
+            </button>
+            <Link
+              to="/checkoutVNPay"
+              className="w-full rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+              Thanh toán VNPay
+            </Link>
+          </div>
         </form>
       </div>
       {/********************************************/}

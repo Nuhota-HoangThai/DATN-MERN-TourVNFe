@@ -5,19 +5,25 @@ const TourPriceDetail = ({ tour }) => {
       <div className="h-80 overflow-y-auto rounded-xl bg-white p-8 shadow-2xl md:max-w-2xl">
         <div className="flex flex-col space-y-2">
           <p className="text-gray-700">
-            Người lớn (lớn hơn 12 tuổi):
+            Giá khách (lớn hơn 16 tuổi):
             <span className="pl-5 font-semibold">
               {tour.price?.toLocaleString() || 0}₫
             </span>
           </p>
           <p className="text-gray-700">
-            Trẻ khách (2-12 tuổi):{" "}
+            Giá khách (6-16 tuổi):{" "}
             <span className="pl-5 font-semibold">
               {tour.priceForChildren?.toLocaleString() || 0}₫
             </span>
           </p>
           <p className="text-gray-700">
-            Trẻ khách (dưới 2 tuổi):{" "}
+            Giá khách (3-6 tuổi):{" "}
+            <span className="pl-5 font-semibold">
+              {tour.priceForYoungChildren?.toLocaleString() || 0}₫
+            </span>
+          </p>
+          <p className="text-gray-700">
+            Giá khách (dưới 3 tuổi):{" "}
             <span className="pl-5 font-semibold">
               {tour.priceForInfants?.toLocaleString() || 0}₫
             </span>

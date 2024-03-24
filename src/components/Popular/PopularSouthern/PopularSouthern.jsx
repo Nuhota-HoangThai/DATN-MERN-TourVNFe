@@ -56,9 +56,9 @@ const PopularSouthern = () => {
   };
 
   return (
-    <div className="mx-24 mt-12 rounded-3xl bg-slate-200 py-8">
+    <div className="mx-24 mt-12 ">
       {popularSouthernTours.length > 0 ? (
-        <div className="w-full px-4">
+        <div className="w-full rounded-3xl bg-slate-200 px-4 py-8">
           <h1 className="my-1 text-center text-3xl font-bold">
             Tours phổ biến ở miền Nam
           </h1>

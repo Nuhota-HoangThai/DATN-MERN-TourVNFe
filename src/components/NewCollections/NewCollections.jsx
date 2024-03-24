@@ -57,9 +57,9 @@ const NewCollections = () => {
   };
 
   return (
-    <div className="mx-24 mt-12  rounded-3xl bg-slate-200 py-8">
+    <div className="mx-24 mt-12  ">
       {newCollection.length > 0 ? (
-        <div className="w-full px-4">
+        <div className="w-full rounded-3xl bg-slate-200 px-4 py-8">
           <h1 className="my-1 text-center text-3xl font-bold">
             Tours mới nhất
           </h1>
@@ -86,7 +86,7 @@ const NewCollections = () => {
           </div>
         </div>
       ) : (
-        <p className="text-center">Loading...</p>
+        <p className="text-center"></p>
       )}
     </div>
   );

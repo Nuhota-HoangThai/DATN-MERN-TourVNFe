@@ -15,7 +15,6 @@ const TourBooking = () => {
 
   return (
     <div>
-      {" "}
       <div className=" rounded-lg bg-white p-6 shadow">
         <h1 className="mb-4 text-2xl font-semibold text-gray-800">
           Thông tin tour
@@ -56,7 +55,7 @@ const TourBooking = () => {
               </tr>
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Giá khách (2-12 tuổi)
+                  Giá khách (6-16 tuổi)
                 </th>
                 <td className="px-6 py-4">
                   {tour?.priceForChildren
@@ -66,7 +65,17 @@ const TourBooking = () => {
               </tr>
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Giá khách (dưới 2 tuổi)
+                  Giá khách (3-6 tuổi)
+                </th>
+                <td className="px-6 py-4">
+                  {tour?.priceForYoungChildren
+                    ? `${tour.priceForYoungChildren.toLocaleString()} đ`
+                    : "Được miễn phí"}
+                </td>
+              </tr>
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Giá khách (dưới 3 tuổi)
                 </th>
                 <td className="px-6 py-4">
                   {tour?.priceForInfants
