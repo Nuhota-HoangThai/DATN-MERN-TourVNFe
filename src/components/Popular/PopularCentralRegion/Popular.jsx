@@ -5,14 +5,15 @@ import { BASE_URL } from "../../../utils/config";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 const Popular = () => {
   const [popularTours, setPopularTours] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tour/getPopularInCentral`)
-      .then((response) => response.json())
-      .then((data) => setPopularTours(data));
+    axios
+      .get(`${BASE_URL}/tour/getPopularInCentral`)
+      .then((data) => setPopularTours(data.data));
   }, []);
 
   const settings = {

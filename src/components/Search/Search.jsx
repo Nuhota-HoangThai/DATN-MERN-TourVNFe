@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
-
-import { GoArrowSwitch } from "react-icons/go";
+import axios from "axios";
 
 function SearchForm() {
   const navigate = useNavigate();
@@ -28,14 +27,11 @@ function SearchForm() {
     const { nameTour, startDate, price, maxParticipants } = formData; // Destructuring để lấy giá trị từ formData
 
     try {
-      const response = await fetch(
+      const { result } = await axios.get(
         `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&price=${price}&maxParticipants=${maxParticipants}`,
-        {
-          method: "GET",
-        },
       );
 
-      const result = await response.json(); // Giả sử response trả về dạng JSON
+      //const result = await response.json(); // Giả sử response trả về dạng JSON
       // console.log(result);
 
       navigate("/search", { state: { searchResults: result.tours } });

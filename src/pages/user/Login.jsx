@@ -7,6 +7,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../../redux/user/userSlide";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -23,14 +24,12 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch(`${BASE_URL}/user/login`, {
-        method: "POST",
+      const { data } = await axios.post(`${BASE_URL}/user/login`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
-      const data = await res.json();
+      // const data = await res.json();
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));

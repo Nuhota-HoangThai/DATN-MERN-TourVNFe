@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
+import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
@@ -17,14 +18,12 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch(`${BASE_URL}/user/signup`, {
-        method: "POST",
+      const { data } = await axios.post(`${BASE_URL}/user/signup`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        // body: JSON.stringify(formData),
       });
-      const data = await res.json();
 
       if (!data.success) {
         setLoading(false);

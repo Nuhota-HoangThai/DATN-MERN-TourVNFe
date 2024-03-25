@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Item from "../Item/Item";
 import { BASE_URL } from "../../utils/config";
+import axios from "axios";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,12 +11,9 @@ const NewCollections = () => {
   const [newCollection, setNewCollection] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tour/getNewCollection`)
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data); // Log để kiểm tra dữ liệu
-        setNewCollection(data);
-      });
+    axios.get(`${BASE_URL}/tour/getNewCollection`).then((data) => {
+      setNewCollection(data);
+    });
   }, []);
 
   const settings = {

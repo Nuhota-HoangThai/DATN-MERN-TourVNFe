@@ -85,7 +85,7 @@ const UserBooking = () => {
     try {
       const response = await axios.patch(
         `${BASE_URL}/booking/${bookingId}/cancel`,
-        {},
+
         {
           headers: {
             Authorization: "Bearer " + token,

@@ -2,25 +2,10 @@ import { BASE_URL } from "../../utils/config";
 import { Link, useNavigate } from "react-router-dom";
 import "./tour-display.css";
 
-//import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import { PiBarcodeBold } from "react-icons/pi";
 
 const TourDisplay = ({ tour }) => {
   const navigate = useNavigate();
-
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 1500,
-  //   cssEase: "linear",
-  //   arrows: false,
-  // };
 
   const formatDateVN = (dateString) => {
     const date = new Date(dateString);
@@ -58,7 +43,7 @@ const TourDisplay = ({ tour }) => {
   };
 
   if (!tour) {
-    return <div>Loading...</div>;
+    return <div>Đang tải...</div>;
   }
 
   // Selecting up to first 4 images to display
