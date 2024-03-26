@@ -27,14 +27,14 @@ function SearchForm() {
     const { nameTour, startDate, price, maxParticipants } = formData; // Destructuring để lấy giá trị từ formData
 
     try {
-      const { result } = await axios.get(
+      const result = await axios.get(
         `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&price=${price}&maxParticipants=${maxParticipants}`,
       );
 
       //const result = await response.json(); // Giả sử response trả về dạng JSON
-      // console.log(result);
+      //console.log(result.data);
 
-      navigate("/search", { state: { searchResults: result.tours } });
+      navigate("/search", { state: { searchResults: result.data.tours } });
     } catch (error) {
       console.error(error);
       alert("Đã xảy ra lỗi trong quá trình tìm kiếm.");

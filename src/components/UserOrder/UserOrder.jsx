@@ -120,7 +120,7 @@ const UserBooking = () => {
                 className="mb-6 rounded-lg bg-white p-6 shadow-md"
               >
                 <h2 className="mb-4 text-xl font-semibold">
-                  Id đặt tour: {formatBookingId(booking._id)}
+                  Mã đặt tour: {formatBookingId(booking._id)}
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   <p className="text-gray-600">
@@ -163,7 +163,7 @@ const UserBooking = () => {
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">You have no bookings.</p>
+          <p className="text-gray-600">Bạn chưa đặt tour nào.</p>
         )}
       </div>
     </div>

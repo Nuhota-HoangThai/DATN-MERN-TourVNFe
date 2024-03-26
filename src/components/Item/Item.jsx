@@ -3,7 +3,7 @@ import { BASE_URL } from "../../../../admin/src/utils/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline, IoIosHeart } from "react-icons/io";
 
 const Item = (props) => {
   const { token } = useSelector((state) => state.user.currentUser);
@@ -61,7 +61,7 @@ const Item = (props) => {
   };
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-shadow duration-300 ease-in-out hover:shadow-lg md:w-80">
+    <div className="group relative w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
       <Link
         to={`/tour/${props._id}`}
         onClick={() => window.scrollTo(0, 0)}
@@ -70,10 +70,13 @@ const Item = (props) => {
         {Array.isArray(props.image) && props.image.length > 0 && (
           <div className="relative">
             <img
-              className="h-56 w-full rounded-t-xl object-cover"
+              className="h-56 w-full rounded-t-xl object-cover transition duration-300 ease-in-out group-hover:scale-110"
               src={`${BASE_URL}/${props.image[0].replace(/\\/g, "/")}`}
               alt="Tour Main Image"
             />
+            <div className="absolute right-0 top-0 p-4">
+              <IoIosHeart className="text-2xl text-white transition duration-300 hover:text-red-500" />
+            </div>
           </div>
         )}
         <div className="p-4">
@@ -94,14 +97,16 @@ const Item = (props) => {
             Nơi khởi hành:
             <span className="font-medium"> {props.startingGate}</span>
           </p>
-          <p className="mt-2 text-xl font-bold text-red-600">{props.price} đ</p>
+          <p className="mt-2 text-xl font-bold text-red-600">
+            {props.price?.toLocaleString()} đ
+          </p>
         </div>
       </Link>
       <div className="">
         <div className="mx-4">
           <button
             onClick={handleBooking}
-            className=" my-2 w-full rounded bg-gradient-to-r from-blue-800 to-blue-950  py-2  text-center text-white"
+            className="my-2 w-full rounded bg-gradient-to-r from-blue-800 to-blue-950 py-2 text-center text-white transition duration-300 hover:from-blue-950 hover:to-blue-800"
           >
             Đặt ngay
           </button>
@@ -111,12 +116,14 @@ const Item = (props) => {
             Số chỗ còn:
             <span className="text-lg "> {props.maxParticipants}</span>
           </p>
-          <button
-            onClick={() => addComparison(props._id)}
-            className="flex items-center gap-1 text-sm font-semibold text-blue-900 hover:text-blue-800"
-          >
-            <IoIosAddCircleOutline className="text-lg " /> So sánh
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => addComparison(props._id)}
+              className="flex items-center gap-1 text-sm font-semibold text-blue-900 hover:text-blue-800"
+            >
+              <IoIosAddCircleOutline className="text-lg " /> So sánh
+            </button>
+          </div>
         </div>
       </div>
     </div>
