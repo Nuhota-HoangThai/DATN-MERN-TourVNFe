@@ -44,15 +44,6 @@ const TourCategory = (props) => {
         />
 
         <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
-          {/* <div className="vivu3mien-search mb-20 text-center text-5xl ">
-            <p className="text-white">Nếm trọn vị Việt từ Bắc vào Nam </p>
-            <p className="vivu3mien-search my-10  text-7xl text-white">
-              ViVu3Mien và bạn
-            </p>
-            <p className="  text-5xl text-white">
-              chìa khóa của mọi hành trình
-            </p>
-          </div> */}
           <SearchForm />
         </div>
       </div>
@@ -65,17 +56,8 @@ const TourCategory = (props) => {
       <div className="grid grid-cols-1 justify-items-center gap-8 rounded-lg sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {filteredProducts.slice(0, visibleProducts).map((item, i) => (
           <Item
-            key={i}
-            _id={item._id}
-            image={item.image}
-            nameTour={item.nameTour}
-            price={item.price}
-            regions={item.regions}
-            maxParticipants={item.maxParticipants}
-            startDate={item.startDate}
-            endDate={item.endDate}
-            startingGate={item.startingGate}
-            convergeTime={item.convergeTime}
+            key={item._id} // Đừng quên prop key khi render list
+            {...item}
           />
         ))}
       </div>

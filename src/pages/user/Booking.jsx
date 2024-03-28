@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
@@ -12,6 +12,11 @@ const Booking = () => {
   const { tour } = location.state || {};
   const navigate = useNavigate();
 
+  const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
+
+  const [surcharge, setTotalAdditionalFees] = useState(
+    tour?.additionalFees || 0,
+  );
   const [bookingData, setBookingData] = useState({
     tourId: tour?._id,
     numberOfAdults: 1,
@@ -55,12 +60,6 @@ const Booking = () => {
 
     fetchUserProfile();
   }, [token, id]);
-
-  const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
-
-  const [surcharge, setTotalAdditionalFees] = useState(
-    tour?.additionalFees || 0,
-  );
 
   // Tinh phi phu thu
   const calculateTotalFees = () => {
@@ -130,6 +129,25 @@ const Booking = () => {
       } catch (error) {
         console.error(error);
       }
+    }
+  };
+
+  const addOrderVNPay = async () => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/booking/payment_vnpay_url`,
+        { totalAmount, surcharge },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        },
+      );
+
+      window.location.href = res.vnpUrl;
+      return true;
+    } catch (error) {
+      return false;
     }
   };
 
@@ -346,19 +364,21 @@ const Booking = () => {
               {totalAmount?.toLocaleString()} đ
             </p>
           </div>
-          <div className="flex  gap-4">
+          <div className="flex flex-col gap-4">
             <button
-              type="submit"
+              type="button" // Chú ý sử dụng type="button" để ngăn chặn nút này submit form
+              onClick={handleSubmit} // Xử lý submit form để thanh toán bình thường
               className="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               Đặt tour
             </button>
-            <Link
-              to="/checkoutVNPay"
-              className="w-full rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            <button
+              type="button" // Sử dụng onClick để gọi hàm thanh toán qua VNPay
+              onClick={addOrderVNPay} // Gọi hàm addOrderVNPay khi nút này được nhấn
+              className="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300"
             >
-              Thanh toán VNPay
-            </Link>
+              Thanh toán VNPAY
+            </button>
           </div>
         </form>
       </div>

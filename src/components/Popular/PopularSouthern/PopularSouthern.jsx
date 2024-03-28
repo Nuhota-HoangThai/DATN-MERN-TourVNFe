@@ -66,19 +66,21 @@ const PopularSouthern = () => {
           <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
           <div className="ml-20">
             <Slider {...settings}>
-              {popularSouthernTours.map((item, i) => (
+              {popularSouthernTours.map((item) => (
                 <Item
-                  key={i}
-                  _id={item._id}
-                  image={item.image}
-                  nameTour={item.nameTour}
-                  price={item.price}
-                  regions={item.regions}
-                  maxParticipants={item.maxParticipants}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  convergeTime={item.convergeTime}
-                  startingGate={item.startingGate}
+                  key={item._id} // Đừng quên prop key khi render list
+                  {...item}
+                  // key={i}
+                  // _id={item._id}
+                  // image={item.image}
+                  // nameTour={item.nameTour}
+                  // price={item.price}
+                  // regions={item.regions}
+                  // maxParticipants={item.maxParticipants}
+                  // startDate={item.startDate}
+                  // endDate={item.endDate}
+                  // convergeTime={item.convergeTime}
+                  // startingGate={item.startingGate}
                 />
               ))}
             </Slider>

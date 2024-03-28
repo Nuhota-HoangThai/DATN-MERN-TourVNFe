@@ -5,9 +5,9 @@ import PopularCentralRegion from "../../components/Popular/PopularCentralRegion/
 import PopularNorth from "../../components/Popular/PopularNorth/PopularNorth";
 import PopularSouthern from "../../components/Popular/PopularSouthern/PopularSouthern";
 
-import Offers from "../../components/Offers/Offers";
 import NewCollections from "../../components/NewCollections/NewCollections";
 import NewsLetter from "../../components/NewsLetter/NewsLetter";
+import ListPromotion from "../../components/Promotion/ListPromotion";
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
       <PopularNorth />
       <PopularCentralRegion />
       <PopularSouthern />
-      <Offers />
+      <ListPromotion />
       <NewCollections />
       <NewsLetter />
     </div>

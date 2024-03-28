@@ -68,16 +68,18 @@ const NewCollections = () => {
               {newCollection.map((item, index) => (
                 <div key={index} className="px-2">
                   <Item
-                    id={item.id}
-                    image={item.image}
-                    nameTour={item.nameTour}
-                    price={item.price}
-                    regions={item.regions}
-                    maxParticipants={item.maxParticipants}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                    convergeTime={item.convergeTime}
-                    startingGate={item.startingGate}
+                    key={item._id} // Đừng quên prop key khi render list
+                    {...item}
+                    // id={item.id}
+                    // image={item.image}
+                    // nameTour={item.nameTour}
+                    // price={item.price}
+                    // regions={item.regions}
+                    // maxParticipants={item.maxParticipants}
+                    // startDate={item.startDate}
+                    // endDate={item.endDate}
+                    // convergeTime={item.convergeTime}
+                    // startingGate={item.startingGate}
                   />
                 </div>
               ))}

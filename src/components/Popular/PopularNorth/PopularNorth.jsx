@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Item from "../../Item/Item";
 import { BASE_URL } from "../../../utils/config";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
 
 const PopularNorth = () => {
   const [popularNorthTours, setPopularNorthTours] = useState([]);
@@ -67,19 +67,21 @@ const PopularNorth = () => {
           <div className="ml-20">
             {" "}
             <Slider {...settings}>
-              {popularNorthTours.map((item, i) => (
+              {popularNorthTours.map((item) => (
                 <Item
-                  key={i}
-                  _id={item._id}
-                  image={item.image}
-                  nameTour={item.nameTour}
-                  price={item.price}
-                  regions={item.regions}
-                  maxParticipants={item.maxParticipants}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  convergeTime={item.convergeTime}
-                  startingGate={item.startingGate}
+                  key={item._id} // Đừng quên prop key khi render list
+                  {...item}
+                  // key={i}
+                  // _id={item._id}
+                  // image={item.image}
+                  // nameTour={item.nameTour}
+                  // price={item.price}
+                  // regions={item.regions}
+                  // maxParticipants={item.maxParticipants}
+                  // startDate={item.startDate}
+                  // endDate={item.endDate}
+                  // convergeTime={item.convergeTime}
+                  // startingGate={item.startingGate}
                 />
               ))}
             </Slider>

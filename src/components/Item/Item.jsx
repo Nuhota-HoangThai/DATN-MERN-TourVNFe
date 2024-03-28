@@ -31,6 +31,10 @@ const Item = (props) => {
     }
   };
 
+  const formatPrice = (price) => {
+    return `${price?.toLocaleString()} đ`;
+  };
+
   // add comparisons
   const addComparison = async (tourId) => {
     if (token) {
@@ -98,7 +102,16 @@ const Item = (props) => {
             <span className="font-medium"> {props.startingGate}</span>
           </p>
           <p className="mt-2 text-xl font-bold text-red-600">
-            {props.price?.toLocaleString()} đ
+            {props.price !== props.originalPrice ? (
+              <>
+                <span className="text-red-600">{formatPrice(props.price)}</span>{" "}
+                <span className="text-base text-gray-500 line-through">
+                  {formatPrice(props.originalPrice)}
+                </span>
+              </>
+            ) : (
+              formatPrice(props.price)
+            )}
           </p>
         </div>
       </Link>

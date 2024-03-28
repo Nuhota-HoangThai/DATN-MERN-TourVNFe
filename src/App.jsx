@@ -22,6 +22,7 @@ import ProfileUser from "./components/ProfileUser/ProfileUser";
 import mienbac from "./assets/img/bannerHaNoi.png";
 import mientrung from "./assets/img/bannerHue.png";
 import miennam from "./assets/img/bannerNam.png";
+import TourPromotion from "./components/Promotion/TourPromotion";
 
 const App = () => {
   return (
@@ -73,6 +74,11 @@ const App = () => {
                 <Cart />
               </Profile>
             }
+          />
+
+          <Route
+            path="/tourPromotion/:promotionId"
+            element={<TourPromotion />}
           />
         </Routes>
 
