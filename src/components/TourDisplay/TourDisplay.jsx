@@ -42,11 +42,14 @@ const TourDisplay = ({ tour }) => {
     navigate("/booking", { state: { tour: tour } });
   };
 
+  const formatPrice = (price) => {
+    return `${price?.toLocaleString()} đ`;
+  };
+
   if (!tour) {
     return <div>Đang tải...</div>;
   }
 
-  // Selecting up to first 4 images to display
   const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
 
   return (
@@ -74,8 +77,18 @@ const TourDisplay = ({ tour }) => {
             <PiBarcodeBold className="text-xl" /> {tour._id}
           </p>
           <p className="text-xl font-semibold text-gray-800">{tour.nameTour}</p>
+          <p>{tour.promotion.discountPercentage}%</p>
           <p className="text-lg font-medium text-red-600">
-            {tour.price.toLocaleString()} đ
+            {tour.price !== tour.originalPrice ? (
+              <>
+                <span className="text-red-600">{formatPrice(tour.price)}</span>{" "}
+                <span className="text-base text-gray-500 line-through">
+                  {formatPrice(tour.originalPrice)}
+                </span>
+              </>
+            ) : (
+              formatPrice(tour.price)
+            )}
           </p>
           <div className="space-y-2">
             <p className="text-gray-700">

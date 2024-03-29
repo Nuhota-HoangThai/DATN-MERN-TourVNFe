@@ -1,5 +1,6 @@
 import {} from "react";
 import { useLocation } from "react-router-dom";
+import { BASE_URL } from "../../utils/config";
 
 const TourBooking = () => {
   const location = useLocation();
@@ -13,6 +14,8 @@ const TourBooking = () => {
     return `${day}-${month}-${year}`;
   };
 
+  const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
+
   return (
     <div>
       <div className=" rounded-lg bg-white p-6 shadow">
@@ -21,6 +24,22 @@ const TourBooking = () => {
         </h1>
 
         <div className="overflow-x-auto">
+          <div>
+            {displayImages.length > 0 ? (
+              // Chỉ hiển thị hình ảnh đầu tiên từ mảng displayImages
+              <div className="image-grid-item">
+                <img
+                  src={`${BASE_URL}/${displayImages[0].replace(/\\/g, "/")}`}
+                  alt="Tour Image 1"
+                  className="w-full object-cover"
+                />
+              </div>
+            ) : (
+              <div className="col-span-2 flex h-full items-center justify-center">
+                Không có hình ảnh
+              </div>
+            )}
+          </div>
           <table className="w-full text-left text-sm text-gray-500">
             <tbody>
               <tr className="border-b bg-white">

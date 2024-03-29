@@ -42,10 +42,6 @@ const ToursList = () => {
         />
 
         <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
-          {/* <div className="vivu3mien mb-32 text-center text-5xl ">
-            <p>Trãi nghiệm tất cả các chuyến du lịch có ở</p>
-            <p className="vivu3mien mt-10  text-7xl ">ViVu3Mien</p>
-          </div> */}
           <SearchForm />
         </div>
       </div>
@@ -55,19 +51,8 @@ const ToursList = () => {
       <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>
       <div className="flex flex-col items-center">
         <div className="mb-8 grid grid-cols-4  gap-6">
-          {tours.slice(0, visibleTours).map((item, i) => (
-            <Item
-              key={i}
-              _id={item._id}
-              image={item.image}
-              nameTour={item.nameTour}
-              price={item.price}
-              regions={item.regions}
-              maxParticipants={item.maxParticipants}
-              startDate={item.startDate}
-              endDate={item.endDate}
-              convergeTime={item.convergeTime}
-            />
+          {tours.slice(0, visibleTours).map((item) => (
+            <Item key={item._id} {...item} />
           ))}
         </div>
         <div className="my-4">

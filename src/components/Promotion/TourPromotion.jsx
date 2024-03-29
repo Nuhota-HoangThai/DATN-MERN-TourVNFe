@@ -23,7 +23,7 @@ const TourPromotion = () => {
       const response = await axios.get(
         `${BASE_URL}/tour/promotion/${promotionId}`,
       );
-      console.log(response.data.tours);
+      // console.log(response.data.tours);
       setTours(response.data.tours);
     } catch (err) {
       setError(err.message);

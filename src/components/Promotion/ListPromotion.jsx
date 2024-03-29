@@ -3,13 +3,12 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "./list-promotion.css";
 
 const ListPromotion = () => {
   const { token } = useSelector((state) => state.user.currentUser);
-
   const navigate = useNavigate();
   const [promotions, setPromotions] = useState([]);
-  // const [selectedTourPromotionId, setSelectedTourPromotionId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,11 +17,7 @@ const ListPromotion = () => {
         setIsLoading(true);
         const response = await axios.get(
           `${BASE_URL}/tourPromotion/getAllPromotion`,
-          {
-            // headers: {
-            //   Authorization: "Bearer " + token,
-            // },
-          },
+          {},
         );
         setPromotions(response.data);
       } catch (error) {
@@ -40,23 +35,37 @@ const ListPromotion = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center text-lg">Đang tải...</div>;
+    return <div className="loading">Đang tải...</div>;
+  }
+
+  if (promotions.length === 0) {
+    return <div className="empty">Không có sản phẩm khuyến mãi</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
-      <h1>Chương trình Khuyến mãi</h1>
-      {promotions.map((promotion) => (
-        <div
-          key={promotion._id}
-          className="flex h-64 items-center justify-center rounded-lg bg-cover bg-center text-lg font-semibold text-white shadow-md"
-          onClick={() => selectTourPromotion(promotion._id)}
-        >
-          <div className="rounded-lg bg-black bg-opacity-50 p-4">
-            {promotion.namePromotion}
-          </div>
+    <div className="promotions-container mx-24 mt-12 rounded-3xl bg-gray-100">
+      <div>
+        <h1 className="title text-3xl font-bold">Ưu đãi</h1>
+        <div className="divider"></div>
+        <div className="promotions-grid">
+          {promotions.map((promotion) => (
+            <div
+              key={promotion._id}
+              className="promotion-card"
+              onClick={() => selectTourPromotion(promotion._id)}
+            >
+              <div
+                className="promotion-bg"
+                // style={{
+                //   backgroundImage: `url(${promotion.imageUrl || "defaultImage.jpg"})`,
+                // }}
+              >
+                <div className="promotion-info">{promotion.namePromotion}</div>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };

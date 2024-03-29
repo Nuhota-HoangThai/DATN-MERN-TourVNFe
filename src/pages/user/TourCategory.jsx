@@ -35,7 +35,7 @@ const TourCategory = (props) => {
   )}-${Math.min(visibleProducts, filteredProducts.length)} sản phẩm`;
 
   return (
-    <div className="mx-24 mb-8 mt-28  ">
+    <div className="mx-24 mb-8 mt-28">
       <div className="relative flex items-end justify-center text-white ">
         <img
           src={props.banner}
@@ -54,11 +54,8 @@ const TourCategory = (props) => {
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-8 rounded-lg sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {filteredProducts.slice(0, visibleProducts).map((item, i) => (
-          <Item
-            key={item._id} // Đừng quên prop key khi render list
-            {...item}
-          />
+        {filteredProducts.slice(0, visibleProducts).map((item) => (
+          <Item key={item._id} {...item} />
         ))}
       </div>
       {visibleProducts < filteredProducts.length && (

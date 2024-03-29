@@ -2,12 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../admin/src/utils/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
 import { IoIosAddCircleOutline, IoIosHeart } from "react-icons/io";
 
 const Item = (props) => {
   const { token } = useSelector((state) => state.user.currentUser);
-
   const navigate = useNavigate();
 
   const formatDateVN = (dateString) => {
@@ -35,28 +33,18 @@ const Item = (props) => {
     return `${price?.toLocaleString()} đ`;
   };
 
-  // add comparisons
   const addComparison = async (tourId) => {
     if (token) {
-      axios
-        .post(
+      try {
+        await axios.post(
           `${BASE_URL}/cart/addToCart`,
-          {
-            itemId: tourId,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          },
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .then(() => {
-          alert("Thêm vào so sánh thành công");
-        })
-        .catch((error) => console.error("Error:", error));
+          { itemId: tourId },
+          { headers: { Authorization: "Bearer " + token } },
+        );
+        alert("Thêm vào so sánh thành công");
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -78,6 +66,11 @@ const Item = (props) => {
               src={`${BASE_URL}/${props.image[0].replace(/\\/g, "/")}`}
               alt="Tour Main Image"
             />
+            {props.promotion && props.promotion.discountPercentage > 0 && (
+              <div className="absolute left-0 top-0  rounded bg-red-500 px-3 py-1 text-white">
+                -{props.promotion.discountPercentage}%
+              </div>
+            )}
             <div className="absolute right-0 top-0 p-4">
               <IoIosHeart className="text-2xl text-white transition duration-300 hover:text-red-500" />
             </div>
@@ -97,14 +90,16 @@ const Item = (props) => {
             Khu vực:
             <span className="font-medium"> {formatRegion(props.regions)}</span>
           </p>
-          <p className="mt-3 text-base  text-blue-900">
+          <p className="mt-3 text-base text-blue-900">
             Nơi khởi hành:
             <span className="font-medium"> {props.startingGate}</span>
           </p>
           <p className="mt-2 text-xl font-bold text-red-600">
             {props.price !== props.originalPrice ? (
               <>
-                <span className="text-red-600">{formatPrice(props.price)}</span>{" "}
+                <span className="text-red-600">
+                  {formatPrice(props.price)}{" "}
+                </span>
                 <span className="text-base text-gray-500 line-through">
                   {formatPrice(props.originalPrice)}
                 </span>
@@ -126,15 +121,15 @@ const Item = (props) => {
         </div>
         <div className="flex items-center justify-between border-t p-4">
           <p className="text-sm font-semibold text-blue-900">
-            Số chỗ còn:
-            <span className="text-lg "> {props.maxParticipants}</span>
+            Số chỗ còn:{" "}
+            <span className="text-lg"> {props.maxParticipants}</span>
           </p>
           <div className="flex items-center gap-2">
             <button
               onClick={() => addComparison(props._id)}
               className="flex items-center gap-1 text-sm font-semibold text-blue-900 hover:text-blue-800"
             >
-              <IoIosAddCircleOutline className="text-lg " /> So sánh
+              <IoIosAddCircleOutline className="text-lg" /> So sánh
             </button>
           </div>
         </div>

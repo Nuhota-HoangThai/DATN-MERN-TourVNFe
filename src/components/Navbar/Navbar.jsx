@@ -95,7 +95,7 @@ const Navbar = () => {
             <Link to="/">Liên hệ</Link>
           </li>
           <li>
-            <Link to="/">Giới thiệu</Link>
+            <Link to="/about">Giới thiệu</Link>
           </li>
         </ul>
         <div className="hidden items-center md:flex">

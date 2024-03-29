@@ -1,4 +1,8 @@
 const TourPriceDetail = ({ tour }) => {
+  const formatPrice = (price) => {
+    return `${price?.toLocaleString()} đ`;
+  };
+
   return (
     <div className="mt-16 w-1/2  ">
       <h2 className="mb-4 text-center text-2xl font-bold">Chi Tiết Giá</h2>
@@ -7,25 +11,70 @@ const TourPriceDetail = ({ tour }) => {
           <p className="text-gray-700">
             Giá khách (lớn hơn 16 tuổi):
             <span className="pl-5 font-semibold">
-              {tour.price?.toLocaleString() || 0}₫
+              {tour.price !== tour.originalPrice ? (
+                <>
+                  <span className="text-red-600">
+                    {formatPrice(tour.price)}
+                  </span>{" "}
+                  <span className="text-base text-gray-500 line-through">
+                    {formatPrice(tour.originalPrice)}
+                  </span>
+                </>
+              ) : (
+                formatPrice(tour.price)
+              )}
             </span>
           </p>
           <p className="text-gray-700">
             Giá khách (6-16 tuổi):{" "}
             <span className="pl-5 font-semibold">
-              {tour.priceForChildren?.toLocaleString() || 0}₫
+              {tour.priceForChildren !== tour.originalPriceForChildren ? (
+                <>
+                  <span className="text-red-600">
+                    {formatPrice(tour.priceForChildren)}
+                  </span>{" "}
+                  <span className="text-base text-gray-500 line-through">
+                    {formatPrice(tour.originalPriceForChildren)}
+                  </span>
+                </>
+              ) : (
+                formatPrice(tour.priceForChildren)
+              )}
             </span>
           </p>
           <p className="text-gray-700">
             Giá khách (3-6 tuổi):{" "}
             <span className="pl-5 font-semibold">
-              {tour.priceForYoungChildren?.toLocaleString() || 0}₫
+              {tour.priceForYoungChildren !==
+              tour.originalPriceForYoungChildren ? (
+                <>
+                  <span className="text-red-600">
+                    {formatPrice(tour.priceForYoungChildren)}
+                  </span>{" "}
+                  <span className="text-base text-gray-500 line-through">
+                    {formatPrice(tour.originalPriceForYoungChildren)}
+                  </span>
+                </>
+              ) : (
+                formatPrice(tour.priceForYoungChildren)
+              )}
             </span>
           </p>
           <p className="text-gray-700">
             Giá khách (dưới 3 tuổi):{" "}
             <span className="pl-5 font-semibold">
-              {tour.priceForInfants?.toLocaleString() || 0}₫
+              {tour.priceForInfants !== tour.originalPriceForInfants ? (
+                <>
+                  <span className="text-red-600">
+                    {formatPrice(tour.priceForInfants)}
+                  </span>{" "}
+                  <span className="text-base text-gray-500 line-through">
+                    {formatPrice(tour.originalPriceForInfants)}
+                  </span>
+                </>
+              ) : (
+                formatPrice(tour.priceForInfants)
+              )}
             </span>
           </p>
           <p className="text-gray-700">

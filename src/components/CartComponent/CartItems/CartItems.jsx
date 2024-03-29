@@ -26,13 +26,19 @@ const CartItems = ({ cartItems, setCartItems, allTour }) => {
         Danh sách tour so sánh
       </h1>
       <div className="">
-        <table className="w-full table-auto ">
-          <thead className="bg-blue-200">
-            <tr className=" text-left text-gray-600">
-              <th className="px-6 py-3 ">Tên Tour</th>
-              <th className="px-6 py-3 text-center">Chỗ còn trống</th>
-              <th className="px-6 py-3 text-center">Giá (đ/khách)</th>
-              <th className="px-6 py-3 text-center">Hành Động</th>
+        <table className="w-full table-auto">
+          <thead className="bg-blue-900">
+            <tr className=" text-left">
+              <th className=" rounded-tl-lg px-6 py-3 text-white">Tên Tour</th>
+              <th className="px-6 py-3 text-center text-white">
+                Chỗ còn trống
+              </th>
+              <th className="px-6 py-3 text-center text-white">
+                Giá (đ/khách)
+              </th>
+              <th className=" rounded-tr-lg px-6 py-3 text-center text-white">
+                Hành Động
+              </th>
             </tr>
           </thead>
           <tbody className="text-sm font-light text-gray-600">
