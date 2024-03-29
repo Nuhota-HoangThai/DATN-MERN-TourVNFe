@@ -144,7 +144,7 @@ const Booking = () => {
         },
       );
 
-      window.location.href = res.vnpUrl;
+      window.location.href = res.data.vnpUrl;
       return true;
     } catch (error) {
       return false;

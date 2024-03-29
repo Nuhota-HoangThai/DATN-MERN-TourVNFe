@@ -23,6 +23,7 @@ import mienbac from "./assets/img/bannerHaNoi.png";
 import mientrung from "./assets/img/bannerHue.png";
 import miennam from "./assets/img/bannerNam.png";
 import TourPromotion from "./components/Promotion/TourPromotion";
+import ReturnCheckout from "./pages/user/ReturnCheckout";
 
 const App = () => {
   return (
@@ -49,7 +50,10 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/booking" element={<Booking />} />
-          {/* <Route path="/rate" element={<Rate />} /> */}
+          <Route
+            path="/booking/payment_vnpay_return"
+            element={<ReturnCheckout />}
+          />
           <Route path="/thanks" element={<Thanks />} />
           <Route
             path="/userOrder"
