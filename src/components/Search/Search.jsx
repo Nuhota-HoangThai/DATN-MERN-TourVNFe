@@ -7,12 +7,19 @@ function SearchForm() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    // regions: "",
     nameTour: "",
     startDate: "",
     price: "",
     maxParticipants: "",
   });
+
+  // Định nghĩa các khoảng giá
+  const priceRanges = {
+    "duoi-1000000": { min: 0, max: 999999 },
+    "1000000-5000000": { min: 1000000, max: 4999999 },
+    "5000000-10000000": { min: 5000000, max: 9999999 },
+    "tren-10000000": { min: 10000000, max: Number.MAX_SAFE_INTEGER },
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +33,12 @@ function SearchForm() {
     e.preventDefault();
     const { nameTour, startDate, price, maxParticipants } = formData; // Destructuring để lấy giá trị từ formData
 
+    // Lấy khoảng giá từ priceRanges
+    const priceRange = priceRanges[price] || {};
+
     try {
       const result = await axios.get(
-        `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&price=${price}&maxParticipants=${maxParticipants}`,
+        `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&priceMin=${priceRange.min || ""}&priceMax=${priceRange.max || ""}&maxParticipants=${maxParticipants}`,
       );
 
       //const result = await response.json(); // Giả sử response trả về dạng JSON
@@ -37,7 +47,7 @@ function SearchForm() {
       navigate("/search", { state: { searchResults: result.data.tours } });
     } catch (error) {
       console.error(error);
-      alert("Đã xảy ra lỗi trong quá trình tìm kiếm.");
+      alert("Không có tour phù hợp!!!!");
     }
   };
 

@@ -94,8 +94,9 @@ const Item = (props) => {
             Nơi khởi hành:
             <span className="font-medium"> {props.startingGate}</span>
           </p>
+
           <p className="mt-2 text-xl font-bold text-red-600">
-            {props.price !== props.originalPrice ? (
+            {props.price !== props.originalPrice && props.promotion ? (
               <>
                 <span className="text-red-600">
                   {formatPrice(props.price)}{" "}

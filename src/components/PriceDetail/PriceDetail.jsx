@@ -1,6 +1,6 @@
 const TourPriceDetail = ({ tour }) => {
   const formatPrice = (price) => {
-    return `${price?.toLocaleString()} đ`;
+    return <span style={{ color: "red" }}>{price?.toLocaleString()} đ</span>;
   };
 
   return (
@@ -11,7 +11,7 @@ const TourPriceDetail = ({ tour }) => {
           <p className="text-gray-700">
             Giá khách (lớn hơn 16 tuổi):
             <span className="pl-5 font-semibold">
-              {tour.price !== tour.originalPrice ? (
+              {tour.price !== tour.originalPrice && tour.promotion ? (
                 <>
                   <span className="text-red-600">
                     {formatPrice(tour.price)}
@@ -28,7 +28,8 @@ const TourPriceDetail = ({ tour }) => {
           <p className="text-gray-700">
             Giá khách (6-16 tuổi):{" "}
             <span className="pl-5 font-semibold">
-              {tour.priceForChildren !== tour.originalPriceForChildren ? (
+              {tour.priceForChildren !== tour.originalPriceForChildren &&
+              tour.promotion ? (
                 <>
                   <span className="text-red-600">
                     {formatPrice(tour.priceForChildren)}
@@ -46,7 +47,7 @@ const TourPriceDetail = ({ tour }) => {
             Giá khách (3-6 tuổi):{" "}
             <span className="pl-5 font-semibold">
               {tour.priceForYoungChildren !==
-              tour.originalPriceForYoungChildren ? (
+                tour.originalPriceForYoungChildren && tour.promotion ? (
                 <>
                   <span className="text-red-600">
                     {formatPrice(tour.priceForYoungChildren)}
@@ -63,7 +64,8 @@ const TourPriceDetail = ({ tour }) => {
           <p className="text-gray-700">
             Giá khách (dưới 3 tuổi):{" "}
             <span className="pl-5 font-semibold">
-              {tour.priceForInfants !== tour.originalPriceForInfants ? (
+              {tour.priceForInfants !== tour.originalPriceForInfants &&
+              tour.promotion ? (
                 <>
                   <span className="text-red-600">
                     {formatPrice(tour.priceForInfants)}
@@ -79,7 +81,7 @@ const TourPriceDetail = ({ tour }) => {
           </p>
           <p className="text-gray-700">
             Phí phụ thu:
-            <span className="pl-5 font-semibold">
+            <span className="pl-5 font-semibold text-red-600">
               {tour.additionalFees?.toLocaleString() || 0}đ
             </span>
           </p>

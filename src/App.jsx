@@ -16,7 +16,7 @@ import SearchResult from "./pages/user/SearchResult";
 
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
-
+import UpdateProfile from "./components/ProfileUser/UpdateProfile";
 //import Rate from "./components/ReviewTour/Rate";
 //import banner
 import mienbac from "./assets/img/bannerHaNoi.png";
@@ -52,10 +52,7 @@ const App = () => {
           <Route path="/search" element={<SearchResult />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route
-            path="/booking/payment_vnpay_return"
-            element={<ReturnCheckout />}
-          />
+          <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route
             path="/userOrder"
@@ -86,6 +83,7 @@ const App = () => {
             path="/tourPromotion/:promotionId"
             element={<TourPromotion />}
           />
+          <Route path="/update_user/:id" element={<UpdateProfile />} />
         </Routes>
 
         <Footer />

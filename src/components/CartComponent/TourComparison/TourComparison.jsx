@@ -83,7 +83,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       key={tour._id}
                       className="px-6 py-3 text-left text-black"
                     >
-                      {tour.price !== tour.originalPrice ? (
+                      {tour.price !== tour.originalPrice && tour.promotion ? (
                         <>
                           <span className="text-red-600">
                             {formatPrice(tour.price)}
@@ -108,7 +108,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       className="px-6 py-3 text-left text-black"
                     >
                       {tour.priceForChildren !==
-                      tour.originalPriceForChildren ? (
+                        tour.originalPriceForChildren && tour.promotion ? (
                         <>
                           <span className="text-red-600">
                             {formatPrice(tour.priceForChildren)}
@@ -133,7 +133,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       className="px-6 py-3 text-left text-black"
                     >
                       {tour.priceForYoungChildren !==
-                      tour.originalPriceForYoungChildren ? (
+                        tour.originalPriceForYoungChildren && tour.promotion ? (
                         <>
                           <span className="text-red-600">
                             {formatPrice(tour.priceForYoungChildren)}
@@ -157,7 +157,8 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       key={tour._id}
                       className="px-6 py-3 text-left text-black"
                     >
-                      {tour.priceForInfants !== tour.originalPriceForInfants ? (
+                      {tour.priceForInfants !== tour.originalPriceForInfants &&
+                      tour.promotion ? (
                         <>
                           <span className="text-red-600">
                             {formatPrice(tour.priceForInfants)}

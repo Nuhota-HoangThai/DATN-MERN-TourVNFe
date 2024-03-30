@@ -77,11 +77,11 @@ const TourDisplay = ({ tour }) => {
             <PiBarcodeBold className="text-xl" /> {tour._id}
           </p>
           <p className="text-xl font-semibold text-gray-800">{tour.nameTour}</p>
-          <p>{tour.promotion.discountPercentage}%</p>
+          {/* <p>{tour?.promotion?.discountPercentage}%</p> */}
           <p className="text-lg font-medium text-red-600">
-            {tour.price !== tour.originalPrice ? (
+            {tour.price !== tour.originalPrice && tour.promotion ? (
               <>
-                <span className="text-red-600">{formatPrice(tour.price)}</span>{" "}
+                <span className="text-red-600">{formatPrice(tour.price)} </span>
                 <span className="text-base text-gray-500 line-through">
                   {formatPrice(tour.originalPrice)}
                 </span>
