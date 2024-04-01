@@ -108,21 +108,29 @@ const UserBooking = () => {
     }
   };
 
+  const paymentStatusMapping = (status) =>
+    ({
+      paid: "Đã thanh toán",
+      unpaid: "Chưa thanh toán",
+    })[status] || "N/A";
+
   return (
     <div>
-      <div className="container mx-auto my-16 bg-white px-4 py-8 shadow-2xl">
-        <h1 className="mb-6 text-2xl  font-semibold">Lịch sử đặt tour</h1>
+      <div className="container mx-auto my-16 rounded-lg bg-white px-4 py-8 shadow-xl">
+        <h1 className="mb-6 text-center text-2xl font-semibold">
+          Lịch sử đặt tour
+        </h1>
         {bookings.length > 0 ? (
           <div className="flex flex-col">
             {bookings.map((booking) => (
               <div
                 key={booking._id}
-                className="mb-6 rounded-lg bg-white p-6 shadow-md"
+                className="mb-6 rounded-lg border border-gray-200 bg-white p-6 shadow-md"
               >
                 <h2 className="mb-4 text-xl font-semibold">
                   Mã đặt tour: {formatBookingId(booking._id)}
                 </h2>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2 lg:grid-cols-3">
                   <p className="text-gray-600">
                     <span className="font-semibold">Tour: </span>
                     {booking.tour
@@ -133,37 +141,41 @@ const UserBooking = () => {
                     <span className="font-semibold">Tổng tiền: </span>
                     {booking.totalAmount.toLocaleString()} đ
                   </p>
-                  <p className={`px-4 py-2 ${getStatusStyle(booking.status)}`}>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Thanh toán: </span>
+                    {paymentStatusMapping(booking?.paymentStatus)}
+                  </p>
+                  <p
+                    className={`rounded-lg px-4 py-2 ${getStatusStyle(booking.status)}`}
+                  >
                     <span className="font-semibold">Trạng thái đơn hàng: </span>
                     {translateStatus(booking.status)}
                   </p>
-                  <p>
-                    {booking.status !== "completed" &&
-                      booking.status !== "confirmed" &&
-                      booking.status !== "cancelled" && (
+                  {booking.status !== "completed" &&
+                    booking.status !== "confirmed" &&
+                    booking.status !== "cancelled" && (
+                      <p className="text-right">
                         <button
-                          className="rounded bg-red-500 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700"
+                          className="rounded bg-red-500 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                           onClick={() => cancelBooking(booking._id)}
                         >
                           Hủy đơn hàng
                         </button>
-                      )}
-                  </p>
+                      </p>
+                    )}
                 </div>
                 {booking.status === "completed" && (
-                  <>
-                    <ReviewForm
-                      bookingId={booking._id}
-                      tourId={booking.tour._id}
-                      onSubmit={submitReview}
-                    />
-                  </>
+                  <ReviewForm
+                    bookingId={booking._id}
+                    tourId={booking.tour._id}
+                    onSubmit={submitReview}
+                  />
                 )}
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">Bạn chưa đặt tour nào.</p>
+          <p className="text-center text-gray-600">Bạn chưa đặt tour nào.</p>
         )}
       </div>
     </div>

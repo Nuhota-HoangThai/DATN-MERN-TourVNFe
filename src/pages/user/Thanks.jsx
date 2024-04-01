@@ -9,7 +9,7 @@ const Thanks = () => {
           Cảm ơn bạn đã đặt tour!
         </h2>
         <p className="text-md mb-6 text-center text-gray-600 md:text-lg">
-          Email xác nhận đã được gửi. Vui lòng kiểm tra hộp thư của bạn.
+          Khi đơn hàng được xác nhận sẽ gửi thông tin qua email của bạn.
         </p>
         <div className="flex justify-center">
           <img

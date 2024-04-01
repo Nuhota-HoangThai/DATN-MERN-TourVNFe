@@ -23,7 +23,7 @@ import mienbac from "./assets/img/bannerHaNoi.png";
 import mientrung from "./assets/img/bannerHue.png";
 import miennam from "./assets/img/bannerNam.png";
 import TourPromotion from "./components/Promotion/TourPromotion";
-import ReturnCheckout from "./pages/user/ReturnCheckout";
+//import ReturnCheckout from "./pages/user/ReturnCheckout";
 import AboutPage from "./pages/user/About";
 
 const App = () => {
