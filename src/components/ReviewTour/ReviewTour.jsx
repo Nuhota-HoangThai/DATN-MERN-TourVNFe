@@ -89,7 +89,7 @@ const ReviewForm = ({ tour }) => {
   };
 
   return (
-    <div className="my-16 w-full">
+    <div className="my-16  w-full">
       <div className="mb-2 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-800">Đánh giá</h1>
         <div className="text-lg font-semibold text-indigo-600">

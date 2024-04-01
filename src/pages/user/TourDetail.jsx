@@ -35,7 +35,9 @@ const TourDetail = () => {
       ) : (
         <>
           <Tour tour={tour} />
+
           <TourDisplay tour={tour} />
+
           <div className="flex w-full gap-8">
             <DescriptionBox tour={tour} />
             <PriceDetail tour={tour} />

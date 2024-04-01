@@ -76,6 +76,16 @@ const Item = (props) => {
             </div>
           </div>
         )}
+        {/**Video */}
+        {/* {Array.isArray(props.video) && props.video.length > 0 && (
+          <div className="relative">
+            <video
+              className="h-56 w-full rounded-t-xl object-cover transition duration-300 ease-in-out group-hover:scale-110"
+              src={`${BASE_URL}/${props.video[0].replace(/\\/g, "/")}`}
+              alt="Tour Main video"
+            />
+          </div>
+        )} */}
         <div className="p-4">
           <p className="text-base text-blue-900">
             {formatDateVN(props.startDate)} - {formatDateVN(props.endDate)}

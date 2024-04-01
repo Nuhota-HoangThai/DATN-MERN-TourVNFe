@@ -2,6 +2,10 @@ import { BASE_URL } from "../../utils/config";
 import { Link, useNavigate } from "react-router-dom";
 import "./tour-display.css";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
 import { PiBarcodeBold } from "react-icons/pi";
 
 const TourDisplay = ({ tour }) => {
@@ -51,28 +55,100 @@ const TourDisplay = ({ tour }) => {
   }
 
   const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
+  const displayVideos = Array.isArray(tour.video) ? tour.video.slice(0, 2) : [];
+
+  const sliderSettings = {
+    dots: false,
+    // infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    infinite: displayImages.length > 1,
+    autoplay: displayImages.length > 1,
+    autoplaySpeed: 1500,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+    ],
+  };
 
   return (
-    <div className="mx-auto max-h-[600px] w-full">
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-        <div className="image-grid-container min-h-[600px] w-full rounded-lg bg-white shadow-2xl">
-          {displayImages.length > 0 ? (
-            displayImages.map((image, index) => (
-              <div key={index} className="image-grid-item">
-                <img
-                  src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
-                  alt={`Tour Image ${index + 1}`}
+    <div className="">
+      <div className="grid gap-8 md:grid-cols-2">
+        <div className="space-y-4 rounded-lg bg-white p-6 shadow-xl">
+          <div className="space-y-4">
+            {/* Video */}
+            <div className="aspect-w-16 aspect-h-9 overflow-hidden rounded-lg">
+              {Array.isArray(displayVideos) && displayVideos.length > 0 && (
+                <video
+                  className="h-full w-full object-cover"
+                  controls // Cho phép người dùng tương tác với video.
+                  autoPlay // Tự động chạy video khi component được render.
+                  loop // Lặp lại video khi nó kết thúc.
+                  muted // Tắt âm thanh để tránh vấn đề với chính sách tự động chạy của trình duyệt.
+                  src={`${BASE_URL}/${displayVideos[0].replace(/\\/g, "/")}`}
+                  alt="Tour Main Video"
                 />
-              </div>
-            ))
-          ) : (
-            <div className="col-span-2 flex h-full items-center justify-center">
-              Không có hình ảnh
+              )}
             </div>
-          )}
+            {/* Hình ảnh */}
+            <div className="h-full overflow-hidden rounded-lg">
+              {displayImages.length === 1 ? (
+                <div className="image-grid-item">
+                  <img
+                    className="mx-auto h-[300px]"
+                    src={`${BASE_URL}/${displayImages[0].replace(/\\/g, "/")}`}
+                    alt="Tour Image"
+                  />
+                </div>
+              ) : displayImages.length > 1 ? (
+                <Slider {...sliderSettings} className="">
+                  {displayImages.map((image, index) => (
+                    <div key={index} className="image-grid-item">
+                      <img
+                        className="mx-auto h-[300px]"
+                        src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
+                        alt={`Tour Image ${index + 1}`}
+                      />
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                <div className="col-span-2 flex h-full items-center justify-center">
+                  Không có hình ảnh
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        <div className="space-y-4 rounded-lg bg-white p-6 shadow-2xl">
+        <div className="space-y-4 rounded-lg bg-white p-6 shadow-xl">
           <p className="flex items-center gap-3 text-sm text-gray-700 md:text-base">
             <PiBarcodeBold className="text-xl" /> {tour._id}
           </p>
