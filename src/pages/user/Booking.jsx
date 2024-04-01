@@ -136,7 +136,7 @@ const Booking = () => {
     try {
       const res = await axios.post(
         `${BASE_URL}/booking/payment_vnpay_url`,
-        { totalAmount, surcharge },
+        { ...bookingData, totalAmount, surcharge, bookingDate: new Date() },
         {
           headers: {
             Authorization: "Bearer " + token,
