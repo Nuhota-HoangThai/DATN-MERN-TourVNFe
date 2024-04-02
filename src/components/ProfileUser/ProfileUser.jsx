@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 
+import defaultImage from "../../assets/img/logoicon.png";
+
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
     image: "",
@@ -80,6 +82,35 @@ const UserProfile = () => {
         <div className="border-t border-gray-200">
           <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">
+                Ảnh đại diện
+              </dt>
+              <dd className="mt-1  text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                {Array.isArray(userProfile.image) &&
+                userProfile.image.length > 0 ? (
+                  <img
+                    className="rounded-full"
+                    src={`${BASE_URL}/${userProfile.image[0].replace(/\\/g, "/")}`}
+                    alt="user"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                ) : typeof userProfile.image === "string" ? (
+                  <img
+                    className="rounded-full"
+                    src={`${BASE_URL}/${userProfile.image.replace(/\\/g, "/")}`}
+                    alt="user"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                ) : (
+                  <img
+                    src={defaultImage}
+                    alt="Default"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                )}
+              </dd>
+            </div>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Tên đầy đủ</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 {userProfile.name}
@@ -97,6 +128,12 @@ const UserProfile = () => {
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
                 {userProfile.phone}
+              </dd>
+            </div>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">CCCD/CMND</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                {userProfile.cccd}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

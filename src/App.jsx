@@ -78,12 +78,19 @@ const App = () => {
               </Profile>
             }
           />
+          <Route
+            path="/update_user/:id"
+            element={
+              <Profile>
+                <UpdateProfile />
+              </Profile>
+            }
+          />
 
           <Route
             path="/tourPromotion/:promotionId"
             element={<TourPromotion />}
           />
-          <Route path="/update_user/:id" element={<UpdateProfile />} />
         </Routes>
 
         <Footer />
