@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./list-promotion.css";
 
 const ListPromotion = () => {
-  const { token } = useSelector((state) => state.user.currentUser);
+  //const {  } = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   const [promotions, setPromotions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,6 @@ const ListPromotion = () => {
         setIsLoading(true);
         const response = await axios.get(
           `${BASE_URL}/tourPromotion/getAllPromotion`,
-          {},
         );
         setPromotions(response.data);
       } catch (error) {
@@ -28,7 +27,7 @@ const ListPromotion = () => {
     };
 
     fetchPromotions();
-  }, [token]);
+  }, []);
 
   const selectTourPromotion = (id) => {
     navigate(`/tourPromotion/${id}`);

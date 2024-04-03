@@ -103,7 +103,7 @@ const Navbar = () => {
             <Link to={`/profile`} className="text-center">
               <span className="font-semibold">
                 <span>Xin chào: </span>
-                {currentUser.name}
+                {currentUser.name || currentUser.email}
               </span>
             </Link>
           ) : (

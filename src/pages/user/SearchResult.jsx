@@ -25,9 +25,6 @@ const SearchResultList = () => {
       <div className="mt-24">
         {Array.isArray(data) && data.length > 0 ? (
           <div>
-            <h2 className="my-1 text-center text-3xl font-bold ">
-              Kết quả tìm kiếm
-            </h2>{" "}
             <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>
             <div className="my-4 flex justify-center">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
