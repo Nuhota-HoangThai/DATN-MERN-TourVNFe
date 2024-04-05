@@ -40,9 +40,10 @@ const TourComparison = ({ allTour = [], cartItems }) => {
         return "Không xác định";
     }
   };
+
   return (
     <div className="container mx-auto my-8 rounded-lg bg-white p-4 px-10 shadow-lg">
-      {toursToCompare.length >= 2 ? (
+      {toursToCompare?.length >= 2 ? (
         <div className="compare-section mx-auto w-full">
           <h2 className="my-4 text-center text-2xl font-bold text-gray-800">
             Bảng so sánh
@@ -257,9 +258,9 @@ const TourComparison = ({ allTour = [], cartItems }) => {
         </div>
       ) : (
         <div className="my-10 text-center">
-          {/* <h2 className="text-xl font-semibold">
-            Không có tour nào để so sánh
-          </h2> */}
+          <h2 className="text-xl font-semibold">
+            {/* Không có tour nào để so sánh */}
+          </h2>
         </div>
       )}
     </div>

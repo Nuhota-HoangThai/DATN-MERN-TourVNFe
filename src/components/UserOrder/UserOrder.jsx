@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
@@ -6,27 +6,52 @@ import ReviewForm from "../ReviewTour/Rate";
 
 const UserBooking = () => {
   const [bookings, setBookings] = useState([]);
+  const [showReviewFormFor, setShowReviewFormFor] = useState(null); // Mã đặt tour hiện form đánh giá
   const { token } = useSelector((state) => state.user.currentUser);
-
   //////////////////////////////////////////
-  const submitReview = async ({ bookingId, tourId, reviewText, rating }) => {
+  const submitReview = async ({
+    bookingId,
+    tourId,
+    reviewText,
+    rating,
+    image,
+    video,
+  }) => {
     try {
+      const formData = new FormData();
+      formData.append("bookingId", bookingId);
+      formData.append("reviewText", reviewText);
+      formData.append("rating", rating);
+
+      // Append images
+      for (let i = 0; i < image.length; i++) {
+        formData.append("image", image[i]);
+      }
+
+      // Append video
+      for (let i = 0; i < video.length; i++) {
+        formData.append("video", video[i]);
+      }
+
       const response = await axios.post(
         `${BASE_URL}/review/${tourId}`,
-        { bookingId, reviewText, rating },
+        formData,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
       if (response.status === 200) {
         alert("Đánh giá thành công!");
+        // Cập nhật UI ở đây nếu cần
       }
     } catch (error) {
       console.error("Failed to submit review:", error);
       alert("Đánh giá không thành công. Vui lòng đánh giá lại!!!");
     }
   };
-  /////////////////////////////////////////
+  /////////////////////////////////
   const formatBookingId = (id) => {
     if (id.length <= 8) return id;
 
@@ -77,9 +102,17 @@ const UserBooking = () => {
     }
   };
 
+  const toggleReviewForm = (bookingId) => {
+    if (showReviewFormFor === bookingId) {
+      setShowReviewFormFor(null); // Ẩn form nếu nó đã hiển thị
+    } else {
+      setShowReviewFormFor(bookingId); // Hiển thị form cho đặt tour cụ thể
+    }
+  };
+
   const cancelBooking = async (bookingId) => {
     if (!token) {
-      console.log("Người dùng chưa đăng nhập");
+      //console.log("Người dùng chưa đăng nhập");
       return;
     }
     try {
@@ -115,69 +148,97 @@ const UserBooking = () => {
     })[status] || "N/A";
 
   return (
-    <div>
-      <div className="container mx-auto my-16 rounded-lg bg-white px-4 py-8 shadow-xl">
-        <h1 className="mb-6 text-center text-2xl font-semibold">
-          Lịch sử đặt tour
-        </h1>
-        {bookings.length > 0 ? (
-          <div className="flex flex-col">
-            {bookings.map((booking) => (
-              <div
-                key={booking._id}
-                className="mb-6 rounded-lg border border-gray-200 bg-white p-6 shadow-md"
-              >
-                <h2 className="mb-4 text-xl font-semibold">
-                  Mã đặt tour: {formatBookingId(booking._id)}
-                </h2>
-                <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <p className="text-gray-600">
-                    <span className="font-semibold">Tour: </span>
-                    {booking.tour
-                      ? booking.tour.nameTour
-                      : "Không còn tour này"}
-                  </p>
-                  <p className="text-gray-600">
-                    <span className="font-semibold">Tổng tiền: </span>
-                    {booking.totalAmount.toLocaleString()} đ
-                  </p>
-                  <p className="text-gray-600">
-                    <span className="font-semibold">Thanh toán: </span>
-                    {paymentStatusMapping(booking?.paymentStatus)}
-                  </p>
-                  <p
-                    className={`rounded-lg px-4 py-2 ${getStatusStyle(booking.status)}`}
-                  >
-                    <span className="font-semibold">Trạng thái đơn hàng: </span>
-                    {translateStatus(booking.status)}
-                  </p>
-                  {booking.status !== "completed" &&
-                    booking.status !== "confirmed" &&
-                    booking.status !== "cancelled" && (
-                      <p className="text-right">
+    <div className="container mx-auto my-16 rounded-lg bg-white px-4 py-8 shadow-lg">
+      <h1 className="mb-6 text-center text-2xl font-semibold text-gray-800">
+        Lịch sử đặt tour
+      </h1>
+      {bookings.length > 0 ? (
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Mã đặt
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Tour
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Tổng tiền
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Thanh toán
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Trạng thái
+                </th>
+                <th scope="col" className="px-6 py-3 text-right">
+                  Hành động
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking) => (
+                <React.Fragment key={booking._id}>
+                  <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+                    <td className="px-6 py-4">
+                      {formatBookingId(booking._id)}
+                    </td>
+                    <td className="px-6 py-4">
+                      {booking.tour
+                        ? booking.tour.nameTour
+                        : "Không còn tour này"}
+                    </td>
+                    <td className="px-6 py-4">
+                      {booking.totalAmount.toLocaleString()} đ
+                    </td>
+                    <td className="px-6 py-4">
+                      {paymentStatusMapping(booking?.paymentStatus)}
+                    </td>
+                    <td
+                      className={`px-6 py-4 font-medium ${getStatusStyle(booking.status)}`}
+                    >
+                      {translateStatus(booking.status)}
+                    </td>
+                    <td className="flex justify-end space-x-4 px-6 py-4">
+                      {booking.status === "completed" && (
                         <button
-                          className="rounded bg-red-500 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                          className="font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+                          onClick={() => toggleReviewForm(booking._id)}
+                        >
+                          Đánh giá
+                        </button>
+                      )}
+                      {(booking.status === "pending" ||
+                        booking.status === "confirmed") && (
+                        <button
+                          className="font-medium text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-700"
                           onClick={() => cancelBooking(booking._id)}
                         >
-                          Hủy đơn hàng
+                          Hủy tour
                         </button>
-                      </p>
-                    )}
-                </div>
-                {booking.status === "completed" && (
-                  <ReviewForm
-                    bookingId={booking._id}
-                    tourId={booking.tour._id}
-                    onSubmit={submitReview}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-600">Bạn chưa đặt tour nào.</p>
-        )}
-      </div>
+                      )}
+                    </td>
+                  </tr>
+                  {showReviewFormFor === booking._id && (
+                    <tr className="bg-gray-100 dark:bg-gray-700">
+                      <td colSpan="6" className="px-6 py-4">
+                        <ReviewForm
+                          bookingId={booking._id}
+                          tourId={booking.tour._id}
+                          onSubmit={submitReview}
+                        />
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-center text-gray-600">Bạn chưa đặt tour nào.</p>
+      )}
     </div>
   );
 };

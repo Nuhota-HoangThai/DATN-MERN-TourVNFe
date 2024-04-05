@@ -15,7 +15,7 @@ const Cart = () => {
   useEffect(() => {
     if (currentUser) {
       axios.get(`${BASE_URL}/tour/getAllTours`).then((res) => {
-        setAllTour(res.data);
+        setAllTour(res.data.tours);
       });
 
       if (currentUser) {
@@ -23,12 +23,15 @@ const Cart = () => {
           .get(`${BASE_URL}/cart/getCart`, {
             headers: { Authorization: "Bearer " + currentUser.token },
           })
-          .then((res) => setCartItems(res.data));
+          .then((res) => {
+            setCartItems(res.data);
+          });
       }
     } else {
       alert("Bạn chưa đăng nhập.");
     }
   }, [currentUser]);
+
   return (
     <div className="my-5 max-w-6xl">
       <TourComparison

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const CartItems = ({ cartItems, setCartItems, allTour }) => {
   const { token } = useSelector((state) => state.user.currentUser);
-
+  console.log(allTour);
   const removeFromCart = (itemId) => {
     if (token) {
       axios

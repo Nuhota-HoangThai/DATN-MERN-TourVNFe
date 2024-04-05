@@ -9,7 +9,7 @@ import Slider from "react-slick";
 
 const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
   // const { currentUser } = useSelector((state) => state.user);
-  const [images, setImages] = useState([]);
+  const [image, setImages] = useState([]);
   const [video, setVideo] = useState([]);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
@@ -21,6 +21,8 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
       bookingId,
       tourId,
       reviewText,
+      image, // thay vì image
+      video,
       rating,
       userId,
     });
@@ -33,8 +35,8 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    infinite: images.length > 1,
-    autoplay: images.length > 1,
+    infinite: image.length > 1,
+    autoplay: image.length > 1,
     autoplaySpeed: 1500,
     arrows: false,
     responsive: [
@@ -43,8 +45,8 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: images.length > 1,
-          autoplay: images.length > 1,
+          infinite: image.length > 1,
+          autoplay: image.length > 1,
           dots: true,
           arrows: false,
         },
@@ -72,97 +74,87 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full space-y-4 rounded border border-blue-500 bg-white p-5 px-6 shadow-2xl"
+      className="mx-auto max-w-xl space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
     >
-      {" "}
-      <div className="ml-5">
-        <div className="mb-4 text-center ">
-          <label htmlFor="file-input" className="my-2 cursor-pointer ">
-            {images.length > 0 ? (
-              <Slider {...sliderSettings} className="mx-5 mb-5">
-                {images.map((image, index) => {
-                  if (image instanceof Blob || image instanceof File) {
-                    const imageUrl = URL.createObjectURL(image);
-                    return (
-                      <div key={index}>
-                        <img
-                          className="border border-black"
-                          src={imageUrl}
-                          alt="Hình ảnh địa điểm"
-                          onLoad={() => URL.revokeObjectURL(imageUrl)}
-                          style={{
-                            width: "600px",
-                            height: "250px",
-                            marginTop: "30px",
-                          }}
-                        />
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </Slider>
-            ) : (
-              <div className="mt-8 border border-black">
-                <h1 className="py-36">Thêm hình ảnh</h1>
-              </div>
-            )}
-          </label>
-          <input
-            onChange={(e) => {
-              setImages([...e.target.files]);
-            }}
-            type="file"
-            name="image"
-            id="file-input"
-            className="hidden "
-            multiple
-          />
-        </div>
-        {/**/}
-        <div className="mb-4 text-center">
-          <label htmlFor="video-input" className="cursor-pointer">
-            {video.length > 0 ? (
-              <video
-                className="mx-5 border border-black"
-                controls
-                src={URL.createObjectURL(video[0])}
-                alt="Video preview"
-                style={{
-                  width: "525px",
-                  height: "250px",
-                  marginTop: "30px",
-                }}
-              />
-            ) : (
-              <div className="mt-10 border border-black">
-                <h1 className="py-36 text-center">Thêm video</h1>
-              </div>
-            )}
-          </label>
-          <input
-            onChange={(e) => setVideo([...e.target.files])}
-            type="file"
-            name="video"
-            id="video-input"
-            className="hidden"
-            accept="video/*"
-          />
-        </div>
+      <div>
+        <label
+          htmlFor="file-input"
+          className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
+        >
+          Thêm hình ảnh
+        </label>
+        {image.length > 0 ? (
+          <Slider {...sliderSettings} className="mb-4">
+            {image.map((image, index) => {
+              if (image instanceof Blob || image instanceof File) {
+                const imageUrl = URL.createObjectURL(image);
+                return (
+                  <div key={index} className="flex justify-center">
+                    <img
+                      src={imageUrl}
+                      alt="Hình ảnh địa điểm"
+                      onLoad={() => URL.revokeObjectURL(imageUrl)}
+                      className="h-auto max-w-xs rounded-md shadow-sm"
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </Slider>
+        ) : (
+          <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
+            <span className="text-sm text-gray-500">Chưa có hình ảnh</span>
+          </div>
+        )}
+        <input
+          onChange={(e) => setImages([...e.target.files])}
+          type="file"
+          name="image"
+          id="file-input"
+          className="hidden"
+          multiple
+        />
       </div>
-      {/* Hiển thị tên người dùng */}
-      {/* <div className="mb-2 text-lg font-semibold">
-        Đánh giá bởi: {userId.name}
-      </div> */}
+
+      <div>
+        <label
+          htmlFor="video-input"
+          className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
+        >
+          Thêm video
+        </label>
+        {video.length > 0 ? (
+          <video
+            controls
+            className="max-w-xs rounded-md shadow-sm"
+            src={URL.createObjectURL(video[0])}
+          />
+        ) : (
+          <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
+            <span className="text-sm text-gray-500">Chưa có video</span>
+          </div>
+        )}
+        <input
+          onChange={(e) => setVideo([...e.target.files])}
+          type="file"
+          name="video"
+          id="video-input"
+          className="hidden"
+          accept="video/*"
+        />
+      </div>
+
       <textarea
         value={reviewText}
         onChange={(e) => setReviewText(e.target.value)}
         placeholder="Viết đánh giá của bạn ở đây..."
         required
-        className="w-full rounded-md border border-black px-5 py-2 shadow-sm"
-        rows="4"
+        className="h-24 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+        rows="3"
       ></textarea>
-      <div className="flex items-center space-x-3">
+
+      <div className="flex items-center space-x-2">
         <input
           type="number"
           value={rating}
@@ -171,15 +163,16 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
           min="0"
           max="5"
           required
-          className="w-20 rounded-md border border-black px-5 py-2 shadow-xl"
+          className="w-16 rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
         />
-        <label htmlFor="rating" className="flex text-gray-600">
+        <label htmlFor="rating" className="flex text-sm text-gray-600">
           Điểm đánh giá (1-5 <IoIosStar />)
         </label>
       </div>
+
       <button
         type="submit"
-        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Gửi đánh giá
       </button>
