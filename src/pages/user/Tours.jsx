@@ -16,7 +16,7 @@ const ToursList = () => {
     const fetchTours = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/tour/getAllTours`);
-        setTours(response.data);
+        setTours(response.data.tours);
       } catch (error) {
         console.error("There was a problem fetching the tours:", error);
       }
@@ -33,7 +33,7 @@ const ToursList = () => {
   };
 
   return (
-    <div className="mx-24  mt-28">
+    <div className="mt-28">
       <div className="relative flex items-end justify-center  text-white ">
         <img
           src={bannerTours}

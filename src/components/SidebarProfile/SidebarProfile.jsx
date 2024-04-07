@@ -13,8 +13,8 @@ const SidebarProfile = () => {
   };
 
   return (
-    <div className="mt-24 flex  w-full max-w-xs flex-col rounded-2xl bg-white p-4 shadow-2xl ">
-      <div className="pt-24">
+    <div className="flex h-screen  w-full max-w-xs flex-col  bg-white p-4 shadow-xl ">
+      <div className="pt-32">
         <Link
           to={`/profile`}
           className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
@@ -39,6 +39,15 @@ const SidebarProfile = () => {
         >
           <div className="flex items-center space-x-2">
             <p>So sánh tour</p>
+          </div>
+        </Link>
+
+        <Link
+          to={`/favorites`}
+          className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
+        >
+          <div className="flex items-center space-x-2">
+            <p>Tour yêu thích</p>
           </div>
         </Link>
       </div>

@@ -55,12 +55,12 @@ const TourPromotion = () => {
   }, [promotionId]);
 
   const settings = {
-    dots: true,
-    infinite: tours.length > 3,
+    dots: false,
+    infinite: tours.length > 4,
     speed: 500,
-    slidesToShow: 3, // Mặc định hiển thị 4 slides trên một màn hình lớn
+    slidesToShow: 4, // Mặc định hiển thị 4 slides trên một màn hình lớn
     slidesToScroll: 1,
-    autoplay: tours.length > 3,
+    autoplay: tours.length > 4,
     autoplaySpeed: 2000,
     arrows: false, // Tắt mũi tên điều hướng
     responsive: [
@@ -70,7 +70,7 @@ const TourPromotion = () => {
           slidesToShow: tours.length >= 3 ? 3 : tours.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
           slidesToScroll: 1,
           infinite: tours.length > 3,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -97,13 +97,19 @@ const TourPromotion = () => {
   if (error) return <p>Lỗi: {error}</p>;
 
   return (
-    <div className="mx-24 mb-10 mt-28">
+    <div className="mx-20 mb-6 mt-32">
       {selectedPromotion ? (
         <>
-          <h2 className="my-1 text-center text-3xl font-bold">
-            {selectedPromotion.namePromotion}
-          </h2>{" "}
-          <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
+          <div className="mb-8 flex items-center justify-center">
+            <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+            <h1
+              className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+              style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+            >
+              {selectedPromotion.namePromotion}
+            </h1>
+            <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
+          </div>
           {tours.length > 0 ? (
             <Slider {...settings}>
               {tours.map((item) => (

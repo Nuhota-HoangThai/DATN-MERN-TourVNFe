@@ -13,7 +13,7 @@ const TourCategory = (props) => {
     const fetchAllTours = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/tour/getAllTours`);
-        setAllTour(response.data);
+        setAllTour(response.data.tours);
       } catch (error) {
         console.error("There was an error fetching the tours:", error);
       }

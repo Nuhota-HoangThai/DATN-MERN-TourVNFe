@@ -42,23 +42,21 @@ const TourComparison = ({ allTour = [], cartItems }) => {
   };
 
   return (
-    <div className="container mx-auto my-8 rounded-lg bg-white p-4 px-10 shadow-lg">
+    <>
       {toursToCompare?.length >= 2 ? (
-        <div className="compare-section mx-auto w-full">
-          <h2 className="my-4 text-center text-2xl font-bold text-gray-800">
+        <div className="compare-section mx-auto mb-6 mt-28 w-full">
+          <h2 className="my-4 text-center text-xl font-bold text-gray-800">
             Bảng so sánh
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full table-auto">
               <thead>
-                <tr className="bg-blue-900 text-sm uppercase leading-normal ">
-                  <th className="rounded-tl-lg px-6 py-3 text-left text-white">
+                <tr className="bg-gray-200 text-sm uppercase leading-normal ">
+                  <th className="rounded-tl-lg px-6 py-3 text-left ">
                     Thông tin
                   </th>
-                  <th className="px-6 py-3 text-left text-white">Tour 1</th>
-                  <th className="rounded-tr-lg px-6 py-3 text-left text-white">
-                    Tour 2
-                  </th>
+                  <th className="px-6 py-3 text-left">Tour 1</th>
+                  <th className="rounded-tr-lg px-6 py-3 text-left">Tour 2</th>
                 </tr>
               </thead>
               <tbody className="text-sm font-light text-gray-600">
@@ -263,7 +261,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
           </h2>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

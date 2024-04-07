@@ -18,11 +18,11 @@ const Popular = () => {
 
   const settings = {
     dots: true,
-    infinite: popularTours.length > 3,
+    infinite: popularTours.length > 4,
     speed: 500,
-    slidesToShow: 3, // Mặc định hiển thị 4 slides trên một màn hình lớn
+    slidesToShow: 4, // Mặc định hiển thị 4 slides trên một màn hình lớn
     slidesToScroll: 1,
-    autoplay: popularTours.length > 3,
+    autoplay: popularTours.length > 4,
     autoplaySpeed: 2000,
     arrows: false, // Tắt mũi tên điều hướng
     responsive: [
@@ -56,16 +56,20 @@ const Popular = () => {
   };
 
   return (
-    <div className="mx-24 mt-12  ">
+    <div className="mx-20 mt-12 ">
       {popularTours.length > 0 ? (
-        <div className="w-full rounded-3xl bg-slate-200 px-4 py-8">
-          <div className="text-center">
-            <h1 className="mb-1 text-3xl font-bold">
-              Tours phổ biến ở miền Trung
+        <div className="w-full">
+          <div className="mb-8 flex items-center justify-center">
+            <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+            <h1
+              className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+              style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+            >
+              Tour phổ biến miền Trung
             </h1>
-            <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
+            <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
           </div>
-          <div className="ml-20">
+          <div className="">
             <Slider {...settings}>
               {popularTours.map((item) => (
                 <Item

@@ -3,26 +3,45 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 import axios from "axios";
 
+import "../styles/register.css";
+
 const Register = () => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    password: "",
+    confirmPassword: "",
+  });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { password, confirmPassword } = formData;
+
+    if (password.length < 8) {
+      setError("Mật khẩu phải có ít nhất 8 ký tự.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Mật khẩu và xác nhận mật khẩu không khớp.");
+      return;
+    }
+
     try {
       setLoading(true);
       const { data } = await axios.post(`${BASE_URL}/user/signup`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify(formData),
       });
 
       if (!data.success) {
@@ -40,8 +59,8 @@ const Register = () => {
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="text-center text-2xl font-bold">Đăng Ký</h1>
+      <div className="form-container w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
+        <h1 className="mb-6 text-center text-2xl font-bold">Đăng Ký</h1>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <input
@@ -65,7 +84,13 @@ const Register = () => {
             id="password"
             onChange={handleChange}
           />
-
+          <input
+            type="password"
+            placeholder="Xác nhận mật khẩu"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            id="confirmPassword"
+            onChange={handleChange}
+          />
           <button
             disabled={loading}
             className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 disabled:bg-indigo-300"
@@ -73,7 +98,7 @@ const Register = () => {
             {loading ? "Đang xử lý..." : "Đăng Ký"}
           </button>
         </form>
-        <div className="text-center text-sm">
+        <div className="mt-6 text-center text-sm">
           <p>Đã có tài khoản?</p>
           <Link
             to="/login"
@@ -82,6 +107,12 @@ const Register = () => {
             Đăng nhập
           </Link>
         </div>
+      </div>
+      {/* Thêm sóng ở đây */}
+      <div className="ocean">
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
       </div>
     </div>
   );

@@ -13,11 +13,11 @@ const Home = () => {
   return (
     <div className="mt-24">
       <Banner />
+      <NewCollections />
+      <ListPromotion />
       <PopularNorth />
       <PopularCentralRegion />
       <PopularSouthern />
-      <ListPromotion />
-      <NewCollections />
       <NewsLetter />
     </div>
   );

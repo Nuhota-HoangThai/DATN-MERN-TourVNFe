@@ -52,10 +52,10 @@ function SearchForm() {
   };
 
   return (
-    <div className="mb-8 flex justify-center rounded-3xl bg-white shadow-2xl">
+    <div className="mb-8 flex justify-center rounded-2xl bg-white shadow-2xl">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-16 "
+        className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-12"
       >
         <div className="flex min-w-[160px] flex-1 flex-col rounded-lg border-2 border-blue-900 px-2 py-1">
           <label htmlFor="nameTour" className="mb-2 border-b-2 font-bold">

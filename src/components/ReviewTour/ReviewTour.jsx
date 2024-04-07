@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/config";
 import calculateAvgRating from "../../utils/avgRating";
 
@@ -11,7 +11,7 @@ import Slider from "react-slick";
 import Star from "../../assets/img/star.png";
 
 const ReviewForm = ({ tour }) => {
-  const { token } = useSelector((state) => state.user.currentUser);
+  // const { token } = useSelector((state) => state.user.currentUser);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,9 +20,9 @@ const ReviewForm = ({ tour }) => {
       setIsLoading(true);
       try {
         const response = await axios.get(`${BASE_URL}/review/${tour._id}`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          // headers: {
+          //   Authorization: "Bearer " + token,
+          // },
         });
         setReviews(response.data.reviews);
         setIsLoading(false);
@@ -33,7 +33,7 @@ const ReviewForm = ({ tour }) => {
     };
 
     fetchReviews();
-  }, [tour, token]);
+  }, [tour]);
 
   const { avgRating } = calculateAvgRating(reviews);
 

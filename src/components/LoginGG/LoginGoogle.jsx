@@ -1,4 +1,3 @@
-import React from "react"; // Đảm bảo bạn nhập React nếu bạn sử dụng JSX
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
@@ -33,7 +32,11 @@ const GgAuth = () => {
   };
 
   return (
-    <button onClick={handleGoogle} type="button" className="">
+    <button
+      onClick={handleGoogle}
+      type="button"
+      className="mt-4 w-full rounded-md border border-transparent bg-red-600 px-4 py-2 text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-300"
+    >
       Đăng nhập Google
     </button>
   );

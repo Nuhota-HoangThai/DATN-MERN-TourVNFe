@@ -148,7 +148,7 @@ const UserBooking = () => {
     })[status] || "N/A";
 
   return (
-    <div className="container mx-auto my-16 rounded-lg bg-white px-4 py-8 shadow-lg">
+    <div className="container mx-auto mt-32 rounded-lg bg-white px-4 py-8 shadow-lg">
       <h1 className="mb-6 text-center text-2xl font-semibold text-gray-800">
         Lịch sử đặt tour
       </h1>

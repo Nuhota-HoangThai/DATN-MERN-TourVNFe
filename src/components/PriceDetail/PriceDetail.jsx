@@ -6,7 +6,7 @@ const TourPriceDetail = ({ tour }) => {
   return (
     <div className="mt-16 w-1/2  ">
       <h2 className="mb-4 text-center text-2xl font-bold">Chi Tiết Giá</h2>
-      <div className="h-80 overflow-y-auto rounded-xl bg-white p-8 shadow-2xl md:max-w-2xl">
+      <div className="h-80 overflow-y-auto rounded-xl bg-white p-8 shadow md:max-w-2xl">
         <div className="flex flex-col space-y-2">
           <p className="text-gray-700">
             Giá khách (lớn hơn 16 tuổi):

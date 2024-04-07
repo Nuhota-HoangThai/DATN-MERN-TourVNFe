@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { IoIosAddCircleOutline, IoIosHeart } from "react-icons/io";
 
 const Item = (props) => {
-  const { token } = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const token = currentUser?.token; // Using optional chaining to safely access token
   const navigate = useNavigate();
 
   const formatDateVN = (dateString) => {
@@ -34,16 +35,53 @@ const Item = (props) => {
   };
 
   const addComparison = async (tourId) => {
-    if (token) {
-      try {
-        await axios.post(
-          `${BASE_URL}/cart/addToCart`,
-          { itemId: tourId },
-          { headers: { Authorization: "Bearer " + token } },
-        );
-        alert("Thêm vào so sánh thành công");
-      } catch (error) {
-        console.error("Error:", error);
+    if (!token) {
+      // Nếu không có token, chưa đăng nhập, chuyển đến trang đăng nhập
+      navigate("/login");
+      return; // Dừng thực thi hàm
+    }
+
+    try {
+      await axios.post(
+        `${BASE_URL}/cart/addToCart`,
+        { itemId: tourId },
+        { headers: { Authorization: "Bearer " + token } },
+      );
+      alert("Thêm vào so sánh thành công");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const addFavorite = async (tourId) => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    // Giả sử bạn có thể truy cập userId từ Redux store hoặc context
+    // Ví dụ, nếu bạn lưu trữ nó trong Redux store như currentUser.userId
+    const userId = currentUser?.id; // Chỉ là ví dụ, hãy thay thế phù hợp với cách bạn lưu trữ userId
+
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${BASE_URL}/favorites/addFavorites`,
+        { userId, tourId }, // Gửi cả userId và tourId trong request body
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      alert("Tour đã được thêm vào yêu thích!");
+    } catch (error) {
+      console.error(
+        "Failed to fetch favorites:",
+        error.response?.data?.message || error.message,
+      );
+      if (error.response?.status === 409) {
+        alert("Chuyến tham quan đã được yêu thích");
       }
     }
   };
@@ -53,7 +91,7 @@ const Item = (props) => {
   };
 
   return (
-    <div className="group relative w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
+    <div className="group relative w-full overflow-hidden  border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
       <Link
         to={`/tour/${props._id}`}
         onClick={() => window.scrollTo(0, 0)}
@@ -62,7 +100,7 @@ const Item = (props) => {
         {Array.isArray(props.image) && props.image.length > 0 && (
           <div className="relative">
             <img
-              className="h-56 w-full rounded-t-xl object-cover transition duration-300 ease-in-out group-hover:scale-110"
+              className="h-56 w-full  object-cover transition duration-300 ease-in-out group-hover:scale-110"
               src={`${BASE_URL}/${props.image[0].replace(/\\/g, "/")}`}
               alt="Tour Main Image"
             />
@@ -72,20 +110,18 @@ const Item = (props) => {
               </div>
             )}
             <div className="absolute right-0 top-0 p-4">
-              <IoIosHeart className="text-2xl text-white transition duration-300 hover:text-red-500" />
+              <IoIosHeart
+                className="cursor-pointer text-2xl text-white transition duration-300 hover:text-red-500"
+                onClick={(e) => {
+                  e.preventDefault(); // Ngăn chặn hành động mặc định của link
+                  e.stopPropagation(); // Ngăn sự kiện lan truyền
+                  addFavorite(props._id);
+                }}
+              />
             </div>
           </div>
         )}
-        {/**Video */}
-        {/* {Array.isArray(props.video) && props.video.length > 0 && (
-          <div className="relative">
-            <video
-              className="h-56 w-full rounded-t-xl object-cover transition duration-300 ease-in-out group-hover:scale-110"
-              src={`${BASE_URL}/${props.video[0].replace(/\\/g, "/")}`}
-              alt="Tour Main video"
-            />
-          </div>
-        )} */}
+
         <div className="p-4">
           <p className="text-base text-blue-900">
             {formatDateVN(props.startDate)} - {formatDateVN(props.endDate)}

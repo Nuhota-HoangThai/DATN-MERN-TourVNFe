@@ -45,7 +45,7 @@ const Login = () => {
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
+      <div className="form-container w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
         <h1 className="text-center text-2xl font-bold text-gray-900">
           Đăng nhập
         </h1>
@@ -84,6 +84,12 @@ const Login = () => {
             </Link>
           </p>
         </div>
+      </div>
+      {/* Thêm sóng ở đây */}
+      <div className="ocean">
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
       </div>
     </div>
   );

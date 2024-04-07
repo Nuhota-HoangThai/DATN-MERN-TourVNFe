@@ -11,18 +11,19 @@ const NewCollections = () => {
   const [newCollection, setNewCollection] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/tour/getNewCollection`).then((data) => {
-      setNewCollection(data);
+    axios.get(`${BASE_URL}/tour/getNewCollection`).then((response) => {
+      //console.log(response.data);
+      setNewCollection(response.data); // Sửa từ data thành response.data
     });
   }, []);
 
   const settings = {
-    dots: true,
-    infinite: newCollection.length > 3,
+    dots: false,
+    infinite: newCollection.length > 4,
     speed: 500,
-    slidesToShow: 3, // Mặc định hiển thị 4 slides trên một màn hình lớn
+    slidesToShow: 4, // Mặc định hiển thị 4 slides trên một màn hình lớn
     slidesToScroll: 1,
-    autoplay: newCollection.length > 3,
+    autoplay: newCollection.length > 4,
     autoplaySpeed: 2000,
     arrows: false, // Tắt mũi tên điều hướng
     responsive: [
@@ -32,7 +33,7 @@ const NewCollections = () => {
           slidesToShow: newCollection.length >= 3 ? 3 : newCollection.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
           slidesToScroll: 1,
           infinite: newCollection.length > 3,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -56,32 +57,36 @@ const NewCollections = () => {
   };
 
   return (
-    <div className="mx-24 mt-12  ">
+    <div className="mx-20 mt-28">
       {newCollection.length > 0 ? (
-        <div className="w-full rounded-3xl bg-slate-200 px-4 py-8">
-          <h1 className="my-1 text-center text-3xl font-bold">
-            Tours mới nhất
-          </h1>
-          <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>{" "}
-          <div className="ml-20">
+        <div className="w-full">
+          <div className="mb-8 flex items-center justify-center">
+            <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+            <h1
+              className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+              style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+            >
+              Tour mới nhất
+            </h1>
+            <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
+          </div>{" "}
+          <div className="">
             <Slider {...settings}>
-              {newCollection.map((item, index) => (
-                <div key={index} className="px-2">
-                  <Item
-                    key={item._id} // Đừng quên prop key khi render list
-                    {...item}
-                    // id={item.id}
-                    // image={item.image}
-                    // nameTour={item.nameTour}
-                    // price={item.price}
-                    // regions={item.regions}
-                    // maxParticipants={item.maxParticipants}
-                    // startDate={item.startDate}
-                    // endDate={item.endDate}
-                    // convergeTime={item.convergeTime}
-                    // startingGate={item.startingGate}
-                  />
-                </div>
+              {newCollection.map((item) => (
+                <Item
+                  key={item._id} // Đừng quên prop key khi render list
+                  {...item}
+                  // id={item.id}
+                  // image={item.image}
+                  // nameTour={item.nameTour}
+                  // price={item.price}
+                  // regions={item.regions}
+                  // maxParticipants={item.maxParticipants}
+                  // startDate={item.startDate}
+                  // endDate={item.endDate}
+                  // convergeTime={item.convergeTime}
+                  // startingGate={item.startingGate}
+                />
               ))}
             </Slider>
           </div>

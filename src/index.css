@@ -7,6 +7,16 @@
   color: #02021fd3;
 }
 
+/* body {
+  background: radial-gradient(
+    ellipse at center,
+    #fffeea 0%,
+    #fffeea 35%,
+    #b7e8eb 100%
+  );
+  overflow: hidden;
+} */
+
 .layout {
   display: flex;
   min-height: 100vh; /* Chiều cao tối thiểu bằng với viewport */

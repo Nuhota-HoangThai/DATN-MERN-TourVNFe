@@ -47,7 +47,7 @@ const TourDisplay = ({ tour }) => {
   };
 
   const formatPrice = (price) => {
-    return `${price?.toLocaleString()} đ`;
+    return <span className="text-red-600">{price?.toLocaleString()} đ</span>;
   };
 
   if (!tour) {
@@ -57,54 +57,173 @@ const TourDisplay = ({ tour }) => {
   const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
   const displayVideos = Array.isArray(tour.video) ? tour.video.slice(0, 2) : [];
 
-  const sliderSettings = {
-    dots: false,
-    // infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    infinite: displayImages.length > 1,
-    autoplay: displayImages.length > 1,
-    autoplaySpeed: 1500,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: false,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-    ],
-  };
+  // const sliderSettings = {
+  //   dots: false,
+  //   // infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   initialSlide: 0,
+  //   infinite: displayImages.length > 1,
+  //   autoplay: displayImages.length > 1,
+  //   autoplaySpeed: 1500,
+  //   arrows: false,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1,
+  //         infinite: true,
+  //         dots: false,
+  //         arrows: false,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1,
+  //         initialSlide: 1,
+  //         arrows: false,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 480,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1,
+  //         arrows: false,
+  //       },
+  //     },
+  //   ],
+  // };
 
   return (
-    <div className="">
-      <div className="grid gap-8 md:grid-cols-2">
+    <div className="flex flex-col space-y-8 rounded-lg bg-gray-100 p-6">
+      {/* Đầu trang */}
+      <div className="rounded-lg bg-white p-8 shadow-xl md:flex md:items-center md:justify-between">
+        <div className="mb-4 flex-1 md:mb-0">
+          <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
+            {tour.nameTour}
+          </h1>
+          <p className="mt-2 text-xl font-medium  md:mt-4">
+            {tour.price !== tour.originalPrice && tour.promotion ? (
+              <>
+                <span className="text-xl font-semibold text-red-600">
+                  {formatPrice(tour.price)}{" "}
+                </span>
+                <span className="text-lg text-gray-500 line-through">
+                  {formatPrice(tour.originalPrice)}
+                </span>
+              </>
+            ) : (
+              <span className="text-xl font-semibold">
+                {formatPrice(tour.price)}
+              </span>
+            )}
+          </p>
+        </div>
+
+        <div className="mx-5 space-y-4">
+          <button
+            onClick={handleBooking}
+            className="mr-5 w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-3 text-lg font-semibold text-white transition duration-300 ease-in-out hover:bg-gradient-to-bl md:w-48"
+          >
+            Đặt ngay
+          </button>
+          <Link
+            to="/contact"
+            className="w-full rounded-lg border-2 border-blue-600 px-6 py-3 text-lg font-semibold text-blue-600 transition duration-300 ease-in-out hover:bg-blue-600 hover:text-white md:w-48"
+          >
+            Liên hệ tư vấn
+          </Link>
+        </div>
+      </div>
+
+      {/* Giữa trang: Hình ảnh và Video */}
+      <div className="md:grid md:grid-cols-2 md:gap-6">
+        {/* Video */}
+        <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">
+          {Array.isArray(displayVideos) && displayVideos.length > 0 && (
+            <video
+              className="h-full w-full object-cover"
+              controls
+              autoPlay
+              loop
+              muted
+              src={`${BASE_URL}/${displayVideos[0].replace(/\\/g, "/")}`}
+              alt="Tour Main Video"
+            />
+          )}
+        </div>
+
+        {/* Hình ảnh */}
+        <div className="overflow-hidden ">
+          <div className="grid grid-cols-2 gap-4 ">
+            {displayImages.map((image, index) => (
+              <div
+                key={index}
+                className={`overflow-hidden ${index % 2 === 0 ? "row-span-3" : "row-span-2"}`}
+              >
+                <img
+                  className="mx-auto h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                  src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
+                  alt={`Tour Image ${index + 1}`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Dưới trang: Thông tin tour */}
+      <div className="space-y-6 rounded-lg bg-white px-8 py-6 shadow-xl">
+        <div className="border-b pb-4">
+          <p className="flex items-center gap-3 text-lg text-gray-700">
+            <PiBarcodeBold className="text-xl" /> {tour._id}
+          </p>
+        </div>
+        <div className="space-y-4">
+          <p className="text-gray-700">
+            Thời gian tập trung:{" "}
+            <span className="font-medium">
+              {formatDateVNWithTime(tour.convergeTime)}
+            </span>
+          </p>
+          <p className="text-gray-700">
+            Khu vực:{" "}
+            <span className="font-medium">{formatRegion(tour.regions)}</span>
+          </p>
+          <p className="text-gray-700">
+            Nơi khởi hành:{" "}
+            <span className="font-medium">{tour.startingGate}</span>
+          </p>
+          <p className="text-gray-700">
+            Số chỗ còn:{" "}
+            <span className="font-medium">{tour.maxParticipants}</span>
+          </p>
+          <p className="text-gray-700">
+            Ngày khởi hành:{" "}
+            <span className="font-medium">{formatDateVN(tour.startDate)}</span>
+          </p>
+          <p className="text-gray-700">
+            Ngày kết thúc:{" "}
+            <span className="font-medium">{formatDateVN(tour.endDate)}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TourDisplay;
+
+{
+  /* <div className="grid gap-8 md:grid-cols-2">
         <div className="space-y-4 rounded-lg bg-white p-6 shadow-xl">
           <div className="space-y-4">
-            {/* Video */}
+          
             <div className="aspect-w-16 aspect-h-9 overflow-hidden rounded-lg">
               {Array.isArray(displayVideos) && displayVideos.length > 0 && (
                 <video
@@ -118,7 +237,7 @@ const TourDisplay = ({ tour }) => {
                 />
               )}
             </div>
-            {/* Hình ảnh */}
+          
             <div className="h-full overflow-hidden rounded-lg">
               {displayImages.length === 1 ? (
                 <div className="image-grid-item">
@@ -153,7 +272,7 @@ const TourDisplay = ({ tour }) => {
             <PiBarcodeBold className="text-xl" /> {tour._id}
           </p>
           <p className="text-xl font-semibold text-gray-800">{tour.nameTour}</p>
-          {/* <p>{tour?.promotion?.discountPercentage}%</p> */}
+           <p>{tour?.promotion?.discountPercentage}%</p> 
           <p className="text-lg font-medium text-red-600">
             {tour.price !== tour.originalPrice && tour.promotion ? (
               <>
@@ -212,9 +331,5 @@ const TourDisplay = ({ tour }) => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default TourDisplay;
+      </div> */
+}

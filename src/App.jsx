@@ -8,15 +8,17 @@ import TourDetail from "./pages/user/TourDetail";
 import Cart from "./pages/user/Cart";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/Register";
-import Profile from "./pages/user/Profile";
+
 import Footer from "./components/Footer/Footer";
 import Thanks from "./pages/user/Thanks";
 import Booking from "./pages/user/Booking";
 import SearchResult from "./pages/user/SearchResult";
 
+import Profile from "./pages/user/Profile";
 import UserOrder from "./components/UserOrder/UserOrder";
 import ProfileUser from "./components/ProfileUser/ProfileUser";
 import UpdateProfile from "./components/ProfileUser/UpdateProfile";
+import Favorites from "./components/ProfileUser/Favorites";
 //import Rate from "./components/ReviewTour/Rate";
 //import banner
 import mienbac from "./assets/img/bannerHaNoi.png";
@@ -54,6 +56,7 @@ const App = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
           <Route path="/thanks" element={<Thanks />} />
+
           <Route
             path="/userOrder"
             element={
@@ -75,6 +78,14 @@ const App = () => {
             element={
               <Profile>
                 <Cart />
+              </Profile>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <Profile>
+                <Favorites />
               </Profile>
             }
           />
