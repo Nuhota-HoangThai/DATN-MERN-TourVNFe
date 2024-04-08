@@ -56,7 +56,7 @@ const Popular = () => {
   };
 
   return (
-    <div className="mx-20 mt-12 ">
+    <div className="mx-24 mt-12 ">
       {popularTours.length > 0 ? (
         <div className="w-full">
           <div className="mb-8 flex items-center justify-center">

@@ -14,7 +14,9 @@ const UserProfile = () => {
     phone: "",
     address: "",
     cccd: "",
-    role: "",
+    dob: "",
+    sex: "",
+    // role: "",
   });
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
@@ -42,16 +44,6 @@ const UserProfile = () => {
     fetchUserProfile();
   }, [navigate, currentUser]);
 
-  const translateRole = (role) => {
-    const roles = {
-      admin: "Quản trị viên",
-      customer: "Khách hàng",
-      staff: "Nhân viên",
-      guide: "Hướng dẫn viên",
-    };
-    return roles[role] || "Không xác định";
-  };
-
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -59,6 +51,14 @@ const UserProfile = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
+
+  const formatDateVN = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <div className="mx-auto mt-32 max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -143,9 +143,15 @@ const UserProfile = () => {
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Vai trò</dt>
+              <dt className="text-sm font-medium text-gray-500">Ngày sinh</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                {translateRole(userProfile.role)}
+                {formatDateVN(userProfile.dob)}
+              </dd>
+            </div>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">Giới tính</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                {userProfile.sex}
               </dd>
             </div>
           </dl>

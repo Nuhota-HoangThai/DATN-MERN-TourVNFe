@@ -57,7 +57,7 @@ const NewCollections = () => {
   };
 
   return (
-    <div className="mx-20 mt-28">
+    <div className="mx-24 mt-28">
       {newCollection.length > 0 ? (
         <div className="w-full">
           <div className="mb-8 flex items-center justify-center">

@@ -81,25 +81,25 @@ const FavoritesList = () => {
             </tr>
           </thead>
           <tbody>
-            {favorites.map((favorite) => (
+            {favorites?.map((favorite) => (
               <tr key={favorite._id}>
                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                   <div className="flex items-center">
                     <div className="ml-3">
                       <p className="whitespace-no-wrap text-gray-900">
-                        {favorite.tourId.nameTour}
+                        {favorite.tourId?.nameTour || "Không còn tour này"}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                   <p className="whitespace-no-wrap text-gray-900">
-                    {formatDateVN(favorite.tourId.startDate)}
+                    {formatDateVN(favorite.tourId?.startDate)}
                   </p>
                 </td>
                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                   <Link
-                    to={`/tour/${favorite.tourId._id}`}
+                    to={`/tour/${favorite.tourId?._id}`}
                     className="text-blue-600 hover:text-blue-900"
                   >
                     Xem chi tiết

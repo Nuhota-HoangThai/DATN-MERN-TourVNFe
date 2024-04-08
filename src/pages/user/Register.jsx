@@ -58,25 +58,60 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="form-container w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
+    <div className="mt-16 flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="form-container w-full max-w-2xl rounded-xl bg-white px-8 py-10 shadow-lg">
         <h1 className="mb-6 text-center text-2xl font-bold">Đăng Ký</h1>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="text"
-            placeholder="Tên đăng nhập"
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            id="name"
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            id="email"
-            onChange={handleChange}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            {" "}
+            <input
+              type="text"
+              placeholder="Tên đăng nhập"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="name"
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="email"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="number"
+              placeholder="Căn cước công dân"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="cccd"
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Giới tính"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="sex"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              type="tel"
+              placeholder="Số điện thoại"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="phone"
+              onChange={handleChange}
+            />
+            <input
+              type="date"
+              placeholder="Ngày sinh"
+              className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="dob"
+              onChange={handleChange}
+            />
+          </div>
           <input
             type="password"
             placeholder="Mật khẩu"
@@ -84,6 +119,7 @@ const Register = () => {
             id="password"
             onChange={handleChange}
           />
+
           <input
             type="password"
             placeholder="Xác nhận mật khẩu"

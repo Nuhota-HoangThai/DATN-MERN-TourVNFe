@@ -38,11 +38,11 @@ const ListPromotion = () => {
   }
 
   if (promotions.length === 0) {
-    return <div className="empty">Không có sản phẩm khuyến mãi</div>;
+    return <div className="empty"></div>;
   }
 
   return (
-    <div className="mx-20 mt-12">
+    <div className="mx-24 mt-12">
       <div>
         <div className="mb-8 flex items-center justify-center">
           <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>

@@ -33,22 +33,28 @@ const ToursList = () => {
   };
 
   return (
-    <div className="mt-28">
+    <div className="mx-24 mt-28">
       <div className="relative flex items-end justify-center  text-white ">
         <img
           src={bannerTours}
           alt=""
-          className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
+          className="h-[600px] w-full rounded-3xl  bg-cover bg-center"
         />
 
         <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
           <SearchForm />
         </div>
       </div>
-      <h1 className="my-1 mt-24 text-center text-3xl font-bold">
-        Tất cả các tours
-      </h1>{" "}
-      <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>
+      <div className="mb-6 mt-28">
+        <div className="h-0.5 w-full rounded bg-blue-300"></div>
+        <h1
+          className="px-4 text-center text-2xl font-bold text-blue-800"
+          style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+        >
+          Tất cả tour
+        </h1>
+        <div className="h-0.5 w-full rounded bg-blue-300"></div>
+      </div>
       <div className="flex flex-col items-center">
         <div className="mb-8 grid grid-cols-4  gap-6">
           {tours.slice(0, visibleTours).map((item) => (

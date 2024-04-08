@@ -17,6 +17,8 @@ const UpdateUser = () => {
     email: "",
     address: "",
     cccd: "",
+    dob: "",
+    sex: "",
   });
 
   const [image, setImage] = useState(null);
@@ -84,7 +86,7 @@ const UpdateUser = () => {
   return (
     <div className="mx-auto mt-28 max-w-4xl px-4 sm:px-6 lg:px-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-        <div className="px-4 py-5 sm:px-6">
+        <div className="px-4 py-5 sm:p-6">
           <h1 className="text-center text-lg font-medium leading-6 text-gray-900">
             Cập nhật thông tin
           </h1>
@@ -104,10 +106,10 @@ const UpdateUser = () => {
                   type="file"
                   name="image"
                   id="file-input"
-                  className="hidden"
+                  className="hidden h-12 w-12"
                 />
                 <svg
-                  className="h-6 w-6 text-gray-500"
+                  className="h-2 w-2 text-gray-500"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -116,14 +118,12 @@ const UpdateUser = () => {
                 </svg>
               </label>
             </div>
-            <div className="space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-500"
-                >
-                  Tên
-                </label>
+            <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Tên
                 <input
                   id="name"
                   name="name"
@@ -132,52 +132,14 @@ const UpdateUser = () => {
                     setUserData({ ...userData, name: e.target.value })
                   }
                   placeholder="Tên"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 />
-              </div>
-              <div>
-                <label
-                  htmlFor="cccd"
-                  className="block text-sm font-medium text-gray-500"
-                >
-                  Căn cước công dân
-                </label>
-                <input
-                  id="cccd"
-                  name="cccd"
-                  value={userData.cccd}
-                  onChange={(e) =>
-                    setUserData({ ...userData, cccd: e.target.value })
-                  }
-                  placeholder="Số căn cước công dân"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-500"
-                >
-                  Số điện thoại
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  value={userData.phone}
-                  onChange={(e) =>
-                    setUserData({ ...userData, phone: e.target.value })
-                  }
-                  placeholder="Số điện thoại"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-500"
-                >
-                  Email
-                </label>
+              </label>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
                 <input
                   id="email"
                   name="email"
@@ -186,28 +148,91 @@ const UpdateUser = () => {
                     setUserData({ ...userData, email: e.target.value })
                   }
                   placeholder="Email"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 />
-              </div>
-              <div>
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium text-gray-500"
-                >
-                  Địa chỉ
-                </label>
+              </label>
+              <label
+                htmlFor="cccd"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Số căn cước công dân
                 <input
-                  id="address"
-                  name="address"
-                  value={userData.address}
+                  id="cccd"
+                  name="cccd"
+                  value={userData.cccd}
                   onChange={(e) =>
-                    setUserData({ ...userData, address: e.target.value })
+                    setUserData({ ...userData, cccd: e.target.value })
                   }
-                  placeholder="Địa chỉ"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  placeholder="Số căn cước công dân"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 />
-              </div>
+              </label>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Số điện thoại
+                <input
+                  id="phone"
+                  name="phone"
+                  value={userData.phone}
+                  onChange={(e) =>
+                    setUserData({ ...userData, phone: e.target.value })
+                  }
+                  placeholder="Số điện thoại"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                />
+              </label>
+              <label
+                htmlFor="sex"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Giới tính
+                <input
+                  type="text"
+                  id="sex"
+                  name="sex"
+                  value={userData.sex}
+                  onChange={(e) =>
+                    setUserData({ ...userData, sex: e.target.value })
+                  }
+                  placeholder="Giới tính"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                />
+              </label>
+              <label
+                htmlFor="dob"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Ngày sinh
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  value={userData.dob}
+                  onChange={(e) =>
+                    setUserData({ ...userData, dob: e.target.value })
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                />
+              </label>
             </div>
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Địa chỉ
+              <input
+                id="address"
+                name="address"
+                value={userData.address}
+                onChange={(e) =>
+                  setUserData({ ...userData, address: e.target.value })
+                }
+                placeholder="Địa chỉ"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              />
+            </label>
             <button
               type="submit"
               className="mt-5 w-full rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"

@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 import TourBooking from "../../components/BookingComponent/TourBooking";
 
 const Booking = () => {
-  const { token, id } = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const token = currentUser?.token;
+
   const location = useLocation();
   const { tour } = location.state || {};
   const navigate = useNavigate();
@@ -44,12 +46,24 @@ const Booking = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+      const userId = currentUser?.id; // Chỉ là ví dụ, hãy thay thế phù hợp với cách bạn lưu trữ userId
+      if (!userId) {
+        console.error("User ID is missing");
+        return;
+      }
       try {
-        const { data } = await axios.get(`${BASE_URL}/user/getUserById/${id}`, {
-          headers: {
-            Authorization: "Bearer " + token,
+        const { data } = await axios.get(
+          `${BASE_URL}/user/getUserById/${userId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
           },
-        });
+        );
 
         setUserProfile(data.user);
         setLoading(false);
@@ -60,7 +74,7 @@ const Booking = () => {
     };
 
     fetchUserProfile();
-  }, [token, id]);
+  }, [token]);
 
   // Tinh phi phu thu
   const calculateTotalFees = () => {

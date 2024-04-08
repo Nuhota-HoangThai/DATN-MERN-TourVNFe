@@ -97,7 +97,7 @@ const TourPromotion = () => {
   if (error) return <p>Lỗi: {error}</p>;
 
   return (
-    <div className="mx-20 mb-6 mt-32">
+    <div className="mx-24 mb-6 mt-32">
       {selectedPromotion ? (
         <>
           <div className="mb-8 flex items-center justify-center">

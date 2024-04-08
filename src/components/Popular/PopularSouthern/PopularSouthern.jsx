@@ -57,7 +57,7 @@ const PopularSouthern = () => {
   };
 
   return (
-    <div className="mx-20 mt-12">
+    <div className="mx-24 mt-12">
       {popularSouthernTours.length > 0 ? (
         <div className="w-full">
           <div className="mb-8 flex items-center justify-center">
@@ -66,7 +66,7 @@ const PopularSouthern = () => {
               className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
               style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
             >
-              Tour phổ biến miền Bắc
+              Tour phổ biến miền Nam
             </h1>
             <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
           </div>{" "}
