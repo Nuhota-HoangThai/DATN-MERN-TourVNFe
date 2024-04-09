@@ -7,13 +7,13 @@ import bannerHome from "../../assets/img/bannerHome.jpg";
 
 const Banner = () => {
   return (
-    <div className="relative mx-24 mt-28 flex items-end justify-center  text-white ">
+    <div className="relative  flex items-end justify-center  text-white ">
       <img
         src={bannerHome}
         alt=""
-        className="h-[600px] w-full rounded-3xl  bg-cover bg-center"
+        className="h-[600px] w-full bg-cover bg-center"
       />
-      <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
+      <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
         {/* <div className="norican-regular mb-28 pl-40 text-5xl ">
           <p>Khám phá mỗi góc Việt Nam, </p>
           <p className="mt-2">trải nghiệm mỗi chuyến đi cùng</p>

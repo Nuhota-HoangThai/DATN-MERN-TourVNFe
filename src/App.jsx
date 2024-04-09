@@ -27,6 +27,7 @@ import miennam from "./assets/img/bannerNam.png";
 import TourPromotion from "./components/Promotion/TourPromotion";
 //import ReturnCheckout from "./pages/user/ReturnCheckout";
 import AboutPage from "./pages/user/About";
+import TourDirectoriesList from "./components/Directory/TourDirectoryList";
 
 const App = () => {
   return (
@@ -101,6 +102,11 @@ const App = () => {
           <Route
             path="/tourPromotion/:promotionId"
             element={<TourPromotion />}
+          />
+
+          <Route
+            path="/tourDirectory/:tourDirectoryId"
+            element={<TourDirectoriesList />}
           />
         </Routes>
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Item from "../../Item/Item";
-import { BASE_URL } from "../../../utils/config";
+import Item from "../Item/Item";
+import { BASE_URL } from "../../utils/config";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -56,10 +56,10 @@ const Popular = () => {
   };
 
   return (
-    <div className="mx-24 mt-12 ">
+    <div className="bg-sky-50">
       {popularTours.length > 0 ? (
-        <div className="w-full">
-          <div className="mb-8 flex items-center justify-center">
+        <div className="w-full py-6">
+          <div className="mb-8 flex items-center justify-center pb-4">
             <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
             <h1
               className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"

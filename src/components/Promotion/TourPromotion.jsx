@@ -117,11 +117,17 @@ const TourPromotion = () => {
               ))}
             </Slider>
           ) : (
-            <p>No tours available for this promotion.</p>
+            <div className="mt-36 text-center">
+              <p className=" text-xl font-bold text-gray-800">
+                Không có tour nào cho khuyến mãi này
+              </p>
+            </div>
           )}
         </>
       ) : (
-        <p>Không tìm thấy khuyến mãi.</p>
+        <p className="mt-36 text-center text-xl font-bold text-gray-800">
+          Vui lòng chọn một chương trình khuyến mãi khác!!!
+        </p>
       )}
     </div>
   );

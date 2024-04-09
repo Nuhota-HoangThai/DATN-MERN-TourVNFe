@@ -57,10 +57,10 @@ const NewCollections = () => {
   };
 
   return (
-    <div className="mx-24 mt-28">
+    <div className="bg-sky-50">
       {newCollection.length > 0 ? (
-        <div className="w-full">
-          <div className="mb-8 flex items-center justify-center">
+        <div className="w-full py-6">
+          <div className="flex items-center justify-center pb-4">
             <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
             <h1
               className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"

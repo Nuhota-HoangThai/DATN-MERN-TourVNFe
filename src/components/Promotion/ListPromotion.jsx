@@ -42,9 +42,9 @@ const ListPromotion = () => {
   }
 
   return (
-    <div className="mx-24 mt-12">
-      <div>
-        <div className="mb-8 flex items-center justify-center">
+    <div className="bg-sky-100">
+      <div className="w-full py-6">
+        <div className="flex items-center justify-center pb-4">
           <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
           <h1
             className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
@@ -54,20 +54,32 @@ const ListPromotion = () => {
           </h1>
           <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
         </div>
-        <div className="promotions-grid">
+        <div className="mx-24 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {promotions.map((promotion) => (
             <div
               key={promotion._id}
-              className="promotion-card"
+              className="cursor-pointer overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-xl"
               onClick={() => selectTourPromotion(promotion._id)}
             >
-              <div
-                className="promotion-bg"
-                // style={{
-                //   backgroundImage: `url(${promotion.imageUrl || "defaultImage.jpg"})`,
-                // }}
-              >
-                <div className="promotion-info">{promotion.namePromotion}</div>
+              <div className="relative">
+                {promotion.image ? (
+                  <img
+                    src={`${BASE_URL}/${promotion.image.replace(/\\/g, "/")}`}
+                    alt="promotion"
+                    className="h-48 w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-48 w-full items-center justify-center bg-gray-100">
+                    <p className="text-center text-gray-500">
+                      Không có hình ảnh
+                    </p>
+                  </div>
+                )}
+                <div className="absolute bottom-0 w-full bg-white bg-opacity-80 px-4 py-2">
+                  <p className="truncate text-sm font-semibold text-gray-800">
+                    {promotion.namePromotion}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

@@ -9,7 +9,7 @@ import GuideTour from "../../components/Tour/GuideTour";
 import InfoTour from "../../components/Tour/InfoTour";
 import TourDisplay from "../../components/Tour/TourDisplay/TourDisplay";
 import DescriptionBox from "../../components/Tour/DescriptionBox/DescriptionBox";
-
+import Schedule from "../../components/Tour/Schedule";
 import ReviewTour from "../../components/ReviewTour/ReviewTour";
 import PriceDetail from "../../components/PriceDetail/PriceDetail";
 
@@ -48,6 +48,7 @@ const TourDetail = () => {
             <DescriptionBox tour={tour} />
             <PriceDetail tour={tour} />
           </div>
+          <Schedule tour={tour} />
           <ReviewTour tour={tour} />
         </>
       )}
