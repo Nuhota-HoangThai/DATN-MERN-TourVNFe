@@ -9,29 +9,12 @@
   animation: rainbowText 1s infinite;
 }
 
-@keyframes rainbowText {
-  0% {
-    color: #0000ff;
-  }
-  14% {
-    color: #299ec9;
-  }
-  28% {
-    color: #4b23eb;
-  }
-  42% {
-    color: #21c4be;
-  }
-  57% {
-    color: #0000ff;
-  }
-  71% {
-    color: #20079e;
-  }
-  85% {
-    color: #0dafaf;
-  }
-  100% {
-    color: #0c0fd0;
-  }
+.top-0 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Đảm bảo navbar ở trên cùng */
+  background-color: white; /* Hoặc màu nền bạn muốn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tùy chọn, để thêm bóng cho navbar */
 }

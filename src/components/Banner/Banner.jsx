@@ -2,8 +2,11 @@ import {} from "react";
 
 import "./banner.css";
 
-import SearchForm from "../Search/Search";
 import bannerHome from "../../assets/img/bannerHome.jpg";
+
+import SearchForm from "../Search/Search";
+import SidebarSearch from "../Search/SidebarSearch";
+import SearchBillForm from "../Search/SearchBill";
 
 const Banner = () => {
   return (
@@ -14,13 +17,12 @@ const Banner = () => {
         className="h-[600px] w-full bg-cover bg-center"
       />
       <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
-        {/* <div className="norican-regular mb-28 pl-40 text-5xl ">
-          <p>Khám phá mỗi góc Việt Nam, </p>
-          <p className="mt-2">trải nghiệm mỗi chuyến đi cùng</p>
-          <p className="norican-regular mt-16  text-7xl text-white ">
-            ViVu3Mien
-          </p>
-        </div> */}
+        <div className="mb-[-50px] mr-[-30px] flex justify-end">
+          <div>
+            <SearchBillForm />
+          </div>
+          <SidebarSearch />
+        </div>
         <SearchForm />
       </div>
     </div>

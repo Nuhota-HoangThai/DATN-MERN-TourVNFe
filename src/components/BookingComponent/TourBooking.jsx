@@ -2,17 +2,10 @@ import {} from "react";
 import { useLocation } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 
+import { formatDateVN } from "../../utils/formatDate";
 const TourBooking = () => {
   const location = useLocation();
   const { tour } = location.state || {};
-
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = `0${date.getDate()}`.slice(-2);
-    const month = `0${date.getMonth() + 1}`.slice(-2);
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  };
 
   const displayImages = Array.isArray(tour.image) ? tour.image.slice(0, 6) : [];
 

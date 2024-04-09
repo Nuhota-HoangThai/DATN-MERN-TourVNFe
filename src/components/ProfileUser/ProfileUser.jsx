@@ -5,6 +5,7 @@ import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 
 import defaultImage from "../../assets/img/logoicon.png";
+import { formatDateVN } from "../../utils/formatDate";
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
@@ -51,14 +52,6 @@ const UserProfile = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
 
   return (
     <div className="mx-auto mt-32 max-w-4xl px-4 sm:px-6 lg:px-8">

@@ -10,15 +10,15 @@ const SearchResultList = () => {
   const data = location.state?.searchResults;
 
   return (
-    <div className="mx-24 mt-28">
+    <div className="">
       <div className="relative flex items-end justify-center text-white ">
         <img
           src={bannerRuongBacThang}
           alt=""
-          className="  h-[600px] w-full rounded-3xl  bg-cover bg-center"
+          className="  h-[600px] w-full  bg-cover bg-center"
         />
 
-        <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
+        <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
           <SearchForm />
         </div>
       </div>

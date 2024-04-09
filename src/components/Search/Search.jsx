@@ -40,10 +40,6 @@ function SearchForm() {
       const result = await axios.get(
         `${BASE_URL}/tour/search?nameTour=${encodeURIComponent(nameTour)}&startDate=${startDate}&priceMin=${priceRange.min || ""}&priceMax=${priceRange.max || ""}&maxParticipants=${maxParticipants}`,
       );
-
-      //const result = await response.json(); // Giả sử response trả về dạng JSON
-      //console.log(result.data);
-
       navigate("/search", { state: { searchResults: result.data.tours } });
     } catch (error) {
       console.error(error);
@@ -52,7 +48,7 @@ function SearchForm() {
   };
 
   return (
-    <div className="mb-8 flex justify-center rounded-2xl bg-white shadow-2xl">
+    <div className=" mb-8 flex justify-center rounded-2xl bg-white shadow-2xl">
       <form
         onSubmit={handleSubmit}
         className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-12"

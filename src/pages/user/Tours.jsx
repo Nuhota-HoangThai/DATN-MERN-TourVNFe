@@ -33,19 +33,19 @@ const ToursList = () => {
   };
 
   return (
-    <div className="mx-24 mt-28">
+    <div className="">
       <div className="relative flex items-end justify-center  text-white ">
         <img
           src={bannerTours}
           alt=""
-          className="h-[600px] w-full rounded-3xl  bg-cover bg-center"
+          className="h-[600px] w-full   bg-cover bg-center"
         />
 
-        <div className="absolute mb-[-100px] rounded-3xl bg-black bg-opacity-0 ">
+        <div className="absolute  rounded-3xl bg-black bg-opacity-0 ">
           <SearchForm />
         </div>
       </div>
-      <div className="mb-6 mt-28">
+      <div className="my-6">
         <div className="h-0.5 w-full rounded bg-blue-300"></div>
         <h1
           className="px-4 text-center text-2xl font-bold text-blue-800"

@@ -1,20 +1,8 @@
 import { MdNavigateNext } from "react-icons/md";
+import { formatRegion } from "../../utils/formatRegion";
 
 const Tour = (props) => {
   const { tour } = props;
-
-  const formatRegion = (region) => {
-    switch (region) {
-      case "mn":
-        return "miền Nam";
-      case "mb":
-        return "miền Bắc";
-      case "mt":
-        return "miền Trung";
-      default:
-        return "Không xác định";
-    }
-  };
 
   return (
     <div className="mb-5 flex items-center text-sm font-bold">

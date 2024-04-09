@@ -10,6 +10,8 @@ import Slider from "react-slick";
 
 import Star from "../../assets/img/star.png";
 
+import { formatDateVN } from "../../utils/formatDate";
+
 const ReviewForm = ({ tour }) => {
   // const { token } = useSelector((state) => state.user.currentUser);
   const [reviews, setReviews] = useState([]);
@@ -36,13 +38,6 @@ const ReviewForm = ({ tour }) => {
   }, [tour]);
 
   const { avgRating } = calculateAvgRating(reviews);
-
-  const formatVietnameseDate = (dateInput) => {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-    return new Intl.DateTimeFormat("vi-VN", options).format(
-      new Date(dateInput),
-    );
-  };
 
   const sliderSettings = {
     dots: true,
@@ -114,7 +109,7 @@ const ReviewForm = ({ tour }) => {
                     {review.userId?.name || "Ẩn danh"}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {formatVietnameseDate(review.createdAt)}
+                    {formatDateVN(review.createdAt)}
                   </p>
                 </div>
                 <div className="mb-4 flex items-center space-x-2">

@@ -1,8 +1,6 @@
-const TourPriceDetail = ({ tour }) => {
-  const formatPrice = (price) => {
-    return <span style={{ color: "red" }}>{price?.toLocaleString()} đ</span>;
-  };
+import { formatPrice } from "../../utils/formatPrice";
 
+const TourPriceDetail = ({ tour }) => {
   return (
     <div className="mt-16 w-1/2  ">
       <h2 className="mb-4 text-center text-2xl font-bold">Chi Tiết Giá</h2>

@@ -29,87 +29,94 @@ import TourPromotion from "./components/Promotion/TourPromotion";
 import AboutPage from "./pages/user/About";
 import TourDirectoriesList from "./components/Directory/TourDirectoryList";
 
+import SearchResultBillDetail from "./pages/user/SearchResultBillDetail";
+
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tours" element={<Tours />} />
-          <Route
-            path="/mn"
-            element={<TourCategory banner={miennam} regions="mn" />}
-          />
-          <Route
-            path="/mt"
-            element={<TourCategory banner={mientrung} regions="mt" />}
-          />
-          <Route
-            path="/mb"
-            element={<TourCategory banner={mienbac} regions="mb" />}
-          />
-          <Route path="/tour/:tourId" element={<TourDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/search" element={<SearchResult />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
-          <Route path="/thanks" element={<Thanks />} />
+        <div className="body-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tours" element={<Tours />} />
+            <Route
+              path="/mn"
+              element={<TourCategory banner={miennam} regions="mn" />}
+            />
+            <Route
+              path="/mt"
+              element={<TourCategory banner={mientrung} regions="mt" />}
+            />
+            <Route
+              path="/mb"
+              element={<TourCategory banner={mienbac} regions="mb" />}
+            />
+            <Route path="/tour/:tourId" element={<TourDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/search" element={<SearchResult />} />
+            <Route
+              path="/bill-details/:billId"
+              element={<SearchResultBillDetail />}
+            />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
+            <Route path="/thanks" element={<Thanks />} />
 
-          <Route
-            path="/userOrder"
-            element={
-              <Profile>
-                <UserOrder />
-              </Profile>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile>
-                <ProfileUser />
-              </Profile>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <Profile>
-                <Cart />
-              </Profile>
-            }
-          />
-          <Route
-            path="/favorites"
-            element={
-              <Profile>
-                <Favorites />
-              </Profile>
-            }
-          />
-          <Route
-            path="/update_user/:id"
-            element={
-              <Profile>
-                <UpdateProfile />
-              </Profile>
-            }
-          />
+            <Route
+              path="/userOrder"
+              element={
+                <Profile>
+                  <UserOrder />
+                </Profile>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile>
+                  <ProfileUser />
+                </Profile>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <Profile>
+                  <Cart />
+                </Profile>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <Profile>
+                  <Favorites />
+                </Profile>
+              }
+            />
+            <Route
+              path="/update_user/:id"
+              element={
+                <Profile>
+                  <UpdateProfile />
+                </Profile>
+              }
+            />
 
-          <Route
-            path="/tourPromotion/:promotionId"
-            element={<TourPromotion />}
-          />
+            <Route
+              path="/tourPromotion/:promotionId"
+              element={<TourPromotion />}
+            />
 
-          <Route
-            path="/tourDirectory/:tourDirectoryId"
-            element={<TourDirectoriesList />}
-          />
-        </Routes>
-
+            <Route
+              path="/tourDirectory/:tourDirectoryId"
+              element={<TourDirectoriesList />}
+            />
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>

@@ -1,45 +1,13 @@
+import { formatDateVN, formatDateVNWithTime } from "../../../utils/formatDate";
+import { formatRegion } from "../../../utils/formatRegion";
+import { formatPrice } from "../../../utils/formatPrice";
+
 const TourComparison = ({ allTour = [], cartItems }) => {
   // Lọc ra các tour trong giỏ hàng từ allTour dựa vào cartItems
   const toursInCart = allTour?.filter((tour) => cartItems[tour._id]);
 
   // Chọn ra 2 tour đầu tiên trong giỏ hàng để so sánh
   const toursToCompare = toursInCart?.slice(0, 2);
-
-  //định dạng ngày tháng năm
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  };
-
-  const formatDateVNWithTime = (dateTimeString) => {
-    const date = new Date(dateTimeString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes} ngày ${day}/${month}/${year} `;
-  };
-
-  const formatPrice = (price) => {
-    return `${price?.toLocaleString()} đ`;
-  };
-
-  const formatRegion = (region) => {
-    switch (region) {
-      case "mn":
-        return "miền Nam";
-      case "mb":
-        return "miền Bắc";
-      case "mt":
-        return "miền Trung";
-      default:
-        return "Không xác định";
-    }
-  };
 
   return (
     <>

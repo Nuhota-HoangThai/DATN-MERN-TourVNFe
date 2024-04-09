@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { BASE_URL } from "../../../../admin/src/utils/config"; // Update this path according to your project structure
 import { Link } from "react-router-dom";
 
+import { formatDateVN } from "../../utils/formatDate";
+
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -49,14 +51,6 @@ const FavoritesList = () => {
         error.response?.data?.message || error.message,
       );
     }
-  };
-
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
   };
 
   return (

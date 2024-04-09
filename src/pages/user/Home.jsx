@@ -15,7 +15,7 @@ import ChooseMe from "../../components/Home.component/ChooseMe";
 
 const Home = () => {
   return (
-    <div className="mt-24">
+    <div className="">
       <Banner />
       <Introduce />
 

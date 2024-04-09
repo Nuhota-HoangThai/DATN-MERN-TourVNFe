@@ -4,6 +4,12 @@ import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 import ReviewForm from "../ReviewTour/Rate";
 
+import {
+  translateStatus,
+  getStatusStyle,
+  paymentStatusMapping,
+} from "../../utils/formatStatus";
+
 const UserBooking = () => {
   const [bookings, setBookings] = useState([]);
   const [showReviewFormFor, setShowReviewFormFor] = useState(null); // Mã đặt tour hiện form đánh giá
@@ -44,14 +50,13 @@ const UserBooking = () => {
       );
       if (response.status === 200) {
         alert("Đánh giá thành công!");
-        // Cập nhật UI ở đây nếu cần
       }
     } catch (error) {
       console.error("Failed to submit review:", error);
       alert("Đánh giá không thành công. Vui lòng đánh giá lại!!!");
     }
   };
-  /////////////////////////////////
+
   const formatBookingId = (id) => {
     if (id.length <= 8) return id;
 
@@ -81,26 +86,6 @@ const UserBooking = () => {
 
     fetchOrders();
   }, []);
-
-  const translateStatus = (status) => {
-    const statusTranslations = {
-      pending: "Chờ xử lý",
-      confirmed: "Đã xác nhận",
-      cancelled: "Đã hủy",
-      completed: "Hoàn thành",
-    };
-    return statusTranslations[status] || "N/A";
-  };
-
-  // tình trạng đơn hàng
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case "cancelled":
-        return "text-red-600";
-      default:
-        return "text-gray-800";
-    }
-  };
 
   const toggleReviewForm = (bookingId) => {
     if (showReviewFormFor === bookingId) {
@@ -140,12 +125,6 @@ const UserBooking = () => {
       console.error("Error cancelling booking:", error);
     }
   };
-
-  const paymentStatusMapping = (status) =>
-    ({
-      paid: "Đã thanh toán",
-      unpaid: "Chưa thanh toán",
-    })[status] || "N/A";
 
   return (
     <div className="container mx-auto mt-32 rounded-lg bg-white px-4 py-8 shadow-lg">

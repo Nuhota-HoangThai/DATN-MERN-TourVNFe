@@ -4,31 +4,13 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { IoIosAddCircleOutline, IoIosHeart } from "react-icons/io";
 
+import { formatDateVN } from "../../utils/formatDate";
+import { formatRegion } from "../../utils/formatRegion";
+
 const Item = (props) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token; // Using optional chaining to safely access token
   const navigate = useNavigate();
-
-  const formatDateVN = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
-  const formatRegion = (region) => {
-    switch (region) {
-      case "mn":
-        return "miền Nam";
-      case "mb":
-        return "miền Bắc";
-      case "mt":
-        return "miền Trung";
-      default:
-        return "Không xác định";
-    }
-  };
 
   const formatPrice = (price) => {
     return `${price?.toLocaleString()} đ`;
