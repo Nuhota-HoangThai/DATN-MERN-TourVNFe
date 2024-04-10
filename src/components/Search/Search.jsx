@@ -64,7 +64,7 @@ function SearchForm() {
             value={formData.nameTour}
             onChange={handleChange}
             placeholder="Chuyến du lịch"
-            className="w-full px-2 py-1"
+            className="w-full px-2 py-1 focus:outline-none "
           />
         </div>
 
@@ -78,7 +78,7 @@ function SearchForm() {
             name="startDate"
             value={formData.startDate}
             onChange={handleChange}
-            className="w-full px-2 py-1"
+            className="w-full px-2 py-1 focus:outline-none"
           />
         </div>
 
@@ -91,7 +91,7 @@ function SearchForm() {
             name="price"
             value={formData.price}
             onChange={handleChange}
-            className="w-full px-2 py-1"
+            className="w-full px-2 py-1 focus:outline-none"
           >
             <option value="">Chọn khoảng giá</option>
             <option value="duoi-1000000">Dưới 1.000.000</option>
@@ -115,7 +115,7 @@ function SearchForm() {
             value={formData.maxParticipants}
             onChange={handleChange}
             placeholder="Số chỗ muốn đặt"
-            className="w-full px-2 py-1"
+            className="w-full px-2 py-1 focus:outline-none"
           />
         </div>
         <button

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { IoSearch } from "react-icons/io5";
-
+import "./search-nav.css";
 function SearchForm() {
   const navigate = useNavigate();
 
@@ -57,24 +57,25 @@ function SearchForm() {
   };
 
   return (
-    <div className="rounded-lg border-2 border-blue-900 ">
-      <form onSubmit={handleSubmit} className="flex justify-between">
-        <div className="flex min-w-[160px]  px-2 py-1">
-          <input
-            type="text"
-            id="nameTour"
-            name="nameTour"
-            value={formData.nameTour}
-            onChange={handleChange}
-            placeholder="Tìm chuyến du lịch...."
-            className="w-full px-2 py-1"
-          />
-          <button type="submit" className="text-lg">
-            <IoSearch />
-          </button>
-        </div>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="animated-border flex w-full items-center justify-between"
+    >
+      <div className="flex w-full items-center">
+        <input
+          type="text"
+          id="nameTour"
+          name="nameTour"
+          value={formData.nameTour}
+          onChange={handleChange}
+          placeholder="Tìm chuyến du lịch...."
+          className="w-full border-none px-4 py-2 focus:outline-none"
+        />
+        <button type="submit" className=" p-2 text-lg text-blue-900">
+          <IoSearch />
+        </button>
+      </div>
+    </form>
   );
 }
 

@@ -20,7 +20,7 @@ const Navbar = () => {
                 <img src={logoViVu3Mien} alt="Logo" className="w-8 md:w-16" />
                 <div>
                   <div className="text-xl font-bold text-cyan-500 md:text-xl">
-                    VI VU 3 MIỀN
+                    ViVu3Miền
                   </div>
                   <div className="text-xs font-medium italic text-orange-400 md:text-sm">
                     Phục vụ tận tâm
@@ -29,7 +29,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div>
-              <ul className="flex items-center justify-center gap-5 bg-white ">
+              <ul className="flex items-center justify-center gap-10 font-medium ">
                 <li>
                   <Link to="/">Trang chủ</Link>
                 </li>

@@ -1,0 +1,28 @@
+@keyframes marchingAnts {
+  to {
+    background-position:
+      100% 0,
+      0 100%,
+      0 0,
+      100% 100%;
+  }
+}
+
+.animated-border {
+  position: relative;
+  animation: marchingAnts 2s linear infinite;
+  border: 2px solid transparent;
+  background-image: linear-gradient(blue, blue), linear-gradient(blue, blue),
+    linear-gradient(blue, blue), linear-gradient(blue, blue);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size:
+    100% 2px,
+    100% 2px,
+    2px 100%,
+    2px 100%;
+  background-position:
+    0 0,
+    0 100%,
+    0 0,
+    100% 0;
+}

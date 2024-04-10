@@ -34,7 +34,7 @@ const SearchBillForm = () => {
       {showForm ? (
         <form
           onSubmit={handleSearch}
-          className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-12"
+          className="flex flex-wrap items-center justify-between gap-8 rounded-lg  px-16 py-6"
         >
           <input
             type="text"

@@ -25,7 +25,7 @@ const TourDisplay = ({ tour }) => {
   const displayVideos = Array.isArray(tour.video) ? tour.video.slice(0, 2) : [];
 
   return (
-    <div className="flex flex-col space-y-8 rounded-lg bg-gray-100 p-6">
+    <div className="flex flex-col space-y-8 rounded-lg  p-6">
       {/* Đầu trang */}
       <div className="rounded-lg bg-white p-8 shadow-xl md:flex md:items-center md:justify-between">
         <div className="mb-4 flex-1 md:mb-0">

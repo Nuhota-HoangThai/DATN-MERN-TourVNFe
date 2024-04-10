@@ -58,7 +58,7 @@ const ListPromotion = () => {
           {promotions.map((promotion) => (
             <div
               key={promotion._id}
-              className="cursor-pointer overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 ease-in-out hover:shadow-xl"
+              className="cursor-pointer overflow-hidden rounded-lg shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
               onClick={() => selectTourPromotion(promotion._id)}
             >
               <div className="relative">

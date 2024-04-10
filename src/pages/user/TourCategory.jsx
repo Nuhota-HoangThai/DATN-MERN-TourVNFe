@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Item from "../../components/Item/Item";
 import { BASE_URL } from "../../utils/config";
-import SearchForm from "../../components/Search/Search";
+
+import { regionContents } from "../../resources/textRegion";
+import Slider from "@mui/material/Slider";
 
 const TourCategory = (props) => {
+  const regionContent = regionContents[props.regions];
+  const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [allTour, setAllTour] = useState([]);
   const [visibleProducts, setVisibleProducts] = useState(8);
 
@@ -25,7 +29,12 @@ const TourCategory = (props) => {
   };
 
   const filteredProducts = allTour
-    ? allTour.filter((item) => item.regions === props.regions)
+    ? allTour.filter(
+        (item) =>
+          item.regions === props.regions &&
+          item.price >= priceRange.min &&
+          item.price <= priceRange.max,
+      )
     : [];
 
   const displayRange = `Hiển thị ${Math.min(
@@ -34,38 +43,91 @@ const TourCategory = (props) => {
   )}-${Math.min(visibleProducts, filteredProducts.length)} sản phẩm`;
 
   return (
-    <div className="">
-      <div className="relative flex items-end justify-center text-white ">
-        <img
-          src={props.banner}
-          alt=""
-          className="  h-[600px] w-full  bg-cover bg-center"
-        />
+    <div className="bg-sky-50">
+      <div className="mx-10 grid grid-cols-7 gap-3 pt-8">
+        <div className="col-span-2">
+          <h2 className="text-left text-2xl font-bold text-gray-900">
+            {regionContent.title}
+          </h2>
 
-        <div className="absolute rounded-3xl bg-black bg-opacity-0 ">
-          <SearchForm />
+          <p className="mt-4 text-left text-lg font-semibold text-gray-900">
+            {displayRange}
+          </p>
+          <div className="my-4 mr-10 rounded-xl bg-white">
+            <div className="p-4 py-2">
+              <h3 className="mb-5 text-lg font-semibold">Khoảng giá</h3>
+              <Slider
+                value={[priceRange.min, priceRange.max]}
+                onChange={(event, newValue) => {
+                  setPriceRange({ min: newValue[0], max: newValue[1] });
+                }}
+                valueLabelDisplay="auto" // Nhãn giá trị luôn hiện
+                valueLabelFormat={(value) => `${value.toLocaleString()} đ`} // Định dạng giá trị nhãn
+                min={0}
+                max={20000000}
+                sx={{
+                  color: "#00FFFF", // Màu xanh dương cho thanh kéo
+                  "& .MuiSlider-thumb": {
+                    color: "#00FFFF", // Màu xanh cho các nút
+                  },
+                  "& .MuiSlider-track": {
+                    color: "#00FFFF", // Màu xanh cho phần đã chọn
+                  },
+                  "& .MuiSlider-rail": {
+                    color: "#bdbdbd", // Màu xám cho phần chưa chọn
+                  },
+                  // Tùy chỉnh cho nhãn giá trị
+                  "& .MuiSlider-valueLabel": {
+                    backgroundColor: "rgba(0,255,255)",
+                    color: "#FFFFFF", // Màu chữ trắng
+                    borderRadius: "4px",
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-span-5">
+          <p className="text-justify text-lg">{regionContent.description}</p>
+          <div className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {filteredProducts.slice(0, visibleProducts).map((item) => (
+              <Item key={item._id} {...item} />
+            ))}
+          </div>
+          {visibleProducts < filteredProducts.length && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={showMoreProducts}
+                className="rounded-full bg-blue-600 px-6 py-3 text-lg font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                Khám phá thêm
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      <div className="mx-20 my-4 flex items-center justify-between">
-        <p className="text-lg font-semibold">{displayRange}</p>
-      </div>
-      <div className="mx-20 mb-4 grid grid-cols-1 justify-items-center gap-8 rounded-lg sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {filteredProducts.slice(0, visibleProducts).map((item) => (
-          <Item key={item._id} {...item} />
-        ))}
-      </div>
-      {visibleProducts < filteredProducts.length && (
-        <div className="mb-8 mt-6 text-center">
-          <button
-            onClick={showMoreProducts}
-            className="rounded-full border border-gray-400 px-4 py-2 text-gray-800 transition-colors hover:border-gray-500 hover:text-gray-900"
-          >
-            Khám phá thêm
-          </button>
-        </div>
-      )}
     </div>
   );
 };
 
 export default TourCategory;
+
+{
+  /* <div className="relative flex items-end justify-center text-white">
+        <img
+          src={props.banner}
+          alt=""
+          className="h-[600px] w-full object-cover"
+        />
+
+        <div className="absolute bottom-0 mb-10 flex w-full flex-col items-center justify-center space-y-4 rounded-3xl bg-black bg-opacity-60 p-6">
+          <h2 className="text-3xl font-bold text-white">
+            {regionContent.title}
+          </h2>
+          <p className="max-w-md text-center text-lg text-white">
+            {regionContent.description}
+          </p>
+          <SearchForm />
+        </div>
+      </div> */
+}

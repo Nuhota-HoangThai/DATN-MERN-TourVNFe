@@ -23,7 +23,7 @@ const TourDetail = () => {
         const res = await axios.get(`${BASE_URL}/tour/getTourById/${tourId}`);
 
         setTour(res.data.tour);
-        console.log("getTour in tour details");
+        //console.log("getTour in tour details");
       } catch (error) {
         console.log(error);
       }
@@ -32,26 +32,28 @@ const TourDetail = () => {
   }, [tourId]);
 
   return (
-    <div className="mx-24 mt-32">
-      {!tour ? (
-        <p className="text-center">Đang tải...</p>
-      ) : (
-        <>
-          <Tour tour={tour} />
-          <TourDisplay tour={tour} />
-          <div className="flex w-full gap-8">
-            <InfoTour tour={tour} />
-            <GuideTour tour={tour} />
-          </div>
+    <div className="bg-sky-100">
+      <div className="p-8">
+        {!tour ? (
+          <p className="text-center">Đang tải...</p>
+        ) : (
+          <>
+            <Tour tour={tour} />
+            <TourDisplay tour={tour} />
+            <div className="flex w-full gap-8">
+              <InfoTour tour={tour} />
+              <GuideTour tour={tour} />
+            </div>
 
-          <div className="flex w-full gap-8">
-            <DescriptionBox tour={tour} />
-            <PriceDetail tour={tour} />
-          </div>
-          <Schedule tour={tour} />
-          <ReviewTour tour={tour} />
-        </>
-      )}
+            <div className="flex w-full gap-8">
+              <DescriptionBox tour={tour} />
+              <PriceDetail tour={tour} />
+            </div>
+            <Schedule tour={tour} />
+            <ReviewTour tour={tour} />
+          </>
+        )}
+      </div>
     </div>
   );
 };

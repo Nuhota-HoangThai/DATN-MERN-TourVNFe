@@ -33,7 +33,7 @@ const ToursList = () => {
   };
 
   return (
-    <div className="">
+    <div className="bg-sky-50">
       <div className="relative flex items-end justify-center  text-white ">
         <img
           src={bannerTours}

@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../admin/src/utils/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { IoIosAddCircleOutline, IoIosHeart } from "react-icons/io";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { CiHeart } from "react-icons/ci";
 
 import { formatDateVN } from "../../utils/formatDate";
 import { formatRegion } from "../../utils/formatRegion";
@@ -73,7 +74,7 @@ const Item = (props) => {
   };
 
   return (
-    <div className="group relative w-full overflow-hidden  border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
+    <div className="group relative w-full overflow-hidden border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
       <Link
         to={`/tour/${props._id}`}
         onClick={() => window.scrollTo(0, 0)}
@@ -82,25 +83,18 @@ const Item = (props) => {
         {Array.isArray(props.image) && props.image.length > 0 && (
           <div className="relative">
             <img
-              className="h-56 w-full  object-cover transition duration-300 ease-in-out group-hover:scale-110"
+              className="h-56 w-full object-cover transition duration-300 ease-in-out group-hover:scale-110"
               src={`${BASE_URL}/${props.image[0].replace(/\\/g, "/")}`}
               alt="Tour Main Image"
             />
-            {props.promotion && props.promotion.discountPercentage > 0 && (
-              <div className="absolute left-0 top-0  rounded bg-red-500 px-3 py-1 text-white">
-                -{props.promotion.discountPercentage}%
-              </div>
-            )}
-            <div className="absolute right-0 top-0 p-4">
-              <IoIosHeart
-                className="cursor-pointer text-2xl text-white transition duration-300 hover:text-red-500"
-                onClick={(e) => {
-                  e.preventDefault(); // Ngăn chặn hành động mặc định của link
-                  e.stopPropagation(); // Ngăn sự kiện lan truyền
-                  addFavorite(props._id);
-                }}
-              />
-            </div>
+            <CiHeart
+              className="absolute left-1 top-1 cursor-pointer rounded-full bg-sky-50 text-3xl text-white hover:text-red-500"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default link action
+                e.stopPropagation(); // Stop event propagation
+                addFavorite(props._id);
+              }}
+            />
           </div>
         )}
 
@@ -122,21 +116,28 @@ const Item = (props) => {
             Nơi khởi hành:
             <span className="font-medium"> {props.startingGate}</span>
           </p>
-
-          <p className="mt-2 text-xl font-bold text-red-600">
-            {props.price !== props.originalPrice && props.promotion ? (
-              <>
-                <span className="text-red-600">
-                  {formatPrice(props.price)}{" "}
-                </span>
-                <span className="text-base text-gray-500 line-through">
-                  {formatPrice(props.originalPrice)}
-                </span>
-              </>
-            ) : (
-              formatPrice(props.price)
-            )}
-          </p>
+          <div className="mt-2 flex justify-between">
+            <p className=" text-xl font-bold text-red-600">
+              {props.price !== props.originalPrice && props.promotion ? (
+                <>
+                  <p className="text-red-600">{formatPrice(props.price)} </p>
+                  <p className="text-base text-gray-500 line-through">
+                    {formatPrice(props.originalPrice)}
+                  </p>
+                </>
+              ) : (
+                formatPrice(props.price)
+              )}
+            </p>
+            <p>
+              {" "}
+              {props.promotion && props.promotion.discountPercentage > 0 && (
+                <div className=" rounded-full bg-red-500 px-3 py-3 text-white">
+                  -{props.promotion.discountPercentage}%
+                </div>
+              )}
+            </p>
+          </div>
         </div>
       </Link>
       <div className="">
