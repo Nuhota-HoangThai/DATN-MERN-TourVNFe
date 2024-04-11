@@ -74,75 +74,77 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto max-w-xl space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
+      className="mx-auto my-10 max-w-xl space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
     >
-      <div>
-        <label
-          htmlFor="file-input"
-          className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
-        >
-          Thêm hình ảnh
-        </label>
-        {image.length > 0 ? (
-          <Slider {...sliderSettings} className="mb-4">
-            {image.map((image, index) => {
-              if (image instanceof Blob || image instanceof File) {
-                const imageUrl = URL.createObjectURL(image);
-                return (
-                  <div key={index} className="flex justify-center">
-                    <img
-                      src={imageUrl}
-                      alt="Hình ảnh địa điểm"
-                      onLoad={() => URL.revokeObjectURL(imageUrl)}
-                      className="h-auto max-w-xs rounded-md shadow-sm"
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </Slider>
-        ) : (
-          <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
-            <span className="text-sm text-gray-500">Chưa có hình ảnh</span>
-          </div>
-        )}
-        <input
-          onChange={(e) => setImages([...e.target.files])}
-          type="file"
-          name="image"
-          id="file-input"
-          className="hidden"
-          multiple
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="video-input"
-          className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
-        >
-          Thêm video
-        </label>
-        {video.length > 0 ? (
-          <video
-            controls
-            className="max-w-xs rounded-md shadow-sm"
-            src={URL.createObjectURL(video[0])}
+      <div className="grid grid-cols-2">
+        {" "}
+        <div>
+          <label
+            htmlFor="file-input"
+            className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
+          >
+            Thêm hình ảnh
+          </label>
+          {image.length > 0 ? (
+            <Slider {...sliderSettings} className="mb-4">
+              {image.map((image, index) => {
+                if (image instanceof Blob || image instanceof File) {
+                  const imageUrl = URL.createObjectURL(image);
+                  return (
+                    <div key={index} className="flex justify-center">
+                      <img
+                        src={imageUrl}
+                        alt="Hình ảnh địa điểm"
+                        onLoad={() => URL.revokeObjectURL(imageUrl)}
+                        className="h-auto max-w-xs rounded-md shadow-sm"
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </Slider>
+          ) : (
+            <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
+              <span className="text-sm text-gray-500">Chưa có hình ảnh</span>
+            </div>
+          )}
+          <input
+            onChange={(e) => setImages([...e.target.files])}
+            type="file"
+            name="image"
+            id="file-input"
+            className="hidden"
+            multiple
           />
-        ) : (
-          <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
-            <span className="text-sm text-gray-500">Chưa có video</span>
-          </div>
-        )}
-        <input
-          onChange={(e) => setVideo([...e.target.files])}
-          type="file"
-          name="video"
-          id="video-input"
-          className="hidden"
-          accept="video/*"
-        />
+        </div>
+        <div>
+          <label
+            htmlFor="video-input"
+            className="mb-1 block cursor-pointer text-sm font-medium text-gray-700"
+          >
+            Thêm video
+          </label>
+          {video.length > 0 ? (
+            <video
+              controls
+              className="max-w-xs rounded-md shadow-sm"
+              src={URL.createObjectURL(video[0])}
+            />
+          ) : (
+            <div className="flex h-48 w-full items-center justify-center rounded-md border-2 border-dashed border-gray-300">
+              <span className="text-sm text-gray-500">Chưa có video</span>
+            </div>
+          )}
+          <input
+            onChange={(e) => setVideo([...e.target.files])}
+            type="file"
+            name="video"
+            id="video-input"
+            className="hidden"
+            accept="video/*"
+          />
+        </div>
       </div>
 
       <textarea

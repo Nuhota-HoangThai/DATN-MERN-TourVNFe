@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./user-order.css";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
@@ -127,7 +128,7 @@ const UserBooking = () => {
   };
 
   return (
-    <div className="container mx-auto mt-32 rounded-lg bg-white px-4 py-8 shadow-lg">
+    <div className="container mx-auto mt-6 rounded-lg bg-white px-4 py-4 shadow-lg">
       <h1 className="mb-6 text-center text-2xl font-semibold text-gray-800">
         Lịch sử đặt tour
       </h1>
@@ -199,16 +200,26 @@ const UserBooking = () => {
                       )}
                     </td>
                   </tr>
-                  {showReviewFormFor === booking._id && (
-                    <tr className="bg-gray-100 dark:bg-gray-700">
-                      <td colSpan="6" className="px-6 py-4">
+                  {showReviewFormFor && (
+                    <div
+                      className="backdrop"
+                      onClick={() => setShowReviewFormFor(null)}
+                    >
+                      <div
+                        className="reviewFormContainer"
+                        onClick={(e) => e.stopPropagation()} // Prevent the click from reaching the backdrop
+                      >
                         <ReviewForm
-                          bookingId={booking._id}
-                          tourId={booking.tour._id}
+                          bookingId={showReviewFormFor}
+                          tourId={
+                            bookings.find(
+                              (booking) => booking._id === showReviewFormFor,
+                            )?.tour._id
+                          }
                           onSubmit={submitReview}
                         />
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   )}
                 </React.Fragment>
               ))}

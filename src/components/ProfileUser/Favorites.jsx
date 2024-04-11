@@ -54,7 +54,7 @@ const FavoritesList = () => {
   };
 
   return (
-    <div className="mt-32">
+    <div className="mt-12">
       <h2 className="mb-4 text-xl font-bold">Tour yêu thích của tôi</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full leading-normal">

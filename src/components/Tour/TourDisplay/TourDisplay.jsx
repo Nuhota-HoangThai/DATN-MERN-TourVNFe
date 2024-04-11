@@ -67,10 +67,15 @@ const TourDisplay = ({ tour }) => {
       </div>
 
       {/* Giữa trang: Hình ảnh và Video */}
-      <div className="md:grid md:grid-cols-2 md:gap-6">
+      <div
+        className="md:grid md:gap-6"
+        style={{
+          gridTemplateColumns: displayVideos.length > 0 ? "1fr 1fr" : "1fr",
+        }}
+      >
         {/* Video */}
-        <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">
-          {Array.isArray(displayVideos) && displayVideos.length > 0 && (
+        {displayVideos.length > 0 && (
+          <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">
             <video
               className="h-full w-full object-cover"
               controls
@@ -80,12 +85,14 @@ const TourDisplay = ({ tour }) => {
               src={`${BASE_URL}/${displayVideos[0].replace(/\\/g, "/")}`}
               alt="Tour Main Video"
             />
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Hình ảnh */}
-        <div className="overflow-hidden ">
-          <div className="grid grid-cols-2 gap-4 ">
+        <div
+          className={`overflow-hidden ${displayVideos.length > 0 ? "" : "md:col-span-2"}`}
+        >
+          <div className="grid grid-cols-2 gap-4">
             {displayImages.map((image, index) => (
               <div
                 key={index}

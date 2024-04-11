@@ -36,7 +36,7 @@ const Introduce = () => {
             </Link>
           </div>
           <div className="w-48 rounded border-2 border-blue-800 py-2 text-center font-bold text-blue-800 hover:bg-blue-800 hover:text-white">
-            <Link to={""}>Liên hệ ngay</Link>
+            <Link to={"/contact"}>Liên hệ ngay</Link>
           </div>
         </div>
       </div>

@@ -175,7 +175,7 @@ const Booking = () => {
   }
 
   return (
-    <div className="mx-4 mb-8 mt-10 grid grid-cols-1 gap-4 md:mx-20 md:mt-28 md:grid-cols-2">
+    <div className="mx-4 my-8 grid grid-cols-1 gap-4 md:mx-20  md:grid-cols-2">
       <TourBooking />
       {/********************************************/}
       <div className="rounded-lg bg-white p-6 shadow">
@@ -359,7 +359,7 @@ const Booking = () => {
                 {(
                   tour?.priceForYoungChildren *
                   bookingData.numberOfYoungChildren
-                ).toLocaleString()}
+                ).toLocaleString() || 0}
                 đ
               </p>
             </div>
@@ -370,7 +370,7 @@ const Booking = () => {
               <p className="text-lg font-semibold">
                 {(
                   tour?.priceForInfants * bookingData.numberOfInfants
-                ).toLocaleString()}
+                ).toLocaleString() || 0}
                 đ
               </p>
             </div>

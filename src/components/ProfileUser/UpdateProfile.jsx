@@ -84,7 +84,7 @@ const UpdateUser = () => {
   };
 
   return (
-    <div className="mx-auto mt-28 max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto mt-12 max-w-4xl px-4 sm:px-6 lg:px-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <h1 className="text-center text-lg font-medium leading-6 text-gray-900">

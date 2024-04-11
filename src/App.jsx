@@ -31,6 +31,7 @@ import TourDirectoriesList from "./components/Directory/TourDirectoryList";
 
 import SearchResultBillDetail from "./pages/user/SearchResultBillDetail";
 import Contact from "./pages/user/Contact";
+import Blog from "./pages/user/Blog";
 
 const App = () => {
   return (
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
             <Route path="/thanks" element={<Thanks />} />
+            <Route path="/blog" element={<Blog />} />
 
             <Route
               path="/userOrder"

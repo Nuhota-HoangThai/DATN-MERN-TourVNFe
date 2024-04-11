@@ -58,8 +58,8 @@ const Register = () => {
     }
   };
   return (
-    <div className="mt-16 flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="form-container w-full max-w-2xl rounded-xl bg-white px-8 py-10 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="form-container w-full max-w-2xl rounded-xl bg-white px-8 py-6 shadow-lg">
         <h1 className="mb-6 text-center text-2xl font-bold">Đăng Ký</h1>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
