@@ -53,7 +53,7 @@ const TourCategory = (props) => {
           <p className="mt-4 text-left text-lg font-semibold text-gray-900">
             {displayRange}
           </p>
-          <div className="my-4 mr-10 rounded-xl bg-white">
+          <div className="my-4 mr-16 rounded-xl bg-white">
             <div className="p-4 py-2">
               <h3 className="mb-5 text-lg font-semibold">Khoảng giá</h3>
               <Slider
@@ -64,7 +64,7 @@ const TourCategory = (props) => {
                 valueLabelDisplay="auto" // Nhãn giá trị luôn hiện
                 valueLabelFormat={(value) => `${value.toLocaleString()} đ`} // Định dạng giá trị nhãn
                 min={0}
-                max={20000000}
+                max={10000000}
                 sx={{
                   color: "#00FFFF", // Màu xanh dương cho thanh kéo
                   "& .MuiSlider-thumb": {
@@ -89,7 +89,7 @@ const TourCategory = (props) => {
         </div>
         <div className="col-span-5">
           <p className="text-justify text-lg">{regionContent.description}</p>
-          <div className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.slice(0, visibleProducts).map((item) => (
               <Item key={item._id} {...item} />
             ))}
@@ -111,23 +111,3 @@ const TourCategory = (props) => {
 };
 
 export default TourCategory;
-
-{
-  /* <div className="relative flex items-end justify-center text-white">
-        <img
-          src={props.banner}
-          alt=""
-          className="h-[600px] w-full object-cover"
-        />
-
-        <div className="absolute bottom-0 mb-10 flex w-full flex-col items-center justify-center space-y-4 rounded-3xl bg-black bg-opacity-60 p-6">
-          <h2 className="text-3xl font-bold text-white">
-            {regionContent.title}
-          </h2>
-          <p className="max-w-md text-center text-lg text-white">
-            {regionContent.description}
-          </p>
-          <SearchForm />
-        </div>
-      </div> */
-}

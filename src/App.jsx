@@ -30,6 +30,7 @@ import AboutPage from "./pages/user/About";
 import TourDirectoriesList from "./components/Directory/TourDirectoryList";
 
 import SearchResultBillDetail from "./pages/user/SearchResultBillDetail";
+import Contact from "./pages/user/Contact";
 
 const App = () => {
   return (
@@ -62,6 +63,7 @@ const App = () => {
             />
             <Route path="/booking" element={<Booking />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
             <Route path="/thanks" element={<Thanks />} />
 

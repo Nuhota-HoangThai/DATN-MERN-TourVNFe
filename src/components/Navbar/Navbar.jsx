@@ -12,15 +12,15 @@ const Navbar = () => {
     <>
       <div className="top-0 w-full bg-white shadow-md">
         {/* Hàng đầu tiên: Logo, tìm kiếm, thông tin người dùng */}
-        <div className="flex items-center justify-between  md:px-24">
-          <div className="flex items-center justify-between gap-10 px-6 py-1">
+        <div className="flex items-center justify-between px-10">
+          <div className="flex items-center justify-between gap-10  py-1">
             {/* Logo */}
             <div className="vivu3mien-logo">
               <Link to="/" className="flex items-center gap-1">
                 <img src={logoViVu3Mien} alt="Logo" className="w-8 md:w-16" />
                 <div>
                   <div className="text-xl font-bold text-cyan-500 md:text-xl">
-                    ViVu3Miền
+                    VIVU3Mien
                   </div>
                   <div className="text-xs font-medium italic text-orange-400 md:text-sm">
                     Phục vụ tận tâm
@@ -60,7 +60,7 @@ const Navbar = () => {
                   <Link to="/">Tin tức</Link>
                 </li>
                 <li>
-                  <Link to="/">Liên hệ</Link>
+                  <Link to="/contact">Liên hệ</Link>
                 </li>
                 <li>
                   <Link to="/about">Giới thiệu</Link>

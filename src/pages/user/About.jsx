@@ -2,7 +2,7 @@ import {} from "react";
 
 const AboutPage = () => {
   return (
-    <div className="mx-auto mt-28 max-w-screen-lg px-4 py-8">
+    <div className=" bg-sky-50 px-10 py-8">
       <section className="mb-8">
         <div className="text-center">
           <h1 className="mb-4 text-3xl font-bold text-gray-800">

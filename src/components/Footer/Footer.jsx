@@ -6,9 +6,9 @@ import { SiZalo } from "react-icons/si";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-200 bg-white text-gray-700 shadow">
+    <footer className="border-t-2 border-sky-500 bg-white text-gray-700 shadow">
       <div className="container mx-auto px-5 py-10">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5">
           <div>
             <GiMountains className="text-4xl text-blue-500" />
             <h2 className="mt-2 text-3xl font-bold">ViVu3Mien</h2>
@@ -63,6 +63,43 @@ const Footer = () => {
             </ul>
           </div>
           <div>
+            <h5 className="text-xl font-semibold uppercase">Dịch Vụ</h5>
+            <ul className="mt-4 space-y-2">
+              <li>
+                <Link
+                  to="/booking"
+                  className="transition-colors duration-300 hover:text-blue-500"
+                >
+                  Đặt Tour
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/custom-tour"
+                  className="transition-colors duration-300 hover:text-blue-500"
+                >
+                  Tour Theo Yêu Cầu
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/insurance"
+                  className="transition-colors duration-300 hover:text-blue-500"
+                >
+                  Bảo Hiểm Du Lịch
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/support"
+                  className="transition-colors duration-300 hover:text-blue-500"
+                >
+                  Hỗ Trợ Khách Hàng
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
             <h5 className="text-xl font-semibold uppercase">
               Theo Dõi Chúng Tôi
             </h5>
@@ -92,26 +129,26 @@ const Footer = () => {
                 <FaTelegram className="text-2xl" />
               </Link>
             </div>
-            <div className="mt-8">
-              <h5 className="text-xl font-semibold uppercase">
-                Nhận Tin Tức Mới
-              </h5>
-              <div className="mt-4 flex">
-                <input
-                  type="text"
-                  className="flex-1 rounded-l-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Email của bạn"
-                />
-                <button className="rounded-r-md bg-blue-500 px-4 text-white transition-colors duration-300 hover:bg-blue-600">
-                  Đăng Ký
-                </button>
-              </div>
+          </div>
+          <div>
+            <h5 className="text-xl font-semibold uppercase">
+              Nhận Tin Tức Mới
+            </h5>
+            <div className="mt-4 flex">
+              <input
+                type="text"
+                className="flex-1 rounded-l-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Email của bạn"
+              />
+              <button className="rounded-r-md bg-blue-500 px-4 text-white transition-colors duration-300 hover:bg-blue-600">
+                Đăng Ký
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-10 bg-gray-800 py-4">
-        <p className="text-center text-white">
+      <div className="mt-10 bg-sky-100 py-4">
+        <p className="text-center ">
           Copyright @ 2024 - Bản quyền thuộc về ViVu3Mien
         </p>
       </div>
