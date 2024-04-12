@@ -96,7 +96,7 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
                         src={imageUrl}
                         alt="Hình ảnh địa điểm"
                         onLoad={() => URL.revokeObjectURL(imageUrl)}
-                        className="h-auto max-w-xs rounded-md shadow-sm"
+                        className="w-48 rounded-md shadow-sm"
                       />
                     </div>
                   );
@@ -128,7 +128,7 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
           {video.length > 0 ? (
             <video
               controls
-              className="max-w-xs rounded-md shadow-sm"
+              className="w-48 rounded-md shadow-sm"
               src={URL.createObjectURL(video[0])}
             />
           ) : (

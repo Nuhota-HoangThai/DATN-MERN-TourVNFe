@@ -135,7 +135,7 @@ const UserBooking = () => {
       {bookings.length > 0 ? (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Mã đặt
@@ -160,7 +160,7 @@ const UserBooking = () => {
             <tbody>
               {bookings.map((booking) => (
                 <React.Fragment key={booking._id}>
-                  <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+                  <tr className="border-b bg-white hover:bg-gray-50 ">
                     <td className="px-6 py-4">
                       {formatBookingId(booking._id)}
                     </td>
@@ -200,22 +200,29 @@ const UserBooking = () => {
                       )}
                     </td>
                   </tr>
-                  {showReviewFormFor && (
+                  {/* {showReviewFormFor === booking._id && (
+                    <tr className="bg-gray-100 dark:bg-gray-700">
+                      <td colSpan="6" className="px-6 py-4">
+                        <ReviewForm
+                          bookingId={booking._id}
+                          tourId={booking.tour._id}
+                          onSubmit={submitReview}
+                        />
+                      </td>
+                    </tr>
+                  )} */}
+                  {showReviewFormFor === booking._id && (
                     <div
                       className="backdrop"
                       onClick={() => setShowReviewFormFor(null)}
                     >
                       <div
                         className="reviewFormContainer"
-                        onClick={(e) => e.stopPropagation()} // Prevent the click from reaching the backdrop
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <ReviewForm
-                          bookingId={showReviewFormFor}
-                          tourId={
-                            bookings.find(
-                              (booking) => booking._id === showReviewFormFor,
-                            )?.tour._id
-                          }
+                          bookingId={booking._id}
+                          tourId={booking.tour._id}
                           onSubmit={submitReview}
                         />
                       </div>

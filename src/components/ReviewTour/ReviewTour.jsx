@@ -1,19 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-//import { useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/config";
 import calculateAvgRating from "../../utils/avgRating";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 
 import Star from "../../assets/img/star.png";
 
 import { formatDateVN } from "../../utils/formatDate";
 
 const ReviewForm = ({ tour }) => {
-  // const { token } = useSelector((state) => state.user.currentUser);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,11 +15,7 @@ const ReviewForm = ({ tour }) => {
     const fetchReviews = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${BASE_URL}/review/${tour._id}`, {
-          // headers: {
-          //   Authorization: "Bearer " + token,
-          // },
-        });
+        const response = await axios.get(`${BASE_URL}/review/${tour._id}`, {});
         setReviews(response.data.reviews);
         setIsLoading(false);
       } catch (error) {
@@ -38,48 +28,6 @@ const ReviewForm = ({ tour }) => {
   }, [tour]);
 
   const { avgRating } = calculateAvgRating(reviews);
-
-  const sliderSettings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    infinite: reviews.length > 1,
-    autoplay: reviews.length > 1,
-    autoplaySpeed: 1500,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: reviews.length > 1,
-          autoplay: reviews.length > 1,
-          dots: true,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-    ],
-  };
 
   return (
     <div className="border-t-2 border-sky-900">
@@ -104,6 +52,15 @@ const ReviewForm = ({ tour }) => {
           ) : reviews.length > 0 ? (
             reviews.map((review, index) => (
               <div key={index} className="rounded-lg bg-white p-6 shadow-lg">
+                <div className="mb-4 flex items-center justify-between">
+                  <p className="text-xl font-semibold text-gray-800">
+                    {review.userId?.name || "Ẩn danh"}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {formatDateVN(review.createdAt)}
+                  </p>
+                </div>
+
                 <div className="mb-6 text-gray-600">{review.reviewText}</div>
                 <div className="flex flex-wrap gap-5">
                   {/* Hiển thị tất cả hình ảnh */}
