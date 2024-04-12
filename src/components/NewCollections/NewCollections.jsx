@@ -59,7 +59,7 @@ const NewCollections = () => {
   return (
     <div className="bg-sky-50">
       {newCollection.length > 0 ? (
-        <div className="w-full py-6">
+        <div className=" w-full py-6">
           <div className="flex items-center justify-center pb-4">
             <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
             <h1
@@ -70,7 +70,7 @@ const NewCollections = () => {
             </h1>
             <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
           </div>{" "}
-          <div className="">
+          <div className="mx-20">
             <Slider {...settings}>
               {newCollection.map((item) => (
                 <Item

@@ -3,7 +3,7 @@ import {} from "react";
 const DescriptionBox = (props) => {
   const { tour } = props;
   return (
-    <div className="my-6 w-1/2 rounded-xl bg-white p-8 shadow-lg">
+    <div className="my-6 w-1/2 rounded-xl bg-sky-50 p-8 shadow-lg">
       <h1 className="mb-6 text-center text-2xl font-bold text-gray-800">
         Hướng dẫn viên
       </h1>

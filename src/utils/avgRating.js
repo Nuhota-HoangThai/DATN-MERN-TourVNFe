@@ -7,7 +7,7 @@ const calculateAvgRating = (reviews) => {
 
   // Calculate average rating; handle the case where totalRating is 0 by returning an empty string
   const avgRating =
-    totalRating === 0 ? "" : (totalRating / validReviews.length).toFixed(1); // Always calculate the average if totalRating is not 0
+    totalRating === 0 ? "" : (totalRating / validReviews.length).toFixed(); // Always calculate the average if totalRating is not 0
 
   return {
     totalRating,

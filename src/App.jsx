@@ -33,6 +33,9 @@ import SearchResultBillDetail from "./pages/user/SearchResultBillDetail";
 import Contact from "./pages/user/Contact";
 import Blog from "./pages/user/Blog";
 
+import UserRate from "./components/UserOrder/UserRate";
+import ReviewDetails from "./components/UserOrder/ReviewDetail";
+
 const App = () => {
   return (
     <div>
@@ -118,6 +121,23 @@ const App = () => {
             <Route
               path="/tourDirectory/:tourDirectoryId"
               element={<TourDirectoriesList />}
+            />
+
+            <Route
+              path="/reviewUser"
+              element={
+                <Profile>
+                  <UserRate />
+                </Profile>
+              }
+            />
+            <Route
+              path="/review-details/:reviewId"
+              element={
+                <Profile>
+                  <ReviewDetails />
+                </Profile>
+              }
             />
           </Routes>
         </div>

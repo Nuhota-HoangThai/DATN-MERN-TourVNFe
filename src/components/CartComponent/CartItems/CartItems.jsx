@@ -21,8 +21,8 @@ const CartItems = ({ cartItems, setCartItems, allTour }) => {
   };
 
   return (
-    <div className="">
-      <h1 className="mb-4 text-center text-xl font-semibold">
+    <div className="border-t-2">
+      <h1 className="py-4 text-center text-xl font-semibold">
         Danh sách tour so sánh
       </h1>
       <table className="w-full table-auto">
@@ -54,7 +54,7 @@ const CartItems = ({ cartItems, setCartItems, allTour }) => {
                 <td className="px-6 py-3 text-center">
                   <button
                     onClick={() => removeFromCart(tour._id)}
-                    className="mx-auo mb-2 rounded-lg bg-red-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-600 focus:outline-none"
+                    className="mx-auto mb-2 rounded-lg px-5  py-2.5 text-center text-sm font-medium text-red-500  focus:outline-none"
                   >
                     Xóa
                   </button>

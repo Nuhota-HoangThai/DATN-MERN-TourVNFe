@@ -1,12 +1,33 @@
 import { BASE_URL } from "../../../utils/config";
 import { Link, useNavigate } from "react-router-dom";
 import "./tour-display.css";
-
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import Slider from "react-slick";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import calculateAvgRating from "../../../utils/avgRating";
 
 const TourDisplay = ({ tour }) => {
+  //phần review
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${BASE_URL}/review/${tour._id}`, {});
+        setReviews(response.data.reviews);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [tour]);
+
+  const { avgRating } = calculateAvgRating(reviews);
+  //kết review
   const navigate = useNavigate();
 
   const handleBooking = () => {
@@ -14,7 +35,11 @@ const TourDisplay = ({ tour }) => {
   };
 
   const formatPrice = (price) => {
-    return <span className="text-red-600">{price?.toLocaleString()} đ</span>;
+    return (
+      <span className="font-bold text-red-600">
+        {price?.toLocaleString()} đ/khách
+      </span>
+    );
   };
 
   if (!tour) {
@@ -28,29 +53,31 @@ const TourDisplay = ({ tour }) => {
     <div className="flex flex-col space-y-8 rounded-lg  p-6">
       {/* Đầu trang */}
       <div className="rounded-lg bg-white p-8 shadow-xl md:flex md:items-center md:justify-between">
-        <div className="mb-4 flex-1 md:mb-0">
-          <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
-            {tour.nameTour}
-          </h1>
-          <p className="mt-2 text-xl font-medium  md:mt-4">
+        <div className="mb-4 flex gap-4 md:mb-0">
+          <div>
+            <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
+              {tour.nameTour}
+            </h1>
+            <h1 className="mt-3 w-20 rounded-br-2xl rounded-tl-2xl bg-yellow-500 p-3 text-center text-2xl font-bold">
+              {" "}
+              {avgRating} điểm
+            </h1>
+          </div>
+        </div>
+
+        <div className="mx-5">
+          <p className="mb-4 mt-[-28px] text-center text-2xl ">
             {tour.price !== tour.originalPrice && tour.promotion ? (
               <>
-                <span className="text-xl font-semibold text-red-600">
-                  {formatPrice(tour.price)}{" "}
-                </span>
-                <span className="text-lg text-gray-500 line-through">
+                <span className=" ">{formatPrice(tour.price)} </span>
+                <span className=" text-gray-500 line-through">
                   {formatPrice(tour.originalPrice)}
                 </span>
               </>
             ) : (
-              <span className="text-xl font-semibold">
-                {formatPrice(tour.price)}
-              </span>
+              <span className="">{formatPrice(tour.price)}</span>
             )}
           </p>
-        </div>
-
-        <div className="mx-5 space-y-4">
           <button
             onClick={handleBooking}
             className="mr-5 w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-3 text-lg font-semibold text-white transition duration-300 ease-in-out hover:bg-gradient-to-bl md:w-48"

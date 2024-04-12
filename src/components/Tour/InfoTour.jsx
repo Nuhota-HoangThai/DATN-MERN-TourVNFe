@@ -9,7 +9,7 @@ const DescriptionBox = (props) => {
 
   return (
     <div className=" my-6 w-1/2">
-      <div className="space-y-6 rounded-xl bg-white px-8 py-6 shadow-xl">
+      <div className="space-y-6 rounded-xl bg-sky-50 px-8 py-6 shadow-xl">
         <div className="border-b pb-4">
           <p className="flex items-center gap-3 text-lg text-gray-700">
             <PiBarcodeBold className="text-xl" /> {tour._id}

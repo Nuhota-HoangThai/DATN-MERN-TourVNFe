@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 import TourComparison from "../../components/CartComponent/TourComparison/TourComparison";
 import CartItems from "../../components/CartComponent/CartItems/CartItems";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+
 const Cart = () => {
   const [allTour, setAllTour] = useState([]);
   const [cartItems, setCartItems] = useState({});
@@ -33,19 +36,21 @@ const Cart = () => {
   }, [currentUser]);
 
   return (
-    <div className="my-5 h-[600px] max-w-6xl">
-      <TourComparison
-        setAllTour={setAllTour}
-        allTour={allTour}
-        setCartItems={setCartItems}
-        cartItems={cartItems}
-      />
-      <CartItems
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-        allTour={allTour}
-      />
-    </div>
+    <PerfectScrollbar>
+      <div className="my-5 h-[600px] max-w-6xl">
+        <TourComparison
+          setAllTour={setAllTour}
+          allTour={allTour}
+          setCartItems={setCartItems}
+          cartItems={cartItems}
+        />
+        <CartItems
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+          allTour={allTour}
+        />
+      </div>
+    </PerfectScrollbar>
   );
 };
 

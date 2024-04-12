@@ -50,7 +50,7 @@ const Booking = () => {
         navigate("/login");
         return;
       }
-      const userId = currentUser?.id; // Chỉ là ví dụ, hãy thay thế phù hợp với cách bạn lưu trữ userId
+      const userId = currentUser?.id;
       if (!userId) {
         console.error("User ID is missing");
         return;

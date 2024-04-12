@@ -7,6 +7,10 @@ import Star from "../../assets/img/star.png";
 
 import { formatDateVN } from "../../utils/formatDate";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const ReviewForm = ({ tour }) => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,72 +33,77 @@ const ReviewForm = ({ tour }) => {
 
   const { avgRating } = calculateAvgRating(reviews);
 
+  const settings = {
+    dots: false,
+    infinite: true, // Cho phép lặp lại các reviews khi di chuyển tới review cuối cùng
+    speed: 500,
+    slidesToShow: 1, // Hiển thị 1 review trên mỗi trang
+    slidesToScroll: 1, // Mỗi lần cuộn chuyển 1 review
+    autoplay: true, // Tự động chuyển slide
+    autoplaySpeed: 2000,
+    arrows: false,
+  };
+
   return (
     <div className="border-t-2 border-sky-900">
-      <div className="w-full ">
-        <div className="mb-8 flex flex-col items-center justify-between md:flex-row">
-          <h1 className="text-xl font-bold text-gray-800">Đánh giá</h1>
-          <div className="mt-4 text-xl font-semibold text-indigo-600 md:mt-0">
-            {avgRating ? (
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">{avgRating}</span>
-                <img src={Star} alt="Sao" className="h-6 w-6" />
-                <span>({reviews.length} đánh giá)</span>
-              </div>
-            ) : (
-              "Chưa có đánh giá"
-            )}
-          </div>
-        </div>
-        <div className="space-y-4 rounded-2xl bg-white p-6 shadow-md">
-          {isLoading ? (
-            <p className="text-center text-gray-500">Đang tải...</p>
-          ) : reviews.length > 0 ? (
-            reviews.map((review, index) => (
-              <div key={index} className="rounded-lg bg-white p-6 shadow-lg">
-                <div className="mb-4 flex items-center justify-between">
-                  <p className="text-xl font-semibold text-gray-800">
-                    {review.userId?.name || "Ẩn danh"}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {formatDateVN(review.createdAt)}
-                  </p>
-                </div>
-
-                <div className="mb-6 text-gray-600">{review.reviewText}</div>
-                <div className="flex flex-wrap gap-5">
-                  {/* Hiển thị tất cả hình ảnh */}
-                  {review.image &&
-                    review.image.length > 0 &&
-                    review.image.map((img, imgIndex) => (
-                      <img
-                        key={imgIndex}
-                        src={`${BASE_URL}/${img.replace(/\\/g, "/")}`}
-                        alt={`review ${imgIndex}`}
-                        className="h-auto w-48 rounded-md object-cover"
-                      />
-                    ))}
-                  {/* Hiển thị tất cả video */}
-                  {review.video &&
-                    review.video.length > 0 &&
-                    review.video.map((vid, vidIndex) => (
-                      <video
-                        key={vidIndex}
-                        src={`${BASE_URL}/${vid.replace(/\\/g, "/")}`}
-                        alt={`review ${vidIndex}`}
-                        className="h-auto w-48 rounded-md"
-                        controls
-                        loop
-                        muted
-                      />
-                    ))}
-                </div>
-              </div>
-            ))
+      <div className="my-4 flex flex-col items-center justify-between md:flex-row">
+        <h1 className="text-xl font-bold text-gray-800">Đánh giá</h1>
+        <div className=" text-xl font-semibold text-indigo-600 ">
+          {avgRating ? (
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl">{avgRating}</span>
+              <img src={Star} alt="Sao" className="h-6 w-6" />
+              <span>({reviews.length} đánh giá)</span>
+            </div>
           ) : (
-            <p className="text-center text-gray-500">Chưa có đánh giá nào.</p>
+            "Chưa có đánh giá"
           )}
         </div>
+      </div>{" "}
+      <div className="space-y-4 rounded-2xl bg-white p-6 shadow-md">
+        <Slider {...settings}>
+          {reviews.map((review, index) => (
+            <div key={index} className="rounded-lg bg-white p-6 shadow-lg">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-xl font-semibold text-gray-800">
+                  {review.userId?.name || "Ẩn danh"}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {formatDateVN(review.createdAt)}
+                </p>
+              </div>
+
+              <div className="mb-6 text-gray-600">{review.reviewText}</div>
+              <div className="flex flex-wrap gap-5">
+                {/* Hiển thị tất cả hình ảnh */}
+                {review.image &&
+                  review.image.length > 0 &&
+                  review.image.map((img, imgIndex) => (
+                    <img
+                      key={imgIndex}
+                      src={`${BASE_URL}/${img.replace(/\\/g, "/")}`}
+                      alt={`review ${imgIndex}`}
+                      className="h-auto w-48 rounded-md object-cover"
+                    />
+                  ))}
+                {/* Hiển thị tất cả video */}
+                {review.video &&
+                  review.video.length > 0 &&
+                  review.video.map((vid, vidIndex) => (
+                    <video
+                      key={vidIndex}
+                      src={`${BASE_URL}/${vid.replace(/\\/g, "/")}`}
+                      alt={`review ${vidIndex}`}
+                      className="h-auto w-48 rounded-md"
+                      controls
+                      loop
+                      muted
+                    />
+                  ))}
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

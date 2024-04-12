@@ -50,6 +50,15 @@ const SidebarProfile = () => {
             <p>Tour yêu thích</p>
           </div>
         </Link>
+
+        <Link
+          to={`/reviewUser`}
+          className="block rounded-lg p-3 transition-colors hover:bg-slate-200"
+        >
+          <div className="flex items-center space-x-2">
+            <p>Đánh giá của bạn </p>
+          </div>
+        </Link>
       </div>
 
       <button

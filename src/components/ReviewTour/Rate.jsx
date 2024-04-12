@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import { useSelector } from "react-redux";
 
-import { IoIosStar } from "react-icons/io";
+//import { IoIosStar } from "react-icons/io";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -29,7 +29,7 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
   };
 
   const sliderSettings = {
-    dots: true,
+    dots: false,
     // infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -161,14 +161,14 @@ const Rate = ({ bookingId, tourId, userId, onSubmit }) => {
           type="number"
           value={rating}
           onChange={(e) => setRating(e.target.value)}
-          placeholder="Điểm đánh giá (0-5)"
+          placeholder="Điểm đánh giá (0-10)"
           min="0"
-          max="5"
+          max="10"
           required
           className="w-16 rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
         />
         <label htmlFor="rating" className="flex text-sm text-gray-600">
-          Điểm đánh giá (1-5 <IoIosStar />)
+          Điểm đánh giá (1-10)
         </label>
       </div>
 

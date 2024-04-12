@@ -22,10 +22,9 @@ const SearchResultList = () => {
           <SearchForm />
         </div>
       </div>
-      <div className="mt-24">
+      <div className="mt-12">
         {Array.isArray(data) && data.length > 0 ? (
           <div>
-            <div className="mx-auto mb-8 h-1 w-1/6 rounded bg-blue-500"></div>
             <div className="my-4 flex justify-center">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 {data.map((item) => (

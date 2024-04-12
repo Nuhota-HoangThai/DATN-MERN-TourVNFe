@@ -4,7 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 import ReviewForm from "../ReviewTour/Rate";
-
+import { Link } from "react-router-dom";
 import {
   translateStatus,
   getStatusStyle,
@@ -30,12 +30,12 @@ const UserBooking = () => {
       formData.append("reviewText", reviewText);
       formData.append("rating", rating);
 
-      // Append images
+      // thêm hình ảnh vào formdata
       for (let i = 0; i < image.length; i++) {
         formData.append("image", image[i]);
       }
 
-      // Append video
+      // thêm video vào formdata
       for (let i = 0; i < video.length; i++) {
         formData.append("video", video[i]);
       }
@@ -51,6 +51,7 @@ const UserBooking = () => {
       );
       if (response.status === 200) {
         alert("Đánh giá thành công!");
+        setShowReviewFormFor(null);
       }
     } catch (error) {
       console.error("Failed to submit review:", error);
@@ -181,13 +182,21 @@ const UserBooking = () => {
                       {translateStatus(booking.status)}
                     </td>
                     <td className="flex justify-end space-x-4 px-6 py-4">
-                      {booking.status === "completed" && (
+                      {booking.status === "completed" && !booking.review && (
                         <button
-                          className="font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
+                          className="font-medium text-blue-600 hover:text-blue-800"
                           onClick={() => toggleReviewForm(booking._id)}
                         >
                           Đánh giá
                         </button>
+                      )}
+                      {booking.status === "completed" && booking.review && (
+                        <Link
+                          to={`/review-details/${booking._id}`}
+                          className="font-medium text-green-600 hover:text-green-800"
+                        >
+                          Xem đánh giá
+                        </Link>
                       )}
                       {(booking.status === "pending" ||
                         booking.status === "confirmed") && (
@@ -200,17 +209,6 @@ const UserBooking = () => {
                       )}
                     </td>
                   </tr>
-                  {/* {showReviewFormFor === booking._id && (
-                    <tr className="bg-gray-100 dark:bg-gray-700">
-                      <td colSpan="6" className="px-6 py-4">
-                        <ReviewForm
-                          bookingId={booking._id}
-                          tourId={booking.tour._id}
-                          onSubmit={submitReview}
-                        />
-                      </td>
-                    </tr>
-                  )} */}
                   {showReviewFormFor === booking._id && (
                     <div
                       className="backdrop"

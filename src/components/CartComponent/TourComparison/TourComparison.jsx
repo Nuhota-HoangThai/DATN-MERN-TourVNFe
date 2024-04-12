@@ -9,10 +9,29 @@ const TourComparison = ({ allTour = [], cartItems }) => {
   // Chọn ra 2 tour đầu tiên trong giỏ hàng để so sánh
   const toursToCompare = toursInCart?.slice(0, 2);
 
+  // Hàm tính điểm cho từng tour dựa trên các tiêu chí
+  const evaluateTour = (tour) => {
+    // Giả sử: 50 điểm cho giá thấp, 30 điểm cho đánh giá cao, 20 điểm cho số chỗ còn trống
+    const priceScore = tour.originalPrice - tour.price;
+    const ratingScore = tour.rating ? tour.rating * 10 : 0;
+    const availabilityScore = tour.maxParticipants * 2;
+    return priceScore + ratingScore + availabilityScore;
+  };
+
+  // Đưa ra gợi ý
+  const recommendation = () => {
+    if (toursToCompare.length < 2) return null;
+    const scores = toursToCompare.map(evaluateTour);
+    const recommendedIndex = scores[0] > scores[1] ? 0 : 1;
+    return toursToCompare[recommendedIndex];
+  };
+
+  const recommendedTour = recommendation();
+
   return (
     <>
       {toursToCompare?.length >= 2 ? (
-        <div className="compare-section mx-auto mb-6 mt-28 w-full">
+        <div className="compare-section mx-auto mb-6 mt-8 w-full">
           <h2 className="my-4 text-center text-xl font-bold text-gray-800">
             Bảng so sánh
           </h2>
@@ -28,6 +47,32 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                 </tr>
               </thead>
               <tbody className="text-sm font-light text-gray-600">
+                <tr className="border-b border-gray-200 hover:bg-gray-100">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
+                    Loại tour
+                  </td>
+                  {toursToCompare.map((tour) => (
+                    <td
+                      key={tour._id}
+                      className="px-6 py-3 text-left  text-black"
+                    >
+                      {tour?.tourType?.typeName}
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-gray-200 hover:bg-gray-100">
+                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
+                    Danh mục tour
+                  </td>
+                  {toursToCompare.map((tour) => (
+                    <td
+                      key={tour._id}
+                      className="px-6 py-3 text-left  text-black"
+                    >
+                      {tour?.tourDirectory?.directoryName}
+                    </td>
+                  ))}
+                </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Tên
@@ -220,6 +265,15 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          {/* Hiển thị gợi ý */}
+          <div className="my-4 bg-sky-50 text-center">
+            <h2 className="text-xl font-semibold">Gợi ý cho bạn</h2>
+            <p>
+              Chúng tôi khuyên bạn nên chọn{" "}
+              <strong>{recommendedTour?.nameTour}</strong> vì nó có lợi thế hơn
+              về giá cả và các tiện ích đi kèm.
+            </p>
           </div>
         </div>
       ) : (
