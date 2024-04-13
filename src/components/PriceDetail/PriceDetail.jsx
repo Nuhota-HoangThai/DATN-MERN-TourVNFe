@@ -83,7 +83,7 @@ const TourPriceDetail = ({ tour }) => {
             <p className="text-gray-700">
               Phí phụ thu:
               <span className="pl-5 font-semibold text-red-600">
-                {tour.additionalFees?.toLocaleString() || 0}đ
+                {formatPrice(tour.additionalFees || 0)}
               </span>
             </p>
           </div>

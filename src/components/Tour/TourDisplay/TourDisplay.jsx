@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import calculateAvgRating from "../../../utils/avgRating";
 
+import { formatPrice } from "../../../utils/formatPrice";
 const TourDisplay = ({ tour }) => {
   //phần review
   const [reviews, setReviews] = useState([]);
@@ -34,14 +35,6 @@ const TourDisplay = ({ tour }) => {
     navigate("/booking", { state: { tour: tour } });
   };
 
-  const formatPrice = (price) => {
-    return (
-      <span className="font-bold text-red-600">
-        {price?.toLocaleString()} đ/khách
-      </span>
-    );
-  };
-
   if (!tour) {
     return <div>Đang tải...</div>;
   }
@@ -58,24 +51,29 @@ const TourDisplay = ({ tour }) => {
             <h1 className="text-xl font-bold text-gray-900 md:text-2xl">
               {tour.nameTour}
             </h1>
-            <h1 className="mt-3 w-20 rounded-br-2xl rounded-tl-2xl bg-yellow-500 p-3 text-center text-2xl font-bold">
-              {" "}
-              {avgRating} điểm
-            </h1>
+            {avgRating >= 5 && (
+              <h1 className="mt-3 w-20 rounded-br-2xl rounded-tl-2xl bg-yellow-500 p-3 text-center text-2xl font-bold">
+                {avgRating} điểm
+              </h1>
+            )}
           </div>
         </div>
 
         <div className="mx-5">
-          <p className="mb-4 mt-[-28px] text-center text-2xl ">
+          <p className="mb-4 mt-[-24px] text-center text-2xl ">
             {tour.price !== tour.originalPrice && tour.promotion ? (
               <>
-                <span className=" ">{formatPrice(tour.price)} </span>
+                <span className=" font-bold text-red-500">
+                  {formatPrice(tour.price)}{" "}
+                </span>
                 <span className=" text-gray-500 line-through">
                   {formatPrice(tour.originalPrice)}
                 </span>
               </>
             ) : (
-              <span className="">{formatPrice(tour.price)}</span>
+              <span className="font-bold text-red-500">
+                {formatPrice(tour.price)}
+              </span>
             )}
           </p>
           <button

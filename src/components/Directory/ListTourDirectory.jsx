@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { BASE_URL } from "../../utils/config";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 function ListTourDirectories() {
-  const { token } = useSelector((state) => state.user.currentUser);
+  // const { token } = useSelector((state) => state.user.currentUser);
 
   const [tourDirectories, setTourDirectories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,11 +19,11 @@ function ListTourDirectories() {
     try {
       const { data } = await axios.get(
         `${BASE_URL}/tourDirectory/getAllTourDirectories`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        },
+        // {
+        //   headers: {
+        //     Authorization: "Bearer " + token,
+        //   },
+        // },
       );
 
       setTourDirectories(data.tourDirectories);

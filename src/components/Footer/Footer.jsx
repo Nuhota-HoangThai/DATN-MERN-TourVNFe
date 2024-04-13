@@ -1,8 +1,8 @@
 import {} from "react";
 import { Link } from "react-router-dom";
-import { GiMountains } from "react-icons/gi";
 import { FaInstagramSquare, FaFacebook, FaTelegram } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";
+import logoViVu3Mien from "../../assets/img/logoViVu3Mien.jpg";
 
 const Footer = () => {
   return (
@@ -10,8 +10,19 @@ const Footer = () => {
       <div className="container mx-auto px-5 py-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5">
           <div>
-            <GiMountains className="text-4xl text-blue-500" />
-            <h2 className="mt-2 text-3xl font-bold">ViVu3Mien</h2>
+            <div className="vivu3mien-logo">
+              <Link to="/" className="flex items-center gap-1">
+                <img src={logoViVu3Mien} alt="Logo" className="w-8 md:w-16" />
+                <div>
+                  <div className="text-xl font-bold text-cyan-500 md:text-xl">
+                    VIVU3Mien
+                  </div>
+                  <div className="text-xs font-medium italic text-orange-400 md:text-sm">
+                    Phục vụ tận tâm
+                  </div>
+                </div>
+              </Link>
+            </div>
             <p className="mt-4 text-gray-600">
               Trải nghiệm những chuyến đi tuyệt vời nhất cùng ViVu3Mien. Khám
               phá và tận hưởng!

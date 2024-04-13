@@ -33,13 +33,14 @@ const ReviewForm = ({ tour }) => {
 
   const { avgRating } = calculateAvgRating(reviews);
 
+  // Cài đặt Slider
   const settings = {
     dots: false,
-    infinite: true, // Cho phép lặp lại các reviews khi di chuyển tới review cuối cùng
+    infinite: reviews.length > 1, // Nếu chỉ có 1 review thì không lặp
     speed: 500,
-    slidesToShow: 1, // Hiển thị 1 review trên mỗi trang
-    slidesToScroll: 1, // Mỗi lần cuộn chuyển 1 review
-    autoplay: true, // Tự động chuyển slide
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: reviews.length > 1, // Tự động chuyển slide chỉ khi có nhiều hơn 1 review
     autoplaySpeed: 2000,
     arrows: false,
   };

@@ -10,7 +10,7 @@ import SearchForm from "../../components/Search/Search";
 
 const ToursList = () => {
   const [tours, setTours] = useState([]);
-  const [visibleTours, setVisibleTours] = useState(6); // Số lượng tours hiển thị ban đầu
+  const [visibleTours, setVisibleTours] = useState(8); // Số lượng tours hiển thị ban đầu
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -29,7 +29,7 @@ const ToursList = () => {
   };
 
   const hideSomeTours = () => {
-    setVisibleTours(6); // Đặt lại số lượng tours được hiển thị về 6
+    setVisibleTours(8); // Đặt lại số lượng tours được hiển thị về 8
   };
 
   return (

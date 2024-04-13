@@ -14,7 +14,7 @@ const Item = (props) => {
   const navigate = useNavigate();
 
   const formatPrice = (price) => {
-    return `${price?.toLocaleString()} đ`;
+    return `${price?.toLocaleString("vi-VN", { style: "currency", currency: "VND", minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
   };
 
   const addComparison = async (tourId) => {
@@ -42,9 +42,8 @@ const Item = (props) => {
       return;
     }
 
-    // Giả sử bạn có thể truy cập userId từ Redux store hoặc context
-    // Ví dụ, nếu bạn lưu trữ nó trong Redux store như currentUser.userId
-    const userId = currentUser?.id; // Chỉ là ví dụ, hãy thay thế phù hợp với cách bạn lưu trữ userId
+    //lưu trữ  trong Redux store như currentUser.userId
+    const userId = currentUser?.id;
 
     if (!userId) {
       console.error("User ID is missing");

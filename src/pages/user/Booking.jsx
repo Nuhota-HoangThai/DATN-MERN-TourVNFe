@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 import TourBooking from "../../components/BookingComponent/TourBooking";
 
+import { formatPrice } from "../../utils/formatPrice";
+
 const Booking = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token;
@@ -335,7 +337,7 @@ const Booking = () => {
                 Tổng giá khách (trên 16 tuổi):
               </label>
               <p className="text-lg font-semibold">
-                {(tour?.price * bookingData.numberOfAdults).toLocaleString()} đ
+                {formatPrice(tour?.price * bookingData.numberOfAdults)}
               </p>
             </div>
             <div>
@@ -343,10 +345,9 @@ const Booking = () => {
                 Tổng giá khách (6-16 tuổi):
               </label>
               <p className="text-lg font-semibold">
-                {(
-                  tour?.priceForChildren * bookingData.numberOfChildren
-                ).toLocaleString()}
-                đ
+                {formatPrice(
+                  tour?.priceForChildren * bookingData.numberOfChildren,
+                )}
               </p>
             </div>
           </div>
@@ -356,11 +357,10 @@ const Booking = () => {
                 Tổng giá khách (3-6 tuổi):
               </label>
               <p className="text-lg font-semibold">
-                {(
+                {formatPrice(
                   tour?.priceForYoungChildren *
-                  bookingData.numberOfYoungChildren
-                ).toLocaleString() || 0}
-                đ
+                    bookingData.numberOfYoungChildren,
+                ) || 0}
               </p>
             </div>
             <div>
@@ -368,10 +368,9 @@ const Booking = () => {
                 Tổng giá khách (dưới 3 tuổi):
               </label>
               <p className="text-lg font-semibold">
-                {(
-                  tour?.priceForInfants * bookingData.numberOfInfants
-                ).toLocaleString() || 0}
-                đ
+                {formatPrice(
+                  tour?.priceForInfants * bookingData.numberOfInfants,
+                ) || 0}
               </p>
             </div>
           </div>
@@ -380,10 +379,7 @@ const Booking = () => {
               Phí phụ thu:
             </label>
             <p className="text-lg font-semibold">
-              {(
-                tour?.additionalFees * bookingData.numberOfAdults
-              ).toLocaleString()}
-              đ
+              {formatPrice(tour?.additionalFees * bookingData.numberOfAdults)}
             </p>
           </div>
           <div className="flex justify-between border-t-2">
@@ -391,7 +387,7 @@ const Booking = () => {
               Tổng tiền:
             </p>
             <p className="text-xl font-bold text-red-600">
-              {totalAmount?.toLocaleString()} đ
+              {formatPrice(totalAmount)}
             </p>
           </div>
           <div className="flex flex-col gap-4">

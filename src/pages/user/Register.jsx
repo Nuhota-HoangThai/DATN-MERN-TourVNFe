@@ -4,6 +4,7 @@ import { BASE_URL } from "../../utils/config";
 import axios from "axios";
 
 import "../styles/register.css";
+import LoginGoogle from "../../components/LoginGG/LoginGoogle";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -134,6 +135,7 @@ const Register = () => {
             {loading ? "Đang xử lý..." : "Đăng Ký"}
           </button>
         </form>
+        <LoginGoogle />
         <div className="mt-6 text-center text-sm">
           <p>Đã có tài khoản?</p>
           <Link

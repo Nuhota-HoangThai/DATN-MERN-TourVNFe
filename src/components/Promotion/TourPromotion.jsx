@@ -97,7 +97,7 @@ const TourPromotion = () => {
   if (error) return <p>Lỗi: {error}</p>;
 
   return (
-    <div className="mx-24 mb-6 mt-32">
+    <div className="mx-24 my-6">
       {selectedPromotion ? (
         <>
           <div className="mb-8 flex items-center justify-center">
@@ -110,6 +110,11 @@ const TourPromotion = () => {
             </h1>
             <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
           </div>
+          <div className="my-4 rounded-lg bg-white px-4 py-2 shadow-lg">
+            <p className="text-lg leading-relaxed text-gray-700">
+              {selectedPromotion.descriptionPromotion}
+            </p>
+          </div>
           {tours.length > 0 ? (
             <Slider {...settings}>
               {tours.map((item) => (
@@ -118,7 +123,7 @@ const TourPromotion = () => {
             </Slider>
           ) : (
             <div className="mt-36 text-center">
-              <p className=" text-xl font-bold text-gray-800">
+              <p className="text-xl font-bold text-gray-800">
                 Không có tour nào cho khuyến mãi này
               </p>
             </div>
