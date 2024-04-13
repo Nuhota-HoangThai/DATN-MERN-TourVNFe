@@ -16,6 +16,23 @@ const Login = () => {
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleForgotPassword = async () => {
+    try {
+      // Ensure there's an email to send the reset link to
+      if (!formData.email) {
+        alert("Vui lòng nhập địa chỉ email của bạn.");
+        return;
+      }
+      const response = await axios.post(`${BASE_URL}/user/forgot-password`, {
+        email: formData.email,
+      });
+      alert(response.data.message); // Assuming your backend sends back a message
+    } catch (error) {
+      alert("Error sending reset email");
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -65,6 +82,13 @@ const Login = () => {
             id="password"
             onChange={handleChange}
           />
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            className="underline"
+          >
+            Quên mật khẩu?
+          </button>
           <button
             disabled={loading}
             className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-300"

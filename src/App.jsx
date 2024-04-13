@@ -36,6 +36,8 @@ import Blog from "./pages/user/Blog";
 import UserRate from "./components/UserOrder/UserRate";
 import ReviewDetails from "./components/UserOrder/ReviewDetail";
 
+import NewPassword from "./pages/user/NewPassword";
+
 const App = () => {
   return (
     <div>
@@ -71,6 +73,10 @@ const App = () => {
             <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
             <Route path="/thanks" element={<Thanks />} />
             <Route path="/blog" element={<Blog />} />
+            <Route
+              path="/login/reset-password/:userId"
+              element={<NewPassword />}
+            />
 
             <Route
               path="/userOrder"
