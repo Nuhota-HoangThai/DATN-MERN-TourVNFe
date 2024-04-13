@@ -74,7 +74,7 @@ const App = () => {
             <Route path="/thanks" element={<Thanks />} />
             <Route path="/blog" element={<Blog />} />
             <Route
-              path="/login/reset-password/:userId"
+              path="/login/reset-password/:token"
               element={<NewPassword />}
             />
 
