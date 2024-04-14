@@ -14,7 +14,8 @@ import {
 const UserBooking = () => {
   const [bookings, setBookings] = useState([]);
   const [showReviewFormFor, setShowReviewFormFor] = useState(null); // Mã đặt tour hiện form đánh giá
-  const { token } = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const token = currentUser?.token;
   //////////////////////////////////////////
   const submitReview = async ({
     bookingId,
@@ -99,13 +100,12 @@ const UserBooking = () => {
 
   const cancelBooking = async (bookingId) => {
     if (!token) {
-      //console.log("Người dùng chưa đăng nhập");
+      console.log("Người dùng chưa đăng nhập");
       return;
     }
     try {
       const response = await axios.patch(
         `${BASE_URL}/booking/${bookingId}/cancel`,
-
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -129,8 +129,8 @@ const UserBooking = () => {
   };
 
   return (
-    <div className="container mx-auto mt-6 rounded-lg bg-white px-4 py-4 shadow-lg">
-      <h1 className="mb-6 text-center text-2xl font-semibold text-gray-800">
+    <div className="mt-6">
+      <h1 className="my-4 text-center font-bold text-gray-800">
         Lịch sử đặt tour
       </h1>
       {bookings.length > 0 ? (
@@ -198,8 +198,7 @@ const UserBooking = () => {
                           Xem đánh giá
                         </Link>
                       )}
-                      {(booking.status === "pending" ||
-                        booking.status === "confirmed") && (
+                      {booking.status === "pending" && (
                         <button
                           className="font-medium text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-700"
                           onClick={() => cancelBooking(booking._id)}

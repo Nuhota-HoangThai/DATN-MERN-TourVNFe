@@ -39,10 +39,31 @@ const TourBooking = () => {
             <tbody>
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Loại tour
+                </th>
+                <td className="px-6 py-4">{tour?.tourType.typeName}</td>
+              </tr>
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Danh mục tour
+                </th>
+                <td className="px-6 py-4">
+                  {tour?.tourDirectory.directoryName}
+                </td>
+              </tr>
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Tên tour
                 </th>
                 <td className="px-6 py-4">{tour?.nameTour}</td>
               </tr>
+              <tr className="border-b bg-white">
+                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  Phương tiện di chuyển
+                </th>
+                <td className="px-6 py-4">{tour?.transport}</td>
+              </tr>
+
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Số chỗ trống
@@ -75,30 +96,21 @@ const TourBooking = () => {
                 </th>
                 <td className="px-6 py-4 text-red-600">
                   {formatPrice(tour?.priceForChildren)
-                    ? `${formatPrice(tour.priceForChildren)} `
+                    ? `${formatPrice(tour.priceForChildren || "Tour này không dành cho khách hàng độ tuổi này")} `
                     : ""}
                 </td>
               </tr>
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Giá khách (3-6 tuổi)
+                  Giá khách dưới 6 tuổi
                 </th>
                 <td className="px-6 py-4 text-red-600">
                   {formatPrice(tour?.priceForYoungChildren)
-                    ? `${formatPrice(tour.priceForYoungChildren)}`
+                    ? `${formatPrice(tour.priceForYoungChildren || "Tour này không dành cho khách hàng độ tuổi này")}`
                     : ""}
                 </td>
               </tr>
-              <tr className="border-b bg-white">
-                <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
-                  Giá khách (dưới 3 tuổi)
-                </th>
-                <td className="px-6 py-4 text-red-600">
-                  {formatPrice(tour?.priceForInfants)
-                    ? `${formatPrice(tour?.priceForInfants)}`
-                    : ""}
-                </td>
-              </tr>
+
               <tr className="border-b bg-white">
                 <th className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                   Phí phụ thu

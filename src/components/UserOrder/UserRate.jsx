@@ -82,13 +82,13 @@ const UserReviews = () => {
               </tr>
             </thead>
             <tbody>
-              {reviews.map((review) => (
+              {reviews?.map((review) => (
                 <tr key={review._id} className="border-b bg-white ">
                   <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 ">
-                    {review.tourId.nameTour}
+                    {review.tourId?.nameTour}
                   </td>
-                  <td className="px-6 py-4">{review.reviewText}</td>
-                  <td className="px-6 py-4">{review.rating}/10</td>
+                  <td className="px-6 py-4">{review?.reviewText}</td>
+                  <td className="px-6 py-4">{review?.rating}/10</td>
                   <td className="px-6 py-4">
                     {" "}
                     <div>

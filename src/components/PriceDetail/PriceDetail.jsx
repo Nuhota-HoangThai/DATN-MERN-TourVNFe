@@ -4,14 +4,14 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 
 const TourPriceDetail = ({ tour }) => {
   return (
-    <div className="my-6 w-full">
+    <div className="w-1/2">
       <div className="rounded-xl bg-sky-50 px-8 py-6 shadow-xl">
         <h2 className="mb-4 text-center text-2xl font-bold">Chi tiết giá</h2>
         <PerfectScrollbar>
-          <div className="flex h-80  flex-col space-y-2">
+          <div className="flex h-auto  flex-col space-y-2">
             <p className="text-gray-700">
               Giá khách (lớn hơn 16 tuổi):
-              <span className="pl-5 font-semibold">
+              <span className="pl-5 font-semibold text-red-600">
                 {tour.price !== tour.originalPrice && tour.promotion ? (
                   <>
                     <span className="text-red-600">
@@ -28,7 +28,7 @@ const TourPriceDetail = ({ tour }) => {
             </p>
             <p className="text-gray-700">
               Giá khách (6-16 tuổi):{" "}
-              <span className="pl-5 font-semibold">
+              <span className="pl-5 font-semibold text-red-600">
                 {tour.priceForChildren !== tour.originalPriceForChildren &&
                 tour.promotion ? (
                   <>
@@ -40,13 +40,16 @@ const TourPriceDetail = ({ tour }) => {
                     </span>
                   </>
                 ) : (
-                  formatPrice(tour.priceForChildren)
+                  formatPrice(
+                    tour.priceForChildren ||
+                      "Tour này không dành cho khách hàng độ tuổi này",
+                  )
                 )}
               </span>
             </p>
             <p className="text-gray-700">
-              Giá khách (3-6 tuổi):{" "}
-              <span className="pl-5 font-semibold">
+              Giá khách dưới 6 tuổi:{" "}
+              <span className="pl-5 font-semibold text-red-600">
                 {tour.priceForYoungChildren !==
                   tour.originalPriceForYoungChildren && tour.promotion ? (
                   <>
@@ -58,28 +61,14 @@ const TourPriceDetail = ({ tour }) => {
                     </span>
                   </>
                 ) : (
-                  formatPrice(tour.priceForYoungChildren)
+                  formatPrice(
+                    tour.priceForYoungChildren ||
+                      "Tour này không dành cho khách hàng độ tuổi này",
+                  )
                 )}
               </span>
             </p>
-            <p className="text-gray-700">
-              Giá khách (dưới 3 tuổi):{" "}
-              <span className="pl-5 font-semibold">
-                {tour.priceForInfants !== tour.originalPriceForInfants &&
-                tour.promotion ? (
-                  <>
-                    <span className="text-red-600">
-                      {formatPrice(tour.priceForInfants)}
-                    </span>{" "}
-                    <span className="text-base text-gray-500 line-through">
-                      {formatPrice(tour.originalPriceForInfants)}
-                    </span>
-                  </>
-                ) : (
-                  formatPrice(tour.priceForInfants)
-                )}
-              </span>
-            </p>
+
             <p className="text-gray-700">
               Phí phụ thu:
               <span className="pl-5 font-semibold text-red-600">

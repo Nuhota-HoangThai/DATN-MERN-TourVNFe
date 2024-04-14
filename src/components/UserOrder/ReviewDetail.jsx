@@ -44,7 +44,7 @@ const ReviewDetails = () => {
   return (
     <div className="mx-auto mt-10 max-w-xl rounded border p-5 shadow-lg">
       <h1 className="mb-4 text-xl font-semibold">Chi Tiết Review</h1>
-      <h2 className="text-lg font-bold">Tour: {review.tourId.nameTour}</h2>
+      <h2 className="text-lg font-bold">Tour: {review.tourId?.nameTour}</h2>
       <p className="text-md">
         Người đánh giá: {review.userId.name} - {review.userId.email}
       </p>
@@ -53,7 +53,7 @@ const ReviewDetails = () => {
         {/* Hiển thị tất cả hình ảnh */}
         {review.image &&
           review.image.length > 0 &&
-          review.image.map((img, imgIndex) => (
+          review.image?.map((img, imgIndex) => (
             <img
               key={imgIndex}
               src={`${BASE_URL}/${img.replace(/\\/g, "/")}`}
@@ -64,7 +64,7 @@ const ReviewDetails = () => {
         {/* Hiển thị tất cả video */}
         {review.video &&
           review.video.length > 0 &&
-          review.video.map((vid, vidIndex) => (
+          review?.video?.map((vid, vidIndex) => (
             <video
               key={vidIndex}
               src={`${BASE_URL}/${vid.replace(/\\/g, "/")}`}

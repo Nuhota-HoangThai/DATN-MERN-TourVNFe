@@ -6,7 +6,9 @@ const Tour = (props) => {
 
   return (
     <div className="flex items-center px-6 text-sm font-bold">
-      <span>Tour</span>
+      <span>Trang chủ</span>
+      <MdNavigateNext className="mx-1 text-sm" />
+      <span>Tour du lịch</span>
       <MdNavigateNext className="mx-1 text-sm" />
       <span className="hidden sm:block">{formatRegion(tour?.regions)}</span>
       <MdNavigateNext className="mx-1 text-sm" />
