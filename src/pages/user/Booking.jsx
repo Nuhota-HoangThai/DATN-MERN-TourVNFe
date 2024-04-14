@@ -27,12 +27,13 @@ const Booking = () => {
     numberOfChildren: 0,
     numberOfYoungChildren: 0,
     numberOfInfants: 0,
+    singleRoomNumber: 0,
 
     priceOfAdults: 0 || tour.price,
     priceForChildren: 0 || tour.priceForChildren,
     priceForInfants: 0 || tour.priceForInfants,
     priceForYoungChildren: 0 || tour.priceForYoungChildren,
-
+    surcharge: 0 || tour.additionalFees,
     additionalInformation: "",
   });
 
@@ -81,7 +82,7 @@ const Booking = () => {
   // Tinh phi phu thu
   const calculateTotalFees = () => {
     const totalAdditionalFees =
-      tour?.additionalFees * bookingData.numberOfAdults || 0;
+      tour?.additionalFees * bookingData.singleRoomNumber || 0;
 
     setTotalAdditionalFees(totalAdditionalFees);
   };
@@ -99,7 +100,7 @@ const Booking = () => {
       tour?.priceForInfants * bookingData.numberOfInfants || 0;
 
     const totalAdditionalFees =
-      tour?.additionalFees * bookingData.numberOfAdults || 0;
+      tour?.additionalFees * bookingData.singleRoomNumber || 0;
 
     const calculatedTotal =
       totalAdultAmount +
@@ -185,65 +186,71 @@ const Booking = () => {
           Thông tin đặt tour
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor=""
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Người đặt:
-            </label>
-            <input
-              type="text"
-              value={userProfile.name}
-              onChange={handleChange}
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
+          <div className="grid grid-cols-2 gap-5">
+            {" "}
+            <div>
+              <label
+                htmlFor=""
+                className="mb-2  text-sm font-medium text-gray-900"
+              >
+                Người đặt:
+              </label>
+              <input
+                type="text"
+                value={userProfile.name}
+                onChange={handleChange}
+                required
+                className=" w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor=""
+                className="mb-2  text-sm font-medium text-gray-900"
+              >
+                Địa chỉ:
+              </label>
+              <input
+                type="text"
+                value={userProfile.address}
+                onChange={handleChange}
+                required
+                className=" w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
           </div>
-          <div>
-            <label
-              htmlFor=""
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Địa chỉ:
-            </label>
-            <input
-              type="text"
-              value={userProfile.address}
-              onChange={handleChange}
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor=""
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              CCCD/CMND:
-            </label>
-            <input
-              type="number"
-              value={userProfile.cccd}
-              onChange={handleChange}
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor=""
-              className="mb-2 block text-sm font-medium text-gray-900"
-            >
-              Số điện thoại:
-            </label>
-            <input
-              type="tel"
-              value={userProfile.phone}
-              onChange={handleChange}
-              required
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            />
+          <div className="grid grid-cols-2 gap-5">
+            {" "}
+            <div>
+              <label
+                htmlFor=""
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                CCCD/CMND:
+              </label>
+              <input
+                type="number"
+                value={userProfile.cccd}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor=""
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Số điện thoại:
+              </label>
+              <input
+                type="tel"
+                value={userProfile.phone}
+                onChange={handleChange}
+                required
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -281,7 +288,7 @@ const Booking = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <div>
               <label
                 htmlFor="numberOfAdults"
@@ -315,7 +322,24 @@ const Booking = () => {
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
+            <div>
+              <label
+                htmlFor="singleRoomNumber"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Phí phụ thu (phòng đơn):
+              </label>
+              <input
+                type="number"
+                name="singleRoomNumber"
+                id="singleRoomNumber"
+                value={bookingData.singleRoomNumber}
+                onChange={handleChange}
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
           </div>
+
           <div>
             <label
               htmlFor="additionalInformation"
@@ -379,7 +403,7 @@ const Booking = () => {
               Phí phụ thu:
             </label>
             <p className="text-lg font-semibold">
-              {formatPrice(tour?.additionalFees * bookingData.numberOfAdults)}
+              {formatPrice(tour?.additionalFees * bookingData.singleRoomNumber)}
             </p>
           </div>
           <div className="flex justify-between border-t-2">

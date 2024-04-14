@@ -52,8 +52,7 @@ const ReviewForm = ({ tour }) => {
         <div className=" text-xl font-semibold text-indigo-600 ">
           {avgRating ? (
             <div className="flex items-center space-x-2">
-              <span className="text-2xl">{avgRating}</span>
-              <img src={Star} alt="Sao" className="h-6 w-6" />
+              <span className="text-2xl">{avgRating} điểm</span>
               <span>({reviews.length} đánh giá)</span>
             </div>
           ) : (

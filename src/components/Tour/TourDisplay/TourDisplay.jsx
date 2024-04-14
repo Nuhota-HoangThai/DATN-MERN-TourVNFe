@@ -115,13 +115,13 @@ const TourDisplay = ({ tour }) => {
 
         {/* Hình ảnh */}
         <div
-          className={`overflow-hidden ${displayVideos.length > 0 ? "" : "md:col-span-2"}`}
+          className={`overflow-hidden ${displayVideos.length > 0 ? "" : "md:col-span-3"}`}
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {displayImages.map((image, index) => (
               <div
                 key={index}
-                className={`overflow-hidden ${index % 2 === 0 ? "row-span-3" : "row-span-2"}`}
+                className={`overflow-hidden ${index % 2 === 0 ? "row-span-2" : "row-span-3"}`}
               >
                 <img
                   className="mx-auto h-full w-full object-cover transition-transform duration-500 hover:scale-110"

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+import "../styles/tour-detail.css";
+
 import { BASE_URL } from "../../utils/config";
 
 import Tour from "../../components/Tour/Tour";
@@ -40,16 +42,22 @@ const TourDetail = () => {
           <>
             <Tour tour={tour} />
             <TourDisplay tour={tour} />
-            <div className="flex w-full gap-8">
+
+            <div className="flex justify-between gap-4">
+              {" "}
               <InfoTour tour={tour} />
+              <PriceDetail tour={tour} />
               <GuideTour tour={tour} />
             </div>
-
-            <div className="flex w-full gap-8">
-              <DescriptionBox tour={tour} />
-              <PriceDetail tour={tour} />
+            <div className="container">
+              <div className="sticky-div">
+                <DescriptionBox tour={tour} />
+              </div>
+              <div className="scrollable-div">
+                <Schedule tour={tour} />
+              </div>
             </div>
-            <Schedule tour={tour} />
+
             <ReviewTour tour={tour} />
           </>
         )}
