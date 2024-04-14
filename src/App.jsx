@@ -37,6 +37,7 @@ import UserRate from "./components/UserOrder/UserRate";
 import ReviewDetails from "./components/UserOrder/ReviewDetail";
 
 import NewPassword from "./pages/user/NewPassword";
+import BlogDetail from "./components/Blog.component/BlogDetail";
 
 const App = () => {
   return (
@@ -72,7 +73,10 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
             <Route path="/thanks" element={<Thanks />} />
+
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
+
             <Route
               path="/login/reset-password/:token"
               element={<NewPassword />}

@@ -1,40 +1,25 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
-import DOMPurify from "dompurify";
+import HTMLRenderer from "../../components/HTML.component/HTML";
 
 const FetchBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [pageInfo, setPageInfo] = useState({
-    currentPage: 1,
-    totalPages: 1,
-  });
-
-  const fetchBlogs = async (page = 1) => {
-    setLoading(true); // Đặt lại trạng thái loading mỗi khi fetch
+  const fetchBlogs = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(
-        `${BASE_URL}/blog/getAllLimit?page=${page}&limit`,
-      );
+      const response = await fetch(`${BASE_URL}/blog/getAllUser`);
       if (!response.ok) throw new Error("Something went wrong!");
-
       const data = await response.json();
       setBlogs(data.data);
-      setPageInfo({
-        currentPage: page,
-        totalPages: data.totalPages,
-      }); // Cập nhật tổng số trang từ API
       setLoading(false);
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
-  };
-
-  const handlePageChange = (newPage) => {
-    fetchBlogs(newPage);
   };
 
   useEffect(() => {
@@ -45,38 +30,50 @@ const FetchBlogs = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className="bg-sky-100 p-8">
       {blogs.length > 0 ? (
-        <ul>
+        <div className="space-y-10">
           {blogs.map((blog) => (
-            <li key={blog._id}>
-              <h3 className="px-20 py-10 text-4xl font-bold">{blog.title}</h3>
-              <p
-                className="px-20 text-gray-700"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(blog.body),
-                }}
-              ></p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Công ty chúng tôi hiện đang cập nhật tin tức mới.</p>
-      )}
-      {/* phân trang */}
-      <div className="mt-4 flex justify-center">
-        {Array.from({ length: pageInfo.totalPages }, (_, i) => i + 1).map(
-          (pageNum) => (
-            <button
-              key={pageNum}
-              onClick={() => handlePageChange(pageNum)}
-              className={`mx-1 rounded bg-gray-500 px-4 py-2 text-white ${pageInfo.currentPage === pageNum ? "bg-gray-700" : ""}`}
+            <div
+              key={blog._id}
+              className="overflow-hidden rounded-lg bg-white shadow-lg"
             >
-              {pageNum}
-            </button>
-          ),
-        )}
-      </div>
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-1/2">
+                  {blog.image ? (
+                    <img
+                      src={`${BASE_URL}/${blog.image.replace(/\\/g, "/")}`}
+                      alt="Blog"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gray-200 text-gray-500">
+                      Không có hình ảnh
+                    </div>
+                  )}
+                </div>
+                <div className="p-8 md:w-1/2">
+                  <h3 className="mb-4 text-2xl font-bold">{blog.title}</h3>
+                  <div className="h-48 overflow-hidden">
+                    <HTMLRenderer
+                      htmlString={blog.body}
+                      className="clamp-4-lines text-gray-700"
+                    />
+                  </div>
+                  <Link
+                    to={`/blog/${blog._id}`}
+                    className="mt-4 inline-block italic text-blue-500 underline hover:text-blue-700"
+                  >
+                    Xem thêm
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };
