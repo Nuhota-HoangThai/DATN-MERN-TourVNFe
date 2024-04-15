@@ -10,13 +10,19 @@ import {
 import axios from "axios";
 
 import LoginGoogle from "../../components/LoginGG/LoginGoogle";
+import { FaEyeSlash } from "react-icons/fa";
+import { IoEyeSharp } from "react-icons/io5";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleForgotPassword = async () => {
     try {
       // Ensure there's an email to send the reset link to
@@ -51,13 +57,14 @@ const Login = () => {
       // const data = await res.json();
 
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        dispatch(signInFailure(data.error));
+        alert(data.error);
         return;
       }
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      dispatch(signInFailure(error));
     }
   };
   return (
@@ -66,7 +73,6 @@ const Login = () => {
         <h1 className="text-center text-2xl font-bold text-gray-900">
           Đăng nhập
         </h1>
-        {error && <p className="mt-4 text-center text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <input
             type="email"
@@ -75,13 +81,26 @@ const Login = () => {
             id="email"
             onChange={handleChange}
           />
-          <input
-            type="password"
-            placeholder="Mật khẩu"
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none"
-            id="password"
-            onChange={handleChange}
-          />
+          <div className="input-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Mật khẩu"
+              className="mt-1 w-full rounded-md border border-gray-300 bg-white px-4 py-2 pr-10 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              id="password"
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="show-hide-button"
+            >
+              {showPassword ? (
+                <FaEyeSlash size={"20px"} />
+              ) : (
+                <IoEyeSharp size={"20px"} />
+              )}
+            </button>
+          </div>{" "}
           <button
             type="button"
             onClick={handleForgotPassword}

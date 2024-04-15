@@ -96,7 +96,7 @@ const TourBooking = () => {
                 </th>
                 <td className="px-6 py-4 text-red-600">
                   {formatPrice(tour?.priceForChildren)
-                    ? `${formatPrice(tour.priceForChildren || "Tour này không dành cho khách hàng độ tuổi này")} `
+                    ? `${formatPrice(tour.priceForChildren || 0)} `
                     : ""}
                 </td>
               </tr>
@@ -106,7 +106,7 @@ const TourBooking = () => {
                 </th>
                 <td className="px-6 py-4 text-red-600">
                   {formatPrice(tour?.priceForYoungChildren)
-                    ? `${formatPrice(tour.priceForYoungChildren || "Tour này không dành cho khách hàng độ tuổi này")}`
+                    ? `${formatPrice(tour.priceForYoungChildren || 0)}`
                     : ""}
                 </td>
               </tr>

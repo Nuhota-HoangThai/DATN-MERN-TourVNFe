@@ -40,6 +40,21 @@ body {
   opacity: 1;
 }
 
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.show-hide-button {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: none;
+  color: #4f46e5; /* Màu tương tự indigo-600 */
+  cursor: pointer;
+}
+
 @keyframes wave {
   0% {
     margin-left: 0;

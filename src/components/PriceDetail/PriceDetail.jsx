@@ -40,15 +40,12 @@ const TourPriceDetail = ({ tour }) => {
                     </span>
                   </>
                 ) : (
-                  formatPrice(
-                    tour.priceForChildren ||
-                      "Tour này không dành cho khách hàng độ tuổi này",
-                  )
+                  formatPrice(tour.priceForChildren || 0)
                 )}
               </span>
             </p>
             <p className="text-gray-700">
-              Giá khách dưới 6 tuổi:{" "}
+              Giá khách dưới 6 tuổi:
               <span className="pl-5 font-semibold text-red-600">
                 {tour.priceForYoungChildren !==
                   tour.originalPriceForYoungChildren && tour.promotion ? (
@@ -61,10 +58,7 @@ const TourPriceDetail = ({ tour }) => {
                     </span>
                   </>
                 ) : (
-                  formatPrice(
-                    tour.priceForYoungChildren ||
-                      "Tour này không dành cho khách hàng độ tuổi này",
-                  )
+                  formatPrice(tour.priceForYoungChildren || 0)
                 )}
               </span>
             </p>

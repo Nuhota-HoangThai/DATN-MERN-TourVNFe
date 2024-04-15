@@ -60,8 +60,8 @@ const UserReviews = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : reviews.length > 0 ? (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-left text-sm ">
+        <div className=" shadow-md sm:rounded-lg">
+          <table className="w-full table-auto text-left text-sm">
             <thead className="bg-gray-50 text-xs uppercase text-gray-700 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
@@ -74,7 +74,7 @@ const UserReviews = () => {
                   Điểm
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Xem chi tiết
+                  Xem
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Xóa
@@ -89,24 +89,19 @@ const UserReviews = () => {
                   </td>
                   <td className="px-6 py-4">{review?.reviewText}</td>
                   <td className="px-6 py-4">{review?.rating}/10</td>
-                  <td className="px-6 py-4">
-                    {" "}
-                    <div>
-                      <button
-                        className="mr-4 rounded bg-blue-500 px-2 py-1 text-white hover:bg-blue-700"
-                        onClick={() =>
-                          navigate(`/review-details/${review._id}`)
-                        }
-                      >
-                        Xem Chi Tiết
-                      </button>
-                    </div>
+                  <td className="w-40 px-6 py-4">
+                    <button
+                      className="italic text-blue-800 underline "
+                      onClick={() => navigate(`/review-details/${review._id}`)}
+                    >
+                      Chi tiết
+                    </button>
                   </td>
                   <td className="px-6 py-4">
                     {" "}
                     <div>
                       <button
-                        className="rounded bg-red-500 px-2 py-1 text-white hover:bg-red-700"
+                        className="text-red-600"
                         onClick={() => deleteReview(review._id)}
                       >
                         Xóa
