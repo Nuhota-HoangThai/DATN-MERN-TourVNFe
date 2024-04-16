@@ -13,6 +13,11 @@ import Schedule from "../../components/Tour/Schedule";
 import ReviewTour from "../../components/ReviewTour/ReviewTour";
 import PriceDetail from "../../components/PriceDetail/PriceDetail";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+
+import Weather from "./Weather";
+
 const TourDetail = () => {
   const { tourId } = useParams();
   const [tour, setTour] = useState();
@@ -32,29 +37,32 @@ const TourDetail = () => {
   }, [tourId]);
 
   return (
-    <div className="bg-sky-100">
+    <div className="bg-sky-100 px-28">
       <div className="p-8">
         {!tour ? (
           <p className="text-center">Đang tải...</p>
         ) : (
           <>
             <Tour tour={tour} />
-            <div className="flex justify-between gap-4">
-              {" "}
-              <TourDisplay tour={tour} />
-              <InfoTour tour={tour} />
-            </div>
-            <div className="my-4 flex justify-between gap-4">
-              {" "}
-              <PriceDetail tour={tour} />
-              <GuideTour tour={tour} />
-            </div>
-            <div className="flex justify-between rounded-xl bg-sky-50">
-              <DescriptionBox tour={tour} />
-              <Schedule tour={tour} />
-            </div>
+            <div className="mt-4 flex justify-between gap-4">
+              <div className="h-[2000px] w-1/2">
+                <PerfectScrollbar>
+                  <TourDisplay tour={tour} />
+                  <Schedule tour={tour} />
+                  <DescriptionBox tour={tour} />
+                </PerfectScrollbar>
+              </div>
 
-            <ReviewTour tour={tour} />
+              <div className="h-[2000px] w-1/2">
+                <PerfectScrollbar>
+                  <InfoTour tour={tour} />
+                  <PriceDetail tour={tour} />
+                  <GuideTour tour={tour} />
+                  <Weather />{" "}
+                  <ReviewTour tour={tour} />
+                </PerfectScrollbar>
+              </div>
+            </div>
           </>
         )}
       </div>

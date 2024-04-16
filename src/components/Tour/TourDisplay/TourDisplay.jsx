@@ -53,7 +53,7 @@ const TourDisplay = ({ tour }) => {
   };
 
   return (
-    <div className="w-1/2 space-y-6 rounded-xl bg-sky-50 px-8 py-6 shadow-xl md:grid md:grid-cols-1 md:gap-6">
+    <div className="space-y-6  bg-sky-50 px-8 py-6 shadow-xl md:grid md:grid-cols-1 md:gap-6">
       {/* Kiểm tra nếu có video hoặc không */}
       {displayVideos.length > 0 ? (
         <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">

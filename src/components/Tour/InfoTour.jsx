@@ -38,8 +38,8 @@ const DescriptionBox = ({ tour }) => {
   };
 
   return (
-    <div className="w-1/2">
-      <div className="space-y-6 rounded-xl bg-sky-50 px-8 py-8 shadow-xl ">
+    <div className="">
+      <div className="space-y-6  bg-sky-50 px-8 py-8 shadow-xl ">
         <div className="flex justify-between border-b pb-4">
           <p className="flex items-center gap-3 text-lg text-gray-700">
             <PiBarcodeBold className="text-xl" /> {tour._id}

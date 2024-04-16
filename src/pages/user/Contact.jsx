@@ -1,5 +1,3 @@
-import Weather from "./Weather";
-
 const Contact = () => {
   return (
     <div className="bg-sky-100 px-14 py-12 sm:px-6 lg:px-14">
@@ -70,7 +68,6 @@ const Contact = () => {
           </a>
         </p>
       </div>
-      <Weather />
     </div>
   );
 };

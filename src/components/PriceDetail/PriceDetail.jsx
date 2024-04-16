@@ -4,8 +4,8 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 
 const TourPriceDetail = ({ tour }) => {
   return (
-    <div className="w-1/2">
-      <div className="rounded-xl bg-sky-50 px-8 py-6 shadow-xl">
+    <div className="my-4">
+      <div className=" bg-sky-50 px-8 py-6 shadow-xl">
         <h2 className="mb-4 text-center text-2xl font-bold">Chi tiết giá</h2>
         <PerfectScrollbar>
           <div className="flex h-auto  flex-col space-y-2">

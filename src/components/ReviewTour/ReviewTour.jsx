@@ -3,8 +3,6 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/config";
 import calculateAvgRating from "../../utils/avgRating";
 
-import Star from "../../assets/img/star.png";
-
 import { formatDateVN } from "../../utils/formatDate";
 
 import Slider from "react-slick";
@@ -46,21 +44,21 @@ const ReviewForm = ({ tour }) => {
   };
 
   return (
-    <div className="border-t-2 border-sky-900">
-      <div className="my-4 flex flex-col items-center justify-between md:flex-row">
-        <h1 className="text-xl font-bold text-gray-800">Đánh giá</h1>
-        <div className=" text-xl font-semibold text-indigo-600 ">
-          {avgRating ? (
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl">{avgRating} điểm</span>
-              <span>({reviews.length} đánh giá)</span>
-            </div>
-          ) : (
-            "Chưa có đánh giá"
-          )}
-        </div>
-      </div>{" "}
-      <div className="space-y-4 rounded-2xl bg-white p-6 shadow-md">
+    <div className="my-4">
+      <div className="space-y-4  bg-sky-50 p-6 shadow-md">
+        <div className="flex flex-col items-center justify-between md:flex-row">
+          <h1 className="text-xl font-bold text-gray-800">Đánh giá</h1>
+          <div className=" text-xl font-semibold text-indigo-600 ">
+            {avgRating ? (
+              <div className="flex items-center space-x-2">
+                <span className="text-2xl">{avgRating} điểm</span>
+                <span>({reviews.length} đánh giá)</span>
+              </div>
+            ) : (
+              <span className="text-sm"> Chưa có đánh giá</span>
+            )}
+          </div>
+        </div>{" "}
         <Slider {...settings}>
           {reviews.map((review, index) => (
             <div key={index} className="rounded-lg bg-white p-6 shadow-lg">

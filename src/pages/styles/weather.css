@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+
+.bg-cloudy,
+.bg-rainy,
+.bg-clear-sky,
+.bg-default {
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-cloudy {
+  background-image: url("../../assets/img/nhiumay.jpg");
+}
+
+.bg-rainy {
+  background-image: url("../../assets/img/troimua.jpg");
+}
+
+.bg-clear-sky {
+  background-image: url("../../assets/img/bautroi.png");
+}
+
+.bg-default {
+  background-image: url("../../assets/img/matdinh.jpg");
+}
+
+.weather-container {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-text {
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+
+.title,
+.description,
+.value {
+  font-family: "Montserrat", sans-serif;
+}
+
+.title {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #333;
+  font-size: 24px;
+}
+
+.description {
+  font-style: italic;
+}
+
+.value {
+  font-weight: bold;
+}
+
+.detail {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.weather-icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
