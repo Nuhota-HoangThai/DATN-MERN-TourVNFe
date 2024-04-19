@@ -106,6 +106,7 @@ const UserBooking = () => {
     try {
       const response = await axios.patch(
         `${BASE_URL}/booking/${bookingId}/cancel`,
+        {},
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -163,14 +164,19 @@ const UserBooking = () => {
                 <React.Fragment key={booking._id}>
                   <tr className="border-b bg-white hover:bg-gray-50 ">
                     <td className="px-6 py-4">
-                      {formatBookingId(booking._id)}
+                      <Link
+                        to={`/booking-detail/${booking._id}`}
+                        className="italic underline"
+                      >
+                        {formatBookingId(booking._id)}
+                      </Link>
                     </td>
                     <td className="px-6 py-4">
                       {booking.tour
                         ? booking.tour.nameTour
                         : "Không còn tour này"}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-red-600">
                       {booking.totalAmount.toLocaleString()} đ
                     </td>
                     <td className="px-6 py-4">

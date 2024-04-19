@@ -94,7 +94,6 @@ const TourPromotion = () => {
   };
 
   if (loading) return <p>Đang tải...</p>;
-  if (error) return <p>Lỗi: {error}</p>;
 
   return (
     <div className="mx-24 my-6">

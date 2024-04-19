@@ -33,7 +33,7 @@ const Footer = () => {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
-                  to="/company"
+                  to="/about"
                   className="transition-colors duration-300 hover:text-blue-500"
                 >
                   Công ty
@@ -41,7 +41,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/tours"
+                  to="/tour"
                   className="transition-colors duration-300 hover:text-blue-500"
                 >
                   Tour
@@ -49,7 +49,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/offices"
+                  to="/contact"
                   className="transition-colors duration-300 hover:text-blue-500"
                 >
                   Văn phòng
@@ -78,7 +78,7 @@ const Footer = () => {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
-                  to="/booking"
+                  to="/"
                   className="transition-colors duration-300 hover:text-blue-500"
                 >
                   Đặt Tour
@@ -86,7 +86,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/custom-tour"
+                  to="/"
                   className="transition-colors duration-300 hover:text-blue-500"
                 >
                   Tour Theo Yêu Cầu
