@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@alan-ai/alan-sdk-web": "^1.8.54",
     "@ckeditor/ckeditor5-build-classic": "^41.3.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
     "@emotion/react": "^11.11.4",
@@ -17,6 +18,7 @@
     "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
+    "classnames": "^2.5.1",
     "dompurify": "^3.1.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.10.0",
@@ -30,7 +32,8 @@
     "react-slick": "^0.30.2",
     "reactstrap": "^9.2.2",
     "redux-persist": "^6.0.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "words-to-numbers": "^1.5.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.12",

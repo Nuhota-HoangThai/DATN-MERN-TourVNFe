@@ -4,7 +4,7 @@ import { BASE_URL } from "../../utils/config";
 import axios from "axios";
 
 import "../styles/register.css";
-import LoginGoogle from "../../components/LoginGG/LoginGoogle";
+// import LoginGoogle from "../../components/LoginGG/LoginGoogle";
 
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
@@ -115,11 +115,11 @@ const Register = () => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Tên đăng nhập
+                Họ và tên:
               </label>
               <input
                 type="text"
-                placeholder="Tên đăng nhập"
+                placeholder="Nhập tên đầy đủ của bạn"
                 className="mt-1 w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 id="name"
                 onChange={handleChange}
@@ -272,7 +272,7 @@ const Register = () => {
           </button>
         </form>
 
-        <LoginGoogle />
+        {/* <LoginGoogle /> */}
         <div className="mt-6 text-center text-sm">
           <p>Đã có tài khoản?</p>
           <Link
