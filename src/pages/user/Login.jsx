@@ -9,6 +9,8 @@ import {
 } from "../../redux/user/userSlide";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 import LoginGoogle from "../../components/LoginGG/LoginGoogle";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
@@ -27,15 +29,15 @@ const Login = () => {
     try {
       // Ensure there's an email to send the reset link to
       if (!formData.email) {
-        alert("Vui lòng nhập địa chỉ email của bạn.");
+        toast("Vui lòng nhập địa chỉ email của bạn.");
         return;
       }
       const response = await axios.post(`${BASE_URL}/user/forgot-password`, {
         email: formData.email,
       });
-      alert(response.data.message); // Assuming your backend sends back a message
+      toast(response.data.message); // Assuming your backend sends back a message
     } catch (error) {
-      alert("Error sending reset email");
+      toast("Error sending reset email");
     }
   };
 
@@ -58,7 +60,7 @@ const Login = () => {
 
       if (data.success === false) {
         dispatch(signInFailure(data.error));
-        alert(data.error);
+        toast(data.error);
         return;
       }
       dispatch(signInSuccess(data));

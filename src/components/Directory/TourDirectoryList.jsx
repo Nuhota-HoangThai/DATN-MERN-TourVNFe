@@ -6,26 +6,27 @@ import Item from "../Item/Item";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 
 const TourDirectory = () => {
   const { tourDirectoryId } = useParams();
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { token } = useSelector((state) => state.user.currentUser);
+  //const { token } = useSelector((state) => state.user.currentUser);
 
   const fetchToursByDirectory = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
         `${BASE_URL}/tour/getTourDirectory/${tourDirectoryId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        },
+        // {
+        //   headers: {
+        //     Authorization: "Bearer " + token,
+        //   },
+        // },
       );
+      // console.log();
       setTours(response.data.tours);
     } catch (err) {
       setError(err.message);
@@ -89,9 +90,9 @@ const TourDirectory = () => {
   return (
     <div className="mx-auto bg-sky-100 ">
       <div className="px-16 py-8 ">
-        <h2 className="mb-4 text-center text-2xl font-semibold">
+        {/* <h2 className="mb-4 text-center text-2xl font-semibold">
           Tours in {tourDirectoryId}
-        </h2>
+        </h2> */}
         {tours.length > 0 ? (
           <Slider {...settings}>
             {tours.map((tour) => (

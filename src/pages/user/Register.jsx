@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 import "../styles/register.css";
 // import LoginGoogle from "../../components/LoginGG/LoginGoogle";
 
@@ -54,13 +56,13 @@ const Register = () => {
       !password ||
       !confirmPassword
     ) {
-      alert("Vui lòng điền đầy đủ thông tin.");
+      toast("Vui lòng điền đầy đủ thông tin.");
       return;
     }
 
     // Validate email pattern (basic example)
     if (!/\S+@\S+\.\S+/.test(email)) {
-      alert("Địa chỉ email không hợp lệ.");
+      toast("Địa chỉ email không hợp lệ.");
       return;
     }
 
@@ -69,7 +71,7 @@ const Register = () => {
       password.length < 8 ||
       !/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)
     ) {
-      alert(
+      toast(
         "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất một ký tự đặc biệt.",
       );
       return;
@@ -77,7 +79,7 @@ const Register = () => {
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      alert("Mật khẩu và xác nhận mật khẩu không khớp.");
+      toast("Mật khẩu và xác nhận mật khẩu không khớp.");
       return;
     }
 
@@ -96,7 +98,7 @@ const Register = () => {
 
       setLoading(false);
       setError(null);
-      alert("Đăng ký thành công!");
+      toast("Đăng ký thành công!");
       navigate("/login");
     } catch (error) {
       setLoading(false);
