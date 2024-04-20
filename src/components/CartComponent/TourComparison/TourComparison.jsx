@@ -11,7 +11,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
 
   // Hàm tính điểm cho từng tour dựa trên các tiêu chí
   const evaluateTour = (tour) => {
-    // Giả sử: 50 điểm cho giá thấp, 30 điểm cho đánh giá cao, 20 điểm cho số chỗ còn trống
+    // 50 điểm cho giá thấp, 30 điểm cho đánh giá cao, 20 điểm cho số chỗ còn trống
     const priceScore = tour.originalPrice - tour.price;
     const ratingScore = tour.rating ? tour.rating * 10 : 0;
     const availabilityScore = tour.maxParticipants * 2;

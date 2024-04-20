@@ -6,12 +6,13 @@ import PopularNorth from "../../components/Home.component/PopularNorth";
 import PopularSouthern from "../../components/Home.component/PopularSouthern";
 
 import NewCollections from "../../components/NewCollections/NewCollections";
-import NewsLetter from "../../components/Home.component/NewsLetter";
+//import NewsLetter from "../../components/Home.component/NewsLetter";
 import ListPromotion from "../../components/Promotion/ListPromotion";
 
 import Introduce from "../../components/Home.component/Introduce";
 import Directory from "../../components/Directory/ListTourDirectory";
 import ChooseMe from "../../components/Home.component/ChooseMe";
+import HightRate from "../../components/Home.component/HightRate";
 
 const Home = () => {
   return (
@@ -29,7 +30,9 @@ const Home = () => {
       <ChooseMe />
 
       <PopularSouthern />
-      <NewsLetter />
+
+      <HightRate />
+      {/* <NewsLetter /> */}
     </div>
   );
 };

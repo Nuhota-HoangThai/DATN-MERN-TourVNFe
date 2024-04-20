@@ -101,6 +101,15 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
 
+            {/* <Route
+              path="/blog/:id"
+              element={
+                <Blog>
+                  <BlogDetail />
+                </Blog>
+              }
+            /> */}
+
             <Route
               path="/login/reset-password/:token"
               element={<NewPassword />}

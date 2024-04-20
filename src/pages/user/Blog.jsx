@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 import HTMLRenderer from "../../components/HTML.component/HTML";
 
-const FetchBlogs = () => {
+const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,8 +26,7 @@ const FetchBlogs = () => {
     fetchBlogs();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>Đang tải...</div>;
 
   return (
     <div className="bg-sky-100 p-8">
@@ -78,4 +77,4 @@ const FetchBlogs = () => {
   );
 };
 
-export default FetchBlogs;
+export default Blog;

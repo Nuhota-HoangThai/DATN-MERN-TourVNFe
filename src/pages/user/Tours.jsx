@@ -5,7 +5,7 @@ import Item from "../../components/Item/Item";
 
 import "../styles/tours.css";
 
-import bannerTours from "../../assets/img/bannerTours.jpg";
+import bannerTours from "../../assets/img/bannerNam.png";
 import SearchForm from "../../components/Search/Search";
 
 const ToursList = () => {
@@ -46,7 +46,6 @@ const ToursList = () => {
         </div>
       </div>
       <div className="my-6">
-        <div className="h-0.5 w-full rounded bg-blue-300"></div>
         <h1
           className="px-4 text-center text-2xl font-bold text-blue-800"
           style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
