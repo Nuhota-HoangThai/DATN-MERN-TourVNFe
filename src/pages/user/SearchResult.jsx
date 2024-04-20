@@ -10,7 +10,7 @@ const SearchResultList = () => {
   const data = location.state?.searchResults;
 
   return (
-    <div className="">
+    <div className="bg-sky-100">
       <div className="relative flex items-end justify-center text-white ">
         <img
           src={bannerRuongBacThang}
@@ -23,9 +23,19 @@ const SearchResultList = () => {
         </div>
       </div>
       <div className="mt-12">
+        <div className="my-4 flex items-center justify-center ">
+          <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+          <h1
+            className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+            style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+          >
+            Kết quả tìm kiếm
+          </h1>
+          <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
+        </div>
         {Array.isArray(data) && data.length > 0 ? (
           <div>
-            <div className="my-4 flex justify-center">
+            <div className="flex justify-center py-6">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 {data.map((item) => (
                   <Item key={item._id} {...item} />

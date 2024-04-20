@@ -18,3 +18,28 @@
   background-color: white; /* Hoặc màu nền bạn muốn */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tùy chọn, để thêm bóng cho navbar */
 }
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .mobile-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-menu-icon {
+    display: none;
+  }
+
+  .mobile-links {
+    display: none;
+  }
+}

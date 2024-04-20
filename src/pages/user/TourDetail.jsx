@@ -37,15 +37,15 @@ const TourDetail = () => {
   }, [tourId]);
 
   return (
-    <div className="bg-sky-100 px-28">
-      <div className="p-8">
+    <div className="bg-sky-100 px-4 sm:px-10 md:px-20 lg:px-28">
+      <div className="p-4 sm:p-8">
         {!tour ? (
           <p className="text-center">Đang tải...</p>
         ) : (
           <>
             <Tour tour={tour} />
-            <div className="mt-4 flex justify-between gap-4">
-              <div className="h-[2000px] w-1/2">
+            <div className="mt-4 flex flex-col gap-4 lg:flex-row">
+              <div className="flex-auto lg:w-1/2">
                 <PerfectScrollbar>
                   <TourDisplay tour={tour} />
                   <Schedule tour={tour} />
@@ -53,12 +53,12 @@ const TourDetail = () => {
                 </PerfectScrollbar>
               </div>
 
-              <div className="h-[2000px] w-1/2">
+              <div className="flex-auto lg:w-1/2">
                 <PerfectScrollbar>
                   <InfoTour tour={tour} />
                   <PriceDetail tour={tour} />
                   <GuideTour tour={tour} />
-                  <Weather />{" "}
+                  <Weather />
                   <ReviewTour tour={tour} />
                 </PerfectScrollbar>
               </div>

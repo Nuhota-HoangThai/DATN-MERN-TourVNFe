@@ -8,11 +8,15 @@ import {
 const ChooseMe = () => {
   return (
     <div className="bg-sky-100">
-      <div className="mx-24 px-8 py-16">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {" "}
+        {/* Adjusted padding and max-width */}
         <h1 className="pb-12 text-center text-3xl font-bold text-blue-800">
           Tại Sao Chọn Vi Vu 3 Miền
         </h1>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {" "}
+          {/* Responsive grid */}
           <div className="flex flex-col items-center rounded-lg bg-white p-6 shadow-lg">
             <FaRegSmileBeam className="mb-4 text-4xl text-blue-500" />
             <h2 className="mb-2 text-center text-xl font-bold">Đáng Tin Cậy</h2>

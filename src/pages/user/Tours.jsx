@@ -45,14 +45,15 @@ const ToursList = () => {
           <SearchForm />
         </div>
       </div>
-      <div className="my-6">
+      <div className="my-8 flex items-center justify-center pb-4">
+        <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
         <h1
-          className="px-4 text-center text-2xl font-bold text-blue-800"
+          className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
           style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
         >
           Tất cả tour
         </h1>
-        <div className="h-0.5 w-full rounded bg-blue-300"></div>
+        <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
       </div>
       <div className="flex flex-col items-center">
         <div className="mb-8 grid grid-cols-4  gap-6">

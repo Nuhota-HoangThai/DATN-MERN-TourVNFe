@@ -1,9 +1,10 @@
 import { BASE_URL } from "../../../utils/config";
-import "./tour-display.css";
-
 import Slider from "react-slick";
+import ImageZoom from "react-medium-image-zoom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./tour-display.css";
+import "react-medium-image-zoom/dist/styles.css";
 
 const TourDisplay = ({ tour }) => {
   if (!tour) {
@@ -21,12 +22,12 @@ const TourDisplay = ({ tour }) => {
     slidesToScroll: 1,
     autoplay: displayImages.length > 5,
     autoplaySpeed: 2000,
-    arrows: false, // Tắt mũi tên điều hướng
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: displayImages.length >= 3 ? 3 : displayImages.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
+          slidesToShow: 3,
           slidesToScroll: 1,
           infinite: displayImages.length > 3,
           dots: true,
@@ -35,7 +36,7 @@ const TourDisplay = ({ tour }) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2, // Giảm xuống 2 slides trên màn hình tablet
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 2,
           infinite: displayImages.length > 2,
@@ -44,7 +45,7 @@ const TourDisplay = ({ tour }) => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Chỉ hiển thị 1 slide trên màn hình điện thoại
+          slidesToShow: 1,
           slidesToScroll: 1,
           infinite: displayImages.length > 1,
         },
@@ -53,8 +54,7 @@ const TourDisplay = ({ tour }) => {
   };
 
   return (
-    <div className="space-y-6  bg-sky-50 px-8 py-6 shadow-xl md:grid md:grid-cols-1 md:gap-6">
-      {/* Kiểm tra nếu có video hoặc không */}
+    <div className="space-y-6 bg-sky-50 px-8 py-6 shadow-xl md:grid md:grid-cols-1 md:gap-6">
       {displayVideos.length > 0 ? (
         <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">
           <video
@@ -69,41 +69,30 @@ const TourDisplay = ({ tour }) => {
         </div>
       ) : displayImages.length > 0 ? (
         <div className="aspect-w-16 aspect-h-9 mb-4 overflow-hidden rounded-lg shadow-xl md:mb-0">
-          <img
-            className="h-full w-full object-cover"
-            src={`${BASE_URL}/${displayImages[0].replace(/\\/g, "/")}`}
-            alt="Tour Main Image"
-          />
+          <ImageZoom>
+            <img
+              alt="Tour Main Image"
+              src={`${BASE_URL}/${displayImages[0].replace(/\\/g, "/")}`}
+              className="h-full w-full object-cover"
+            />
+          </ImageZoom>
         </div>
       ) : null}
 
-      {/* Hình ảnh */}
-
-      <div className="overflow-hidden rounded-lg">
-        {displayImages.length > 6 ? (
-          <Slider {...settings}>
-            {displayImages.map((image, index) => (
-              <div key={index} className="overflow-hidden">
+      <div className="">
+        <Slider {...settings}>
+          {displayImages.map((image, index) => (
+            <div key={index} className="p-2">
+              <ImageZoom>
                 <img
-                  className="mx-auto h-full w-full object-cover"
-                  src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
                   alt={`Tour Image ${index + 1}`}
+                  src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
+                  className="h-28 w-40 object-cover"
                 />
-              </div>
-            ))}
-          </Slider>
-        ) : (
-          <div className="grid grid-cols-6 gap-4">
-            {displayImages.map((image, index) => (
-              <img
-                key={index}
-                className="h-full w-full object-cover"
-                src={`${BASE_URL}/${image.replace(/\\/g, "/")}`}
-                alt={`Tour Image ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
+              </ImageZoom>
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

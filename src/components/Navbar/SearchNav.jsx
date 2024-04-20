@@ -59,7 +59,7 @@ function SearchForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="animated-border flex w-full items-center justify-between"
+      className="flex w-2/3 items-center justify-between rounded-full border border-black  bg-white px-5"
     >
       <div className="flex w-full items-center">
         <input
@@ -69,7 +69,7 @@ function SearchForm() {
           value={formData.nameTour}
           onChange={handleChange}
           placeholder="Tìm chuyến du lịch...."
-          className="w-full border-none px-4 py-2 focus:outline-none"
+          className="w-full border-none bg-white px-4 py-2 focus:outline-none"
         />
         <button type="submit" className=" p-2 text-lg text-blue-900">
           <IoSearch />
