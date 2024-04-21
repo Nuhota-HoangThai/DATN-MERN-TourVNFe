@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 import { IoSearch } from "react-icons/io5";
 import "./search-nav.css";
 function SearchForm() {
@@ -38,7 +38,7 @@ function SearchForm() {
     // Kiểm tra xem người dùng đã nhập tên tour hay chưa
     if (!nameTour.trim()) {
       // trim() được sử dụng để loại bỏ khoảng trắng thừa
-      alert("Vui lòng điền tên tour");
+      toast("Vui lòng điền tên tour");
       return;
     }
 
@@ -52,7 +52,7 @@ function SearchForm() {
       navigate("/search", { state: { searchResults: result.data.tours } });
     } catch (error) {
       console.error(error);
-      alert("Không có tour phù hợp!!!!");
+      toast("Không có tour phù hợp!!!!");
     }
   };
 

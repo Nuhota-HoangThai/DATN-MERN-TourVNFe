@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function SearchForm() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function SearchForm() {
       navigate("/search", { state: { searchResults: result.data.tours } });
     } catch (error) {
       console.error(error);
-      alert("Không có tour phù hợp!!!!");
+      toast("Không có tour phù hợp!!!!");
     }
   };
 
