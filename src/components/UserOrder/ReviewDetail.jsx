@@ -39,11 +39,11 @@ const ReviewDetails = () => {
 
   if (isLoading) return <div>đang tải...</div>;
   if (error) return <div>Lỗi: {error}</div>;
-  if (!review) return <div>Không tìm thấy review</div>;
+  if (!review) return <div>Không tìm thấy đánh giá</div>;
 
   return (
     <div className="mx-auto mt-10 max-w-xl rounded border p-5 shadow-lg">
-      <h1 className="mb-4 text-xl font-semibold">Chi Tiết Review</h1>
+      <h1 className="mb-4 text-xl font-semibold">Chi tiết đánh giá</h1>
       <h2 className="text-lg font-bold">Tour: {review.tourId?.nameTour}</h2>
       <p className="text-md">
         Người đánh giá: {review.userId.name} - {review.userId.email}

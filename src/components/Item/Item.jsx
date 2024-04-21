@@ -8,6 +8,8 @@ import { CiHeart } from "react-icons/ci";
 import { formatDateVN } from "../../utils/formatDate";
 import { formatRegion } from "../../utils/formatRegion";
 
+import { toast } from "react-toastify";
+
 const Item = (props) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token; // Using optional chaining to safely access token
@@ -30,7 +32,7 @@ const Item = (props) => {
         { itemId: tourId },
         { headers: { Authorization: "Bearer " + token } },
       );
-      alert("Thêm vào so sánh thành công");
+      toast("Thêm vào so sánh thành công");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -56,15 +58,9 @@ const Item = (props) => {
         { userId, tourId }, // Gửi cả userId và tourId trong request body
         { headers: { Authorization: `Bearer ${token}` } },
       );
-      alert("Tour đã được thêm vào yêu thích!");
+      toast("Tour đã được thêm vào yêu thích!");
     } catch (error) {
-      console.error(
-        "Failed to fetch favorites:",
-        error.response?.data?.message || error.message,
-      );
-      if (error.response?.status === 409) {
-        alert("Chuyến tham quan đã được yêu thích");
-      }
+      toast("Tour này đã được thêm vào yêu thích!");
     }
   };
 

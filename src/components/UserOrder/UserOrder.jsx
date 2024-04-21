@@ -11,6 +11,7 @@ import {
   paymentStatusMapping,
 } from "../../utils/formatStatus";
 
+import { toast } from "react-toastify";
 const UserBooking = () => {
   const [bookings, setBookings] = useState([]);
   const [showReviewFormFor, setShowReviewFormFor] = useState(null); // Mã đặt tour hiện form đánh giá
@@ -51,12 +52,12 @@ const UserBooking = () => {
         },
       );
       if (response.status === 200) {
-        alert("Đánh giá thành công!");
+        toast("Đánh giá thành công!");
         setShowReviewFormFor(null);
       }
     } catch (error) {
       console.error("Failed to submit review:", error);
-      alert("Đánh giá không thành công. Vui lòng đánh giá lại!!!");
+      toast("Đánh giá không thành công. Vui lòng đánh giá lại!!!");
     }
   };
 
@@ -69,7 +70,7 @@ const UserBooking = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       if (!token) {
-        console.log("Người dùng chưa đăng nhập?");
+        toast("Người dùng chưa đăng nhập?");
         return;
       }
       try {
@@ -100,7 +101,7 @@ const UserBooking = () => {
 
   const cancelBooking = async (bookingId) => {
     if (!token) {
-      console.log("Người dùng chưa đăng nhập");
+      toast("Người dùng chưa đăng nhập");
       return;
     }
     try {
@@ -121,8 +122,9 @@ const UserBooking = () => {
             : booking,
         );
         setBookings(updatedOrders);
+        toast("Hủy tour thành công");
       } else {
-        throw new Error("Failed to cancel the booking.");
+        toast("Quý khách không thể hủy tour");
       }
     } catch (error) {
       console.error("Error cancelling booking:", error);
@@ -130,7 +132,7 @@ const UserBooking = () => {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-10">
       <h1 className="my-4 text-center font-bold text-gray-800">
         Lịch sử đặt tour
       </h1>

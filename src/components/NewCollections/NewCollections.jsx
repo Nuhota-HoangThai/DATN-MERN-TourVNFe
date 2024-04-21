@@ -59,40 +59,27 @@ const NewCollections = () => {
   return (
     <div className="bg-sky-50">
       {newCollection.length > 0 ? (
-        <div className=" w-full py-6">
+        <div className="mx-2 py-6 sm:mx-10 lg:mx-20">
           <div className="flex items-center justify-center pb-4">
-            <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
             <h1
-              className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+              className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
               style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
             >
               Tour mới nhất
             </h1>
-            <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
-          </div>{" "}
-          <div className="mx-20">
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
+          </div>
+          <div className="">
             <Slider {...settings}>
               {newCollection.map((item) => (
-                <Item
-                  key={item._id} // Đừng quên prop key khi render list
-                  {...item}
-                  // id={item.id}
-                  // image={item.image}
-                  // nameTour={item.nameTour}
-                  // price={item.price}
-                  // regions={item.regions}
-                  // maxParticipants={item.maxParticipants}
-                  // startDate={item.startDate}
-                  // endDate={item.endDate}
-                  // convergeTime={item.convergeTime}
-                  // startingGate={item.startingGate}
-                />
+                <Item key={item._id} {...item} />
               ))}
             </Slider>
           </div>
         </div>
       ) : (
-        <p className="text-center"></p>
+        <p className="text-center">Không có dữ liệu</p>
       )}
     </div>
   );

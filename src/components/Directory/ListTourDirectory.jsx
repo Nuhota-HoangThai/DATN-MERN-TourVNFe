@@ -51,16 +51,16 @@ function ListTourDirectories() {
   }
 
   return (
-    <div className="bg-sky-50">
+    <div className="bg-sky-100">
       <div className="flex items-center justify-center py-4">
-        <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+        <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
         <h1
-          className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+          className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
           style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
         >
           Danh mục tour
         </h1>
-        <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
+        <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
       </div>
       {tourDirectories.length > 0 ? (
         <div className="mx-24 grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">

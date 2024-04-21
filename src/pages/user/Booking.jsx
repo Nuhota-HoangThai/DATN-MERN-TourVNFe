@@ -8,6 +8,8 @@ import TourBooking from "../../components/BookingComponent/TourBooking";
 
 import { formatPrice } from "../../utils/formatPrice";
 
+import { toast } from "react-toastify";
+
 const Booking = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token;
@@ -53,7 +55,7 @@ const Booking = () => {
       }
       const userId = currentUser?.id;
       if (!userId) {
-        console.error("User ID is missing");
+        toast("ID người dùng bị thiếu");
         return;
       }
       try {
@@ -119,7 +121,7 @@ const Booking = () => {
     e.preventDefault();
 
     if (!token) {
-      alert("Vui lòng đăng nhập để đặt tour!!!");
+      toast("Vui lòng đăng nhập để đặt tour!!!");
     } else {
       try {
         await axios.post(
@@ -137,11 +139,11 @@ const Booking = () => {
           },
         );
         setError(null);
-        alert("Đặt tour thành công!");
+        toast("Đặt tour thành công!");
         navigate("/thanks");
       } catch (error) {
-        setError(error.message);
-        alert(error.message);
+        setError(error);
+        toast(error);
       }
     }
   };
@@ -161,17 +163,13 @@ const Booking = () => {
       window.location.href = res.data.vnpUrl;
       return true;
     } catch (error) {
-      setError(error.message);
-      alert(error.message);
+      setError(error);
+      toast(error);
     }
   };
 
   if (loading) {
     return <p>Đang tải trang...</p>;
-  }
-
-  if (error) {
-    return <p>Lỗi: {error}</p>;
   }
 
   return (

@@ -38,34 +38,12 @@ import ReviewDetails from "./components/UserOrder/ReviewDetail";
 
 import NewPassword from "./pages/user/NewPassword";
 import BlogDetail from "./components/Blog.component/BlogDetail";
-// phan chatAI
-// import { useEffect } from "react";
-// import alanBtn from "@alan-ai/alan-sdk-web";
-// import { useState } from "react";
-// const alanKey =
-//   "21c1a29fa65de294f9c950d8d003fcaf2e956eca572e1d8b807a3e2338fdd0dc/stage";
-// import Items from "./components/ItemsChatAI/Items";
+
 import BookingDetail from "./components/UserOrder/BookingDetail";
 
 const App = () => {
-  //phan chatAI
-  // const [newsArticles, setNewsArticles] = useState([]);
-
-  // useEffect(() => {
-  //   alanBtn({
-  //     key: alanKey,
-  //     onCommand: ({ command, articles }) => {
-  //       if (command == "newHeadlines") {
-  //         console.log(articles);
-  //       }
-  //     },
-  //   });
-  // }, []);
-
   return (
     <div>
-      {/* <Items articles={newsArticles} /> */}
-
       <BrowserRouter>
         <Navbar />
         <div className="body-content">

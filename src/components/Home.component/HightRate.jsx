@@ -32,6 +32,7 @@ const HighRate = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    arrows: false,
     slidesToScroll: 3,
     responsive: [
       {
@@ -40,6 +41,7 @@ const HighRate = () => {
           slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
+          arrows: false,
           dots: true,
         },
       },
@@ -49,6 +51,7 @@ const HighRate = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           initialSlide: 1,
+          arrows: false,
         },
       },
       {
@@ -56,6 +59,7 @@ const HighRate = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
         },
       },
     ],
@@ -65,6 +69,16 @@ const HighRate = () => {
 
   return (
     <div className="bg-sky-200 px-20 py-10">
+      <div className="flex items-center justify-center pb-4">
+        <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
+        <h1
+          className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
+          style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+        >
+          Đánh giá của khách hàng
+        </h1>
+        <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
+      </div>
       {reviews.length > 0 ? (
         <Slider {...settings}>
           {reviews.map((review) => (

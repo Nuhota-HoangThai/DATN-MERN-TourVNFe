@@ -8,12 +8,19 @@ import {
 const ChooseMe = () => {
   return (
     <div className="bg-sky-100">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-16 px-4 py-16 sm:px-6 lg:px-8">
         {" "}
         {/* Adjusted padding and max-width */}
-        <h1 className="pb-12 text-center text-3xl font-bold text-blue-800">
-          Tại Sao Chọn Vi Vu 3 Miền
-        </h1>
+        <div className="flex items-center justify-center pb-4">
+          <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
+          <h1
+            className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
+            style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+          >
+            Nên chọn ViVu3Mien
+          </h1>
+          <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
+        </div>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {" "}
           {/* Responsive grid */}

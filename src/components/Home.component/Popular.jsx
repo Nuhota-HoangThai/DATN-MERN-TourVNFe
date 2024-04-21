@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Item from "../Item/Item";
 import { BASE_URL } from "../../utils/config";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
 
 const Popular = () => {
   const [popularTours, setPopularTours] = useState([]);
@@ -13,32 +13,34 @@ const Popular = () => {
   useEffect(() => {
     axios
       .get(`${BASE_URL}/tour/getPopularInCentral`)
-      .then((data) => setPopularTours(data.data));
+      .then((response) => setPopularTours(response.data))
+      .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: popularTours.length > 4,
     speed: 500,
-    slidesToShow: 4, // Mặc định hiển thị 4 slides trên một màn hình lớn
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: popularTours.length > 4,
     autoplaySpeed: 2000,
-    arrows: false, // Tắt mũi tên điều hướng
+    arrows: false,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: popularTours.length >= 3 ? 3 : popularTours.length, // Giảm xuống 3 slides trên màn hình nhỏ hơn
+          slidesToShow: popularTours.length >= 3 ? 3 : popularTours.length,
           slidesToScroll: 1,
           infinite: popularTours.length > 3,
-          dots: true,
+          dots: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2, // Giảm xuống 2 slides trên màn hình tablet
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 2,
           infinite: popularTours.length > 2,
@@ -47,7 +49,7 @@ const Popular = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Chỉ hiển thị 1 slide trên màn hình điện thoại
+          slidesToShow: 1,
           slidesToScroll: 1,
           infinite: popularTours.length > 1,
         },
@@ -58,41 +60,25 @@ const Popular = () => {
   return (
     <div className="bg-sky-50">
       {popularTours.length > 0 ? (
-        <div className="w-full py-6">
-          <div className="mb-8 flex items-center justify-center pb-4">
-            <div className="mr-4 h-0.5 w-full rounded bg-blue-300"></div>
+        <div className="mx-2 py-6 sm:mx-10 lg:mx-20">
+          <div className="flex items-center justify-center pb-4">
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
             <h1
-              className="w-2/3 px-4 text-center text-2xl font-bold text-blue-800"
+              className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
               style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
             >
               Tour phổ biến miền Trung
             </h1>
-            <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
           </div>
-          <div className="">
-            <Slider {...settings}>
-              {popularTours.map((item) => (
-                <Item
-                  key={item._id} // Đừng quên prop key khi render list
-                  {...item}
-                  // key={i}
-                  // _id={item._id}
-                  // image={item.image}
-                  // nameTour={item.nameTour}
-                  // price={item.price}
-                  // regions={item.regions}
-                  // maxParticipants={item.maxParticipants}
-                  // startDate={item.startDate}
-                  // endDate={item.endDate}
-                  // convergeTime={item.convergeTime}
-                  // startingGate={item.startingGate}
-                />
-              ))}
-            </Slider>
-          </div>
+          <Slider {...settings}>
+            {popularTours.map((item) => (
+              <Item key={item._id} {...item} />
+            ))}
+          </Slider>
         </div>
       ) : (
-        <p className=""></p>
+        <p className="text-center text-xl text-blue-800">Không có dữ liệu</p>
       )}
     </div>
   );

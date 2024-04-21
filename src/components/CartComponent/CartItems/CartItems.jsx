@@ -2,6 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../../../utils/config";
 import { useSelector } from "react-redux";
 
+import { toast } from "react-toastify";
 const CartItems = ({ cartItems, setCartItems, allTour }) => {
   const { token } = useSelector((state) => state.user.currentUser);
   // console.log(allTour);
@@ -15,6 +16,7 @@ const CartItems = ({ cartItems, setCartItems, allTour }) => {
         })
         .then(() => {
           setCartItems((prev) => ({ ...prev, [itemId]: 0 }));
+          toast("Thành công xóa tour ra khỏi so sánh ");
         })
         .catch((error) => console.error("Error:", error));
     }

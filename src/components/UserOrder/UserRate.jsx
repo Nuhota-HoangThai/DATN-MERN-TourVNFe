@@ -4,6 +4,7 @@ import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
 const UserReviews = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token;
@@ -46,15 +47,15 @@ const UserReviews = () => {
       );
       if (response.status === 200) {
         setReviews(reviews.filter((review) => review._id !== reviewId));
-        alert("Xóa đánh giá thành công.");
+        toast("Xóa đánh giá thành công.");
       }
     } catch (err) {
-      alert(err.response ? err.response.data.message : err.message);
+      toast("Không thể xóa đánh giá");
     }
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
       {loading ? (
         <p>Đang tải...</p>
       ) : error ? (

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { formatDateVN } from "../../utils/formatDate";
 
+import { toast } from "react-toastify";
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -44,12 +45,9 @@ const FavoritesList = () => {
       setFavorites(
         favorites.filter((favorite) => favorite.tourId._id !== tourId),
       );
-      alert("Đã xóa khỏi danh sách yêu thích!");
+      toast("Đã xóa khỏi danh sách yêu thích!");
     } catch (error) {
-      console.error(
-        "Error removing from favorites:",
-        error.response?.data?.message || error.message,
-      );
+      toast("Lỗi không thể xóa");
     }
   };
 
