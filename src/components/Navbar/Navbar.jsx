@@ -105,7 +105,7 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to="/login"
-                    className="w-32 rounded-full border border-black px-4 py-2 text-center text-sm transition-colors hover:bg-blue-800 hover:text-white md:text-base"
+                    className="rounded-full border border-black px-3 py-2"
                   >
                     Đăng nhập
                   </Link>

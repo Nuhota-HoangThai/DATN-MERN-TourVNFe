@@ -66,13 +66,21 @@ const Register = () => {
       return;
     }
 
-    // Check password length and special character
+    // Validate phone number (exactly 10 digits)
+    if (!/^\d{10}$/.test(phone)) {
+      toast("Số điện thoại phải có đúng 10 ký tự số.");
+      return;
+    }
+
+    // Check password length, special character, digit, and uppercase letter
     if (
       password.length < 8 ||
-      !/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password)
+      !/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password) ||
+      !/\d/.test(password) ||
+      !/[A-Z]/.test(password)
     ) {
       toast(
-        "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất một ký tự đặc biệt.",
+        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một ký tự đặc biệt, một chữ số và một chữ cái in hoa.",
       );
       return;
     }
@@ -98,11 +106,18 @@ const Register = () => {
 
       setLoading(false);
       setError(null);
-      toast("Đăng ký thành công!");
+      toast("Đăng ký thành công");
       navigate("/login");
     } catch (error) {
       setLoading(false);
-      setError(error.response ? error.response.data.error : error.message);
+      if (error.response) {
+        // Display specific error messages from the server
+        setError(error.response.data.error);
+        toast(error.response.data.error);
+      } else {
+        setError(error.message);
+        toast("Lỗi không xác định. Vui lòng thử lại.");
+      }
     }
   };
 

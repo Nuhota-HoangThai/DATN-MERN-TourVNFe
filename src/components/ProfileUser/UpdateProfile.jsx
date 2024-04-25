@@ -33,7 +33,7 @@ const UpdateUser = () => {
           },
         });
         //const data = res.data;
-
+        console.log(data);
         setUserData(data.user);
 
         if (data.user.image && typeof data.user.image === "string") {

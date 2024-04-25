@@ -37,7 +37,7 @@ const Login = () => {
       });
       toast(response.data.message); // Assuming your backend sends back a message
     } catch (error) {
-      toast("Error sending reset email");
+      toast("Lỗi gửi email đặt lại");
     }
   };
 
@@ -47,8 +47,17 @@ const Login = () => {
       [e.target.id]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password } = formData; // Destructure email and password from formData
+
+    // Check if email or password is empty
+    if (!email.trim() || !password.trim()) {
+      toast("Email và mật khẩu không được bỏ trống.");
+      return; // Exit the function to prevent the form submission
+    }
+
     try {
       dispatch(signInStart());
       const { data } = await axios.post(`${BASE_URL}/user/login`, formData, {
@@ -56,7 +65,6 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-      // const data = await res.json();
 
       if (data.success === false) {
         dispatch(signInFailure(data.error));
@@ -67,8 +75,38 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error));
+      if (error.response) {
+        // Display specific error message from the server if available
+        toast(error.response.data.error);
+      } else {
+        // Display a generic error message
+        toast("An error occurred. Please try again.");
+      }
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     dispatch(signInStart());
+  //     const { data } = await axios.post(`${BASE_URL}/user/login`, formData, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     // const data = await res.json();
+
+  //     if (data.success === false) {
+  //       dispatch(signInFailure(data.error));
+  //       toast(data.error);
+  //       return;
+  //     }
+  //     dispatch(signInSuccess(data));
+  //     navigate("/");
+  //   } catch (error) {
+  //     dispatch(signInFailure(error));
+  //   }
+  // };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="form-container w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
