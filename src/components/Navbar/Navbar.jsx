@@ -10,7 +10,7 @@ import { BASE_URL } from "../../utils/config";
 import icon from "../../assets/img/logoicon.png";
 const Navbar = () => {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+  //console.log(currentUser);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
