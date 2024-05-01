@@ -40,6 +40,7 @@ import NewPassword from "./pages/user/NewPassword";
 import BlogDetail from "./components/Blog.component/BlogDetail";
 
 import BookingDetail from "./components/UserOrder/BookingDetail";
+import ResetPasswordForm from "./components/ProfileUser/ResetPassword";
 
 const App = () => {
   return (
@@ -92,7 +93,14 @@ const App = () => {
               path="/login/reset-password/:token"
               element={<NewPassword />}
             />
-
+            <Route
+              path="/reset-password"
+              element={
+                <Profile>
+                  <ResetPasswordForm />
+                </Profile>
+              }
+            />
             <Route
               path="/userOrder"
               element={

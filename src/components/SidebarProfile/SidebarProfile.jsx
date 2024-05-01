@@ -8,7 +8,7 @@ import {
   FaHistory,
   FaSignOutAlt,
 } from "react-icons/fa";
-
+import { RiLockPasswordFill } from "react-icons/ri";
 import { FaHeart } from "react-icons/fa6";
 
 const SidebarProfile = () => {
@@ -62,6 +62,13 @@ const SidebarProfile = () => {
         >
           <FaStar className="text-lg" />
           <span>Đánh giá của bạn</span>
+        </Link>
+        <Link
+          to="/reset-password"
+          className="flex items-center space-x-3 rounded-lg p-3 transition-colors hover:bg-slate-100"
+        >
+          <RiLockPasswordFill className="text-lg" />
+          <span>Thay đổi mật khẩu</span>
         </Link>
       </div>
 

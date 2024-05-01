@@ -160,11 +160,14 @@ const Booking = () => {
         },
       );
 
-      window.location.href = res.data.vnpUrl;
-      return true;
+      if (res.data.code === "00") {
+        window.location.href = res.data.vnpUrl; // Chuyển hướng để thanh toán
+      } else {
+        toast("Không thể tạo URL thanh toán, vui lòng thử lại");
+      }
     } catch (error) {
       setError(error);
-      toast(error);
+      toast("Lỗi khi tạo đơn hàng: " + error);
     }
   };
 
