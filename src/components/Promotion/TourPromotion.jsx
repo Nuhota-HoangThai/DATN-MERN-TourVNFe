@@ -96,7 +96,7 @@ const TourPromotion = () => {
   if (loading) return <p>Đang tải...</p>;
 
   return (
-    <div className="mx-24 my-6">
+    <div className="mx-24 my-10">
       {selectedPromotion ? (
         <>
           <div className="mb-8 flex items-center justify-center">

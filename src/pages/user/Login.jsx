@@ -85,28 +85,6 @@ const Login = () => {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     dispatch(signInStart());
-  //     const { data } = await axios.post(`${BASE_URL}/user/login`, formData, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     // const data = await res.json();
-
-  //     if (data.success === false) {
-  //       dispatch(signInFailure(data.error));
-  //       toast(data.error);
-  //       return;
-  //     }
-  //     dispatch(signInSuccess(data));
-  //     navigate("/");
-  //   } catch (error) {
-  //     dispatch(signInFailure(error));
-  //   }
-  // };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="form-container w-full max-w-md rounded-xl bg-white px-8 py-10 shadow-lg">
@@ -140,7 +118,7 @@ const Login = () => {
                 <IoEyeSharp size={"20px"} />
               )}
             </button>
-          </div>{" "}
+          </div>
           <button
             type="button"
             onClick={handleForgotPassword}

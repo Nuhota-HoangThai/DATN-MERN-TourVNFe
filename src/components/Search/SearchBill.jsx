@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
 import { BASE_URL } from "../../utils/config";
 import { CiSearch } from "react-icons/ci";
-
+import { toast } from "react-toastify";
 const SearchBillForm = () => {
   const [billId, setBillId] = useState("");
   const navigate = useNavigate(); // Sử dụng useNavigate
@@ -16,7 +16,7 @@ const SearchBillForm = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!billId) {
-      alert("Vui lòng nhập mã hóa đơn");
+      toast("Vui lòng nhập mã hóa đơn");
       return;
     }
 
@@ -25,7 +25,7 @@ const SearchBillForm = () => {
       // Chuyển hướng người dùng đến trang chi tiết hóa đơn với ID hóa đơn
       navigate(`/bill-details/${billId}`, { state: { billData: data } });
     } catch (err) {
-      alert(err.message);
+      toast(err.message);
     }
   };
 

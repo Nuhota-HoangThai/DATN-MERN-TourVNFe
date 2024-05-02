@@ -10,6 +10,7 @@ import CartItems from "../../components/CartComponent/CartItems/CartItems";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
+import { toast } from "react-toastify";
 const Cart = () => {
   const [allTour, setAllTour] = useState([]);
   const [cartItems, setCartItems] = useState({});
@@ -31,7 +32,7 @@ const Cart = () => {
           });
       }
     } else {
-      alert("Bạn chưa đăng nhập.");
+      toast("Bạn chưa đăng nhập.");
     }
   }, [currentUser]);
 

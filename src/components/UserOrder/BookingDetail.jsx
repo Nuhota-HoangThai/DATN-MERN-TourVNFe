@@ -44,8 +44,8 @@ const BookingDetail = () => {
     fetchBookingDetail();
   }, [bookingId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Đang tải...</p>;
+  if (error) return <p>Lỗi: {error}</p>;
 
   return (
     <div className="mx-auto my-4 h-[700px] max-w-6xl rounded-xl bg-white p-4">

@@ -46,11 +46,11 @@ const UserProfile = () => {
   }, [navigate, currentUser]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Đang tải...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Lỗi: {error}</p>;
   }
 
   return (

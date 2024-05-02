@@ -5,6 +5,8 @@ import upload from "../../assets/img/upload.png";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 const UpdateUser = () => {
   const { token } = useSelector((state) => state.user.currentUser);
 
@@ -33,7 +35,7 @@ const UpdateUser = () => {
           },
         });
         //const data = res.data;
-        console.log(data);
+        //console.log(data);
         setUserData(data.user);
 
         if (data.user.image && typeof data.user.image === "string") {
@@ -75,10 +77,10 @@ const UpdateUser = () => {
         },
       });
 
-      alert("Cập nhật thông tin người dùng thành công.");
+      toast("Cập nhật thông tin người dùng thành công.");
       navigate("/profile");
     } catch (error) {
-      alert("Cập nhật thông tin người dùng thất bại!!!.");
+      toast("Cập nhật thông tin người dùng thất bại!!!.");
       console.error("Error updating user:", error);
     }
   };

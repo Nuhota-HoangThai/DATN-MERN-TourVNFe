@@ -27,7 +27,7 @@ const GgAuth = () => {
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      console.log("could not sign in with Google", error);
+      //console.log("could not sign in with Google", error);
     }
   };
 
