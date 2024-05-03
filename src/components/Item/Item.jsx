@@ -10,26 +10,31 @@ import { formatRegion } from "../../utils/formatRegion";
 
 import { toast } from "react-toastify";
 
-///
-// import alanBtnInstance from "@alan-ai/alan-sdk-web";
-// import { useEffect } from "react";
-///
 const Item = (props) => {
   const currentUser = useSelector((state) => state.user.currentUser);
-  const token = currentUser?.token; // Using optional chaining to safely access token
+  const token = currentUser?.token;
   const navigate = useNavigate();
 
   const formatPrice = (price) => {
-    return `${price?.toLocaleString("vi-VN", { style: "currency", currency: "VND", minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    return price
+      ? `${price.toLocaleString("vi-VN", { style: "currency", currency: "VND", minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
+      : "";
+  };
+
+  const isPromotionActive = () => {
+    const now = new Date();
+    return (
+      props.promotion &&
+      new Date(props.promotion.startDatePromotion) <= now &&
+      new Date(props.promotion.endDatePromotion) >= now
+    );
   };
 
   const addComparison = async (tourId) => {
     if (!token) {
-      // Nếu không có token, chưa đăng nhập, chuyển đến trang đăng nhập
       navigate("/login");
-      return; // Dừng thực thi hàm
+      return;
     }
-
     try {
       await axios.post(
         `${BASE_URL}/cart/addToCart`,
@@ -47,19 +52,15 @@ const Item = (props) => {
       navigate("/login");
       return;
     }
-
-    //lưu trữ  trong Redux store như currentUser.userId
     const userId = currentUser?.id;
-
     if (!userId) {
       console.error("User ID is missing");
       return;
     }
-
     try {
       await axios.post(
         `${BASE_URL}/favorites/addFavorites`,
-        { userId, tourId }, // Gửi cả userId và tourId trong request body
+        { userId, tourId },
         { headers: { Authorization: `Bearer ${token}` } },
       );
       toast("Tour đã được thêm vào yêu thích!");
@@ -71,53 +72,6 @@ const Item = (props) => {
   const handleBooking = () => {
     navigate("/booking", { state: { tour: props } });
   };
-
-  // useEffect(() => {
-  //   const alanBtn = alanBtnInstance({
-  //     key: "21c1a29fa65de294f9c950d8d003fcaf2e956eca572e1d8b807a3e2338fdd0dc/stage",
-  //     onCommand: (commandData) => {
-  //       if (commandData.command === "fetchTourDetails") {
-  //         // Gửi thông tin cụ thể của tour tới Alan AI
-  //         alanBtn.playText(
-  //           `Tên tour là ${props.nameTour}, bắt đầu từ ${props.startDate} đến ${props.endDate}. Mã tour là ${props._id}.`,
-  //         );
-  //       } else if (commandData.command === "fetchTourPrice") {
-  //         if (props.promotion && props.price !== props.originalPrice) {
-  //           alanBtn.playText(
-  //             `Giá khuyến mãi của tour là ${props.price.toLocaleString()} đồng, giá gốc là ${props.originalPrice.toLocaleString()} đồng.`,
-  //           );
-  //         } else {
-  //           alanBtn.playText(
-  //             `Giá của tour là ${props.price.toLocaleString()} đồng.`,
-  //           );
-  //         }
-  //       } else if (commandData.command === "fetchPromotionDetails") {
-  //         if (props.promotion) {
-  //           alanBtn.playText(
-  //             `Tour này đang có khuyến mãi, giảm ${props.promotion.discountPercentage}%.`,
-  //           );
-  //         } else {
-  //           alanBtn.playText("Tour này hiện không có khuyến mãi.");
-  //         }
-  //       } else if (commandData.command === "fetchTourDates") {
-  //         alanBtn.playText(
-  //           `Tour này bắt đầu từ ngày ${props.startDate} và kết thúc vào ngày ${props.endDate}.`,
-  //         );
-  //       } else if (commandData.command === "fetchParticipantInfo") {
-  //         alanBtn.playText(
-  //           `Số chỗ tối đa cho tour này là ${props.maxParticipants}.`,
-  //         );
-  //       } else if (commandData.command === "bookTour") {
-  //         handleBooking();
-  //       }
-  //     },
-  //   });
-
-  //   return () => {
-  //     // Dọn dẹp Alan AI khi component bị unmount
-  //     alanBtn.deactivate();
-  //   };
-  // }, [props, handleBooking]);
 
   return (
     <div className="group relative w-full overflow-hidden border border-gray-200 bg-white shadow-md transition duration-300 ease-in-out hover:shadow-lg md:w-80">
@@ -136,14 +90,18 @@ const Item = (props) => {
             <CiHeart
               className="absolute left-1 top-1 cursor-pointer rounded-full bg-sky-50 text-3xl text-white hover:text-red-500"
               onClick={(e) => {
-                e.preventDefault(); // Prevent default link action
-                e.stopPropagation(); // Stop event propagation
+                e.preventDefault();
+                e.stopPropagation();
                 addFavorite(props._id);
               }}
             />
+            {isPromotionActive() && (
+              <div className="absolute right-1 top-1 rounded-full bg-red-500 px-3 py-1 text-xs text-white">
+                -{props.promotion.discountPercentage}%
+              </div>
+            )}
           </div>
         )}
-
         <div className="p-4">
           <p className="text-base text-blue-900">
             {formatDateVN(props.startDate)} - {formatDateVN(props.endDate)}
@@ -163,26 +121,22 @@ const Item = (props) => {
             <span className="font-medium"> {props.startingGate}</span>
           </p>
           <div className="mt-2 flex justify-between">
-            <p className=" text-xl font-bold text-red-600">
-              {props.price !== props.originalPrice && props.promotion ? (
-                <>
-                  <p className="text-red-600">{formatPrice(props.price)} </p>
-                  <p className="text-base text-gray-500 line-through">
-                    {formatPrice(props.originalPrice)}
-                  </p>
-                </>
-              ) : (
-                formatPrice(props.price)
-              )}
-            </p>
-            <p>
-              {" "}
-              {props.promotion && props.promotion.discountPercentage > 0 && (
-                <div className=" rounded-full bg-red-500 px-3 py-3 text-white">
-                  -{props.promotion.discountPercentage}%
-                </div>
-              )}
-            </p>
+            {isPromotionActive() ? (
+              <>
+                <p className="text-xl font-bold text-red-600">
+                  {formatPrice(props.price)}
+                </p>
+              </>
+            ) : (
+              <p className="text-xl font-bold text-red-600">
+                {formatPrice(props.price)}
+              </p>
+            )}
+            {props.price !== props.originalPrice && (
+              <p className="text-gray-500 line-through">
+                {formatPrice(props.originalPrice)}
+              </p>
+            )}
           </div>
         </div>
       </Link>

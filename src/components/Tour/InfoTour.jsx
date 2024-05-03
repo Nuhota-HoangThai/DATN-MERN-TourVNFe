@@ -58,22 +58,24 @@ const DescriptionBox = ({ tour }) => {
         </h1>
 
         <div className="">
-          <p className="text-lg sm:text-2xl">
-            {tour.price !== tour.originalPrice && tour.promotion ? (
-              <>
+          {tour.price !== undefined && (
+            <p className="text-lg sm:text-2xl">
+              {tour.price !== tour.originalPrice && tour.promotion ? (
+                <>
+                  <p className="font-bold text-red-500">
+                    {formatPrice(tour.price)}
+                  </p>
+                  <p className="text-gray-500 line-through">
+                    {formatPrice(tour.originalPrice)}
+                  </p>
+                </>
+              ) : (
                 <span className="font-bold text-red-500">
                   {formatPrice(tour.price)}
                 </span>
-                <span className="text-gray-500 line-through">
-                  {formatPrice(tour.originalPrice)}
-                </span>
-              </>
-            ) : (
-              <span className="font-bold text-red-500">
-                {formatPrice(tour.price)}
-              </span>
-            )}
-          </p>
+              )}
+            </p>
+          )}
         </div>
 
         <div className="space-y-4">

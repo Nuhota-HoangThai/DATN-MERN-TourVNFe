@@ -38,8 +38,10 @@ function ListTourDirectories() {
     fetchTourDirectories();
   }, []);
 
-  const selectTourDirectory = (id) => {
-    navigate(`/tourDirectory/${id}`);
+  const selectTourDirectory = (directory) => {
+    navigate(`/tourDirectory/${directory._id}`, {
+      state: { directoryName: directory.directoryName },
+    });
   };
 
   if (isLoading) {
@@ -68,7 +70,7 @@ function ListTourDirectories() {
             <div
               key={tourDirectory._id}
               className="cursor-pointer overflow-hidden rounded-lg shadow-lg transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
-              onClick={() => selectTourDirectory(tourDirectory._id)}
+              onClick={() => selectTourDirectory(tourDirectory)} // Corrected here
             >
               <img
                 src={

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../utils/config";
 import { useSelector } from "react-redux";
-
+import { BASE_URL } from "../../utils/config";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-
 import "./reset-password.css";
+import { toast } from "react-toastify";
 
 function ResetPasswordForm() {
   const [oldPassword, setOldPassword] = useState("");
@@ -15,7 +14,6 @@ function ResetPasswordForm() {
   const [message, setMessage] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
   const token = currentUser?.token;
-
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -24,28 +22,20 @@ function ResetPasswordForm() {
 
   const handleResetPassword = async (event) => {
     event.preventDefault();
-
     if (!token) {
-      setMessage("Bạn cần đăng nhập để thực hiện thao tác này.");
+      setMessage("Bạn cần đăng nhập để thực hiện thao tác này");
       return;
     }
-
     try {
       const response = await axios.post(
         `${BASE_URL}/user/reset/password`,
-        {
-          oldPassword,
-          newPassword,
-          confirmNewPassword,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        { oldPassword, newPassword, confirmNewPassword },
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setMessage(response.data.message);
+      toast("Thay đổi mật khẩu thành công");
     } catch (error) {
+      toast("Thay đổi mật khẩu thất bại");
       setMessage(
         error.response?.data.error || "Có lỗi xảy ra khi gửi yêu cầu.",
       );
@@ -58,72 +48,78 @@ function ResetPasswordForm() {
         Đặt Lại Mật Khẩu
       </h2>
       <form onSubmit={handleResetPassword} className="space-y-6">
-        <div className="input-group relative">
+        <div className="input-group">
           <label className="block font-medium text-gray-700">Mật khẩu cũ</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="button-icon absolute inset-y-0 right-0 flex items-center pr-3"
-          >
-            {showPassword ? (
-              <FaEyeSlash size={"20px"} />
-            ) : (
-              <IoEyeSharp size={"20px"} />
-            )}
-          </button>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+              required
+              className="input-field"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="button-icon"
+            >
+              {showPassword ? (
+                <FaEyeSlash size={"20px"} />
+              ) : (
+                <IoEyeSharp size={"20px"} />
+              )}
+            </button>
+          </div>
         </div>
-        <div className="input-group relative">
+        <div className="input-group">
           <label className="block font-medium text-gray-700">
             Mật khẩu mới
           </label>
-          <input
-            type={showPassword ? "text" : "password"}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="button-icon absolute inset-y-0 right-0 flex items-center pr-3"
-          >
-            {showPassword ? (
-              <FaEyeSlash size={"20px"} />
-            ) : (
-              <IoEyeSharp size={"20px"} />
-            )}
-          </button>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+              className="input-field"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="button-icon"
+            >
+              {showPassword ? (
+                <FaEyeSlash size={"20px"} />
+              ) : (
+                <IoEyeSharp size={"20px"} />
+              )}
+            </button>
+          </div>
         </div>
-        <div className="input-group relative">
+        <div className="input-group">
           <label className="block font-medium text-gray-700">
             Xác nhận mật khẩu mới
           </label>
-          <input
-            type={showPassword ? "text" : "password"}
-            value={confirmNewPassword}
-            onChange={(e) => setConfirmNewPassword(e.target.value)}
-            required
-            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="button-icon absolute inset-y-0 right-0 flex items-center pr-3"
-          >
-            {showPassword ? (
-              <FaEyeSlash size={"20px"} />
-            ) : (
-              <IoEyeSharp size={"20px"} />
-            )}
-          </button>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              required
+              className="input-field"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="button-icon"
+            >
+              {showPassword ? (
+                <FaEyeSlash size={"20px"} />
+              ) : (
+                <IoEyeSharp size={"20px"} />
+              )}
+            </button>
+          </div>
         </div>
         <button
           type="submit"
@@ -132,9 +128,6 @@ function ResetPasswordForm() {
           Đặt lại mật khẩu
         </button>
       </form>
-      {message && (
-        <p className="mt-4 text-center text-sm text-red-500">{message}</p>
-      )}
     </div>
   );
 }

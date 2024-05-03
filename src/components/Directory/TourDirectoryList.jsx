@@ -1,41 +1,36 @@
 import { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
-import { useParams } from "react-router-dom";
 import Item from "../Item/Item";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-//import { useSelector } from "react-redux";
 
 const TourDirectory = () => {
   const { tourDirectoryId } = useParams();
+  const location = useLocation();
+  const { directoryName } = location.state; // Access directory name from state
+
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  //const { token } = useSelector((state) => state.user.currentUser);
-
-  const fetchToursByDirectory = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${BASE_URL}/tour/getTourDirectory/${tourDirectoryId}`,
-        // {
-        //   headers: {
-        //     Authorization: "Bearer " + token,
-        //   },
-        // },
-      );
-      // console.log();
-      setTours(response.data.tours);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchToursByDirectory = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/tour/getTourDirectory/${tourDirectoryId}`,
+        );
+        setTours(response.data.tours);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchToursByDirectory();
   }, [tourDirectoryId]);
 
@@ -89,10 +84,19 @@ const TourDirectory = () => {
 
   return (
     <div className="mx-auto bg-sky-100 ">
-      <div className="px-16 py-8 ">
-        {/* <h2 className="mb-4 text-center text-2xl font-semibold">
-          Tours in {tourDirectoryId}
-        </h2> */}
+      <div className=" py-8">
+        {directoryName && (
+          <div className="my-3 flex items-center justify-center pb-4">
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:mr-4 sm:block"></div>
+            <h1
+              className="w-full px-4 text-center text-xl font-bold text-blue-800 sm:text-2xl lg:text-3xl"
+              style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.2)" }}
+            >
+              {directoryName}
+            </h1>
+            <div className="hidden h-0.5 w-full rounded bg-blue-300 sm:ml-4 sm:block"></div>
+          </div>
+        )}
         {tours.length > 0 ? (
           <Slider {...settings}>
             {tours.map((tour) => (
@@ -100,7 +104,7 @@ const TourDirectory = () => {
             ))}
           </Slider>
         ) : (
-          <p></p>
+          <p>No tours available in this category.</p>
         )}
       </div>
     </div>

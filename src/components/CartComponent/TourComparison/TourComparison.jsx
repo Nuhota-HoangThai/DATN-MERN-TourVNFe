@@ -28,6 +28,14 @@ const TourComparison = ({ allTour = [], cartItems }) => {
 
   const recommendedTour = recommendation();
 
+  const isPromotionActive = (tour) => {
+    return (
+      tour.promotion &&
+      new Date() >= new Date(tour.promotion.startDatePromotion) &&
+      new Date() <= new Date(tour.promotion.endDatePromotion)
+    );
+  };
+
   return (
     <>
       {toursToCompare?.length >= 2 ? (
@@ -46,7 +54,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                   <th className="rounded-tr-lg px-6 py-3 text-left">Tour 2</th>
                 </tr>
               </thead>
-              <tbody className="text-sm font-light text-gray-600">
+              <tbody className="bg-white text-sm font-light text-gray-600">
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Loại tour
@@ -54,7 +62,7 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                   {toursToCompare.map((tour) => (
                     <td
                       key={tour._id}
-                      className="px-6 py-3 text-left  text-black"
+                      className=" px-6 py-3 text-left text-black"
                     >
                       {tour?.tourType?.typeName}
                     </td>
@@ -95,18 +103,12 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       key={tour._id}
                       className="px-6 py-3 text-left text-black"
                     >
-                      {tour.price !== tour.originalPrice && tour.promotion ? (
-                        <>
-                          <span className="text-red-600">
-                            {formatPrice(tour.price)}
-                          </span>{" "}
-                          <span className="text-base text-gray-500 line-through">
-                            {formatPrice(tour.originalPrice)}
-                          </span>
-                        </>
-                      ) : (
-                        formatPrice(tour.price)
-                      )}
+                      <PriceDetail
+                        price={tour.price}
+                        originalPrice={tour.originalPrice}
+                        showPromotion={isPromotionActive}
+                        tour={tour}
+                      />
                     </td>
                   ))}
                 </tr>
@@ -119,72 +121,32 @@ const TourComparison = ({ allTour = [], cartItems }) => {
                       key={tour._id}
                       className="px-6 py-3 text-left text-black"
                     >
-                      {tour.priceForChildren !==
-                        tour.originalPriceForChildren && tour.promotion ? (
-                        <>
-                          <span className="text-red-600">
-                            {formatPrice(tour.priceForChildren)}
-                          </span>{" "}
-                          <span className="text-base text-gray-500 line-through">
-                            {formatPrice(tour.originalPriceForChildren)}
-                          </span>
-                        </>
-                      ) : (
-                        formatPrice(tour.priceForChildren)
-                      )}
+                      <PriceDetail
+                        price={tour.priceForChildren}
+                        originalPrice={tour.originalPriceForChildren}
+                        showPromotion={isPromotionActive}
+                      />
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
-                    Giá khách (3-6 tuổi):
+                    Giá khách (dưới 6 tuổi):
                   </td>
                   {toursToCompare.map((tour) => (
                     <td
                       key={tour._id}
                       className="px-6 py-3 text-left text-black"
                     >
-                      {tour.priceForYoungChildren !==
-                        tour.originalPriceForYoungChildren && tour.promotion ? (
-                        <>
-                          <span className="text-red-600">
-                            {formatPrice(tour.priceForYoungChildren)}
-                          </span>{" "}
-                          <span className="text-base text-gray-500 line-through">
-                            {formatPrice(tour.originalPriceForYoungChildren)}
-                          </span>
-                        </>
-                      ) : (
-                        formatPrice(tour.priceForYoungChildren)
-                      )}
+                      <PriceDetail
+                        price={tour.priceForYoungChildren}
+                        originalPrice={tour.originalPriceForYoungChildren}
+                        showPromotion={isPromotionActive}
+                      />
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
-                    Giá khách (dưới 3 tuổi):
-                  </td>
-                  {toursToCompare.map((tour) => (
-                    <td
-                      key={tour._id}
-                      className="px-6 py-3 text-left text-black"
-                    >
-                      {tour.priceForInfants !== tour.originalPriceForInfants &&
-                      tour.promotion ? (
-                        <>
-                          <span className="text-red-600">
-                            {formatPrice(tour.priceForInfants)}
-                          </span>{" "}
-                          <span className="text-base text-gray-500 line-through">
-                            {formatPrice(tour.originalPriceForInfants)}
-                          </span>
-                        </>
-                      ) : (
-                        formatPrice(tour.priceForInfants)
-                      )}
-                    </td>
-                  ))}
-                </tr>
+
                 <tr className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="whitespace-nowrap px-6 py-3 text-left font-bold">
                     Khu vực
@@ -286,5 +248,29 @@ const TourComparison = ({ allTour = [], cartItems }) => {
     </>
   );
 };
+
+const PriceDetail = ({ label, price, originalPrice, showPromotion }) => (
+  <p className="text-gray-700">
+    {label}
+    {price !== undefined ? (
+      <span className="pl-5 font-semibold text-red-600">
+        {showPromotion ? (
+          <>
+            <span className="text-red-600">{formatPrice(price)}</span>
+            {originalPrice && (
+              <span className="text-base text-gray-500 line-through">
+                {formatPrice(originalPrice)}
+              </span>
+            )}
+          </>
+        ) : (
+          formatPrice(price)
+        )}
+      </span>
+    ) : (
+      <span className="pl-5 text-gray-500">Price not available</span>
+    )}
+  </p>
+);
 
 export default TourComparison;

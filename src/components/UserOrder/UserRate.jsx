@@ -115,7 +115,9 @@ const UserReviews = () => {
           </table>
         </div>
       ) : (
-        <p>No reviews found.</p>
+        <p className="mt-20 text-center font-semibold text-red-600">
+          Không có đánh giá
+        </p>
       )}
     </div>
   );

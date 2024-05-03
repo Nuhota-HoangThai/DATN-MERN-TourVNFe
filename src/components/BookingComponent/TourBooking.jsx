@@ -87,7 +87,20 @@ const TourBooking = () => {
                   Giá
                 </th>
                 <td className="px-6 py-4 text-red-600">
-                  {formatPrice(tour?.price)}{" "}
+                  <span className="font-semibold text-red-600">
+                    {tour.price !== tour.originalPrice && tour.promotion ? (
+                      <>
+                        <span className="text-red-600">
+                          {formatPrice(tour.price)}
+                        </span>{" "}
+                        <span className="text-base text-gray-500 line-through">
+                          {formatPrice(tour.originalPrice)}
+                        </span>
+                      </>
+                    ) : (
+                      formatPrice(tour.price)
+                    )}
+                  </span>
                 </td>
               </tr>
               <tr className="border-b bg-white">
@@ -95,9 +108,21 @@ const TourBooking = () => {
                   Giá khách (6-16 tuổi)
                 </th>
                 <td className="px-6 py-4 text-red-600">
-                  {formatPrice(tour?.priceForChildren)
-                    ? `${formatPrice(tour.priceForChildren || 0)} `
-                    : ""}
+                  <span className=" font-semibold text-red-600">
+                    {tour.priceForChildren !== tour.originalPriceForChildren &&
+                    tour.promotion ? (
+                      <>
+                        <span className="text-red-600">
+                          {formatPrice(tour.priceForChildren)}
+                        </span>{" "}
+                        <span className="text-base text-gray-500 line-through">
+                          {formatPrice(tour.originalPriceForChildren)}
+                        </span>
+                      </>
+                    ) : (
+                      formatPrice(tour.priceForChildren)
+                    )}
+                  </span>
                 </td>
               </tr>
               <tr className="border-b bg-white">
@@ -105,9 +130,21 @@ const TourBooking = () => {
                   Giá khách dưới 6 tuổi
                 </th>
                 <td className="px-6 py-4 text-red-600">
-                  {formatPrice(tour?.priceForYoungChildren)
-                    ? `${formatPrice(tour.priceForYoungChildren || 0)}`
-                    : ""}
+                  <span className="font-semibold text-red-600">
+                    {tour.priceForYoungChildren !==
+                      tour.originalPriceForYoungChildren && tour.promotion ? (
+                      <>
+                        <span className="text-red-600">
+                          {formatPrice(tour.priceForYoungChildren)}
+                        </span>{" "}
+                        <span className="text-base text-gray-500 line-through">
+                          {formatPrice(tour.originalPriceForYoungChildren)}
+                        </span>
+                      </>
+                    ) : (
+                      formatPrice(tour.priceForYoungChildren)
+                    )}
+                  </span>
                 </td>
               </tr>
 

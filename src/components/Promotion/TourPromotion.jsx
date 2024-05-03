@@ -110,7 +110,14 @@ const TourPromotion = () => {
             <div className="ml-4 h-0.5 w-full rounded bg-blue-300"></div>
           </div>
           <div className="my-4 rounded-lg bg-white px-4 py-2 shadow-lg">
-            <p className="text-lg leading-relaxed text-gray-700">
+            <p
+              className="text-lg leading-relaxed"
+              style={{
+                color: "#4A90E2",
+                textShadow: "1px 1px 5px rgba(0,0,0,0.3)",
+                fontWeight: "bold",
+              }}
+            >
               {selectedPromotion.descriptionPromotion}
             </p>
           </div>
