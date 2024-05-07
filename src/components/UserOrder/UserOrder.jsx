@@ -81,10 +81,10 @@ const UserBooking = () => {
         });
         setBookings(response.data);
       } catch (error) {
-        console.log(
-          "Lỗi khi tìm đơn hàng:",
-          error.response ? error.response.data : error,
-        );
+        // console.log(
+        //   "Lỗi khi tìm đơn hàng:",
+        //   error.response ? error.response.data : error,
+        // );
       }
     };
 

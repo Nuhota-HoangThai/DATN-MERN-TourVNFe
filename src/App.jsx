@@ -41,7 +41,8 @@ import BlogDetail from "./components/Blog.component/BlogDetail";
 
 import BookingDetail from "./components/UserOrder/BookingDetail";
 import ResetPasswordForm from "./components/ProfileUser/ResetPassword";
-
+import BookingFaild from "./components/BookingComponent/BookingFaild";
+import ProcessVNPay from "./pages/user/ProcessVNPay";
 const App = () => {
   return (
     <div>
@@ -74,7 +75,10 @@ const App = () => {
             <Route path="/booking" element={<Booking />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/booking/payment_vnpay_return" element={<Thanks />} />
+            <Route
+              path="/booking/payment_vnpay_return"
+              element={<ProcessVNPay />}
+            />
             <Route path="/thanks" element={<Thanks />} />
 
             <Route path="/blog" element={<Blog />} />
@@ -176,6 +180,8 @@ const App = () => {
                 </Profile>
               }
             />
+
+            <Route path="/payment-failure" element={<BookingFaild />} />
           </Routes>
         </div>
         <Footer />

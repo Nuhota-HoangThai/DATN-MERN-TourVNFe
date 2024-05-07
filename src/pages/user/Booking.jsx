@@ -17,7 +17,7 @@ const Booking = () => {
   const location = useLocation();
   const { tour } = location.state || {};
   const navigate = useNavigate();
-  console.log(tour);
+  //console.log(tour);
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
 
   const [surcharge, setTotalAdditionalFees] = useState(
@@ -148,26 +148,71 @@ const Booking = () => {
     }
   };
 
+  // const addOrderVNPay = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       `${BASE_URL}/booking/payment_vnpay_url`,
+  //       { ...bookingData, totalAmount, surcharge, bookingDate: new Date() },
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + token,
+  //         },
+  //       },
+  //     );
+
+  //     if (res.data.code === "00") {
+  //       window.location.href = res.data.vnpUrl; // Chuyển hướng để thanh toán
+  //     } else {
+  //       toast("Không thể tạo URL thanh toán, vui lòng thử lại");
+  //     }
+  //   } catch (error) {
+  //     setError(error);
+  //     toast("Lỗi khi tạo đơn hàng: " + error);
+  //   }
+  // };
+
   const addOrderVNPay = async () => {
+    setLoading(true);
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         `${BASE_URL}/booking/payment_vnpay_url`,
-        { ...bookingData, totalAmount, surcharge, bookingDate: new Date() },
         {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+          ...bookingData,
+          totalAmount,
+          surcharge,
+          bookingDate: new Date(),
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
         },
       );
 
-      if (res.data.code === "00") {
-        window.location.href = res.data.vnpUrl; // Chuyển hướng để thanh toán
+      setLoading(false);
+
+      if (response.data.code === "00") {
+        window.location.href = response.data.vnpUrl; // Redirect to VNPay for payment
       } else {
-        toast("Không thể tạo URL thanh toán, vui lòng thử lại");
+        axios
+          .patch(
+            `${BASE_URL}/booking/${bookingData._id}/cancel`,
+            {},
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            },
+          )
+          .then(() => {
+            navigate("/payment-failure");
+          })
+          .catch((err) => {
+            console.error("Loi huy tour", err);
+          });
       }
     } catch (error) {
-      setError(error);
-      toast("Lỗi khi tạo đơn hàng: " + error);
+      setLoading(false);
+      setError(error.message);
+      toast.error("Error creating order: " + error.message);
     }
   };
 
