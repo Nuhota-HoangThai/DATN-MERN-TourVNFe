@@ -17,7 +17,7 @@ const Booking = () => {
   const location = useLocation();
   const { tour } = location.state || {};
   const navigate = useNavigate();
-
+  console.log(tour);
   const [totalAmount, setTotalAmount] = useState(tour?.price || 0);
 
   const [surcharge, setTotalAdditionalFees] = useState(
@@ -185,7 +185,6 @@ const Booking = () => {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-5">
-            {" "}
             <div>
               <label
                 htmlFor=""
@@ -276,33 +275,51 @@ const Booking = () => {
               >
                 Số khách (6-16 tuổi):
               </label>
-              <input
-                type="number"
-                name="numberOfChildren"
-                id="numberOfChildren"
-                value={bookingData.numberOfChildren}
-                onChange={handleChange}
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-              />
+              {tour.tourType._id === "661689edb0caba81f9b831c0" ? (
+                <p className="text-red-500">
+                  Tour này không dành cho người dưới 16 tuổi
+                </p>
+              ) : (
+                <>
+                  <input
+                    type="number"
+                    name="numberOfChildren"
+                    id="numberOfChildren"
+                    value={bookingData.numberOfChildren}
+                    onChange={handleChange}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </>
+              )}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
+              {" "}
               <label
                 htmlFor="numberOfAdults"
                 className="mb-2 block text-sm font-medium text-gray-900"
               >
                 Số khách dưới 6 tuổi:
               </label>
-              <input
-                type="number"
-                name="numberOfYoungChildren"
-                id="numberOfYoungChildren"
-                value={bookingData.numberOfYoungChildren}
-                onChange={handleChange}
-                required
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-              />
+              {tour.tourType._id === "661689edb0caba81f9b831c0" ||
+              tour.tourType._id === "661689fab0caba81f9b831c6" ? (
+                <p className="text-red-500">
+                  Tour này không dành cho người dưới 6 tuổi
+                </p>
+              ) : (
+                <>
+                  <input
+                    type="number"
+                    name="numberOfYoungChildren"
+                    id="numberOfYoungChildren"
+                    value={bookingData.numberOfYoungChildren}
+                    onChange={handleChange}
+                    required
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </>
+              )}
             </div>
 
             <div>
@@ -351,11 +368,15 @@ const Booking = () => {
               <label className="mb-2 block text-sm font-medium text-gray-900">
                 Tổng giá khách (6-16 tuổi):
               </label>
-              <p className="text-lg font-semibold">
-                {formatPrice(
-                  tour?.priceForChildren * bookingData.numberOfChildren,
-                )}
-              </p>
+              {tour.tourType._id === "661689edb0caba81f9b831c0" ? (
+                <p className="text-red-500">Không dành cho độ tuổi này</p>
+              ) : (
+                <p className="text-lg font-semibold">
+                  {formatPrice(
+                    tour?.priceForChildren * bookingData.numberOfChildren,
+                  )}
+                </p>
+              )}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -363,12 +384,19 @@ const Booking = () => {
               <label className="mb-2 block text-sm font-medium text-gray-900">
                 Tổng giá khách dưới 6 tuổi:
               </label>
-              <p className="text-lg font-semibold">
-                {formatPrice(
-                  tour?.priceForYoungChildren *
-                    bookingData.numberOfYoungChildren,
-                ) || 0}
-              </p>
+              {tour.tourType._id === "661689edb0caba81f9b831c0" ||
+              tour.tourType._id === "661689fab0caba81f9b831c6" ? (
+                <p className="text-red-500">
+                  Tour này không dành cho độ tuổi này
+                </p>
+              ) : (
+                <p className="text-lg font-semibold">
+                  {formatPrice(
+                    tour?.priceForYoungChildren *
+                      bookingData.numberOfYoungChildren,
+                  ) || 0}
+                </p>
+              )}
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-900">
