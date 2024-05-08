@@ -7,7 +7,7 @@ function PaymentFailure() {
     <div className="payment-failure mx-auto mt-20 max-w-lg rounded-lg bg-red-100 p-5 text-center shadow-md">
       <h1 className="text-xl font-bold text-red-600">Thanh toán thất bại</h1>
       <p className="my-4 text-gray-700">
-        Quá trình thanh toán không thành công. Vui lòng thử lại.
+        Quá trình thanh toán không thành công.
       </p>
       <div className="flex justify-center gap-4">
         <button
